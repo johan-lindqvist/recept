@@ -6,23 +6,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 When working on this project, Claude acts as a **senior React web developer** with expertise in TypeScript, modern web development practices, testing, and code quality. Claude should apply best practices, write maintainable code, and ensure all features are thoroughly tested.
 
+## Git Workflow - DO THIS FIRST!
+
+**🚨 CRITICAL - READ THIS BEFORE DOING ANY WORK 🚨**
+
+BEFORE making ANY changes to code, you MUST:
+
+1. **Check what branch you're on**
+   ```bash
+   git status
+   git branch
+   ```
+
+2. **If you're on `main` - STOP! Create a new branch IMMEDIATELY**
+   ```bash
+   # Create and switch to a new branch based on the task type
+   git checkout -b <type>/<short-description>
+
+   # Examples:
+   git checkout -b feat/recipe-images
+   git checkout -b fix/icon-cutoff
+   git checkout -b docs/update-claude-md
+   ```
+
+3. **ONLY AFTER creating the branch, proceed with your work**
+
+**DO NOT** make any changes while on the `main` branch. If you realize you've already made changes on `main`:
+- Stash or reset them
+- Create a proper branch
+- Re-apply the changes
+
 ## Task Management
 
 **CRITICAL**: For ANY task involving multiple steps or changes:
 
-1. **Always create a todo list** at the start using the TodoWrite tool
-2. Break down the task into specific, actionable items
-3. Update the todo list as you progress through each item
-4. Mark items as complete immediately after finishing them
-5. This helps track progress and ensures no steps are forgotten
+1. **FIRST: Create a new git branch** (see Git Workflow section above)
+2. **Always create a todo list** at the start using the TodoWrite tool
+3. Break down the task into specific, actionable items
+4. Update the todo list as you progress through each item
+5. Mark items as complete immediately after finishing them
+6. This helps track progress and ensures no steps are forgotten
 
 Example todo list for adding a new feature:
+- Create new git branch (e.g., `feat/new-feature`)
 - Research existing code structure
 - Update TypeScript types
 - Implement component changes
 - Update tests
 - Run type check
 - Build the project
+- Commit changes with conventional commit message
+- Push branch and create pull request
 
 ## Git Commit Conventions
 
@@ -81,13 +115,13 @@ Added icon support for metadata display including:
 - Include body for complex changes explaining the "why" not the "what"
 - Reference issues/PRs in footer if applicable
 
-## Git Workflow & Branching Strategy
+## Git Workflow & Branching Strategy - Complete Process
 
-**CRITICAL**: ALWAYS create a new branch and pull request for ANY new workload or set of changes. NEVER commit directly to the main branch.
+**CRITICAL**: You MUST complete the ENTIRE workflow for every task - from branch creation through PR submission. Do not stop after just staging files!
 
-### Workflow Steps
+### Complete Workflow Steps
 
-When starting ANY new task or feature:
+For EVERY task, you must complete ALL these steps:
 
 1. **Check current branch and status**
    ```bash
@@ -212,11 +246,30 @@ git pull origin main
 git branch -d feat/lucide-icons
 ```
 
+### Task Completion Checklist
+
+Before considering ANY task complete, verify you have done ALL of the following:
+
+- [ ] Created a new branch (not on `main`)
+- [ ] Made the code changes
+- [ ] Written/updated tests
+- [ ] Run `npm test` - all tests pass
+- [ ] Run `npm run type-check` - no errors
+- [ ] Run `npm run build` - build succeeds
+- [ ] Staged changes with `git add`
+- [ ] Committed with conventional commit message
+- [ ] Pushed branch to remote with `git push -u origin <branch-name>`
+- [ ] Created pull request with `gh pr create`
+- [ ] Verified PR was created successfully
+
+**DO NOT** stop after staging files! Complete the entire workflow!
+
 ### Important Reminders
 
 - 🚫 **NEVER** work directly on the `main` branch
-- ✅ **ALWAYS** create a new branch for changes
-- ✅ **ALWAYS** create a pull request for review
+- ✅ **ALWAYS** create a new branch BEFORE making changes
+- ✅ **ALWAYS** commit, push, and create a PR
+- ✅ **COMPLETE** the entire workflow, don't stop halfway
 - ✅ Test thoroughly before pushing
 - ✅ Use conventional commit format
 - ✅ Keep branches focused on a single feature/fix
