@@ -6,49 +6,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 When working on this project, Claude acts as a **senior React web developer** with expertise in TypeScript, modern web development practices, testing, and code quality. Claude should apply best practices, write maintainable code, and ensure all features are thoroughly tested.
 
-## Git Workflow - DO THIS FIRST!
+## Git Workflow
 
-**🚨 CRITICAL - READ THIS BEFORE DOING ANY WORK 🚨**
+**Workflow Summary:**
+1. Work directly on the `main` branch
+2. Make your changes and test thoroughly
+3. Commit changes with conventional commit messages
+4. **DO NOT push** - the user will manually decide when to push to remote
 
-BEFORE making ANY changes to code, you MUST:
-
-1. **Check what branch you're on**
-   ```bash
-   git status
-   git branch
-   ```
-
-2. **If you're on `main` - STOP! Create a new branch IMMEDIATELY**
-   ```bash
-   # Create and switch to a new branch based on the task type
-   git checkout -b <type>/<short-description>
-
-   # Examples:
-   git checkout -b feat/recipe-images
-   git checkout -b fix/icon-cutoff
-   git checkout -b docs/update-claude-md
-   ```
-
-3. **ONLY AFTER creating the branch, proceed with your work**
-
-**DO NOT** make any changes while on the `main` branch. If you realize you've already made changes on `main`:
-- Stash or reset them
-- Create a proper branch
-- Re-apply the changes
+This is a solo development workflow where the user maintains control over when changes are pushed to the remote repository.
 
 ## Task Management
 
 **CRITICAL**: For ANY task involving multiple steps or changes:
 
-1. **FIRST: Create a new git branch** (see Git Workflow section above)
-2. **Always create a todo list** at the start using the TodoWrite tool
-3. Break down the task into specific, actionable items
-4. Update the todo list as you progress through each item
-5. Mark items as complete immediately after finishing them
-6. This helps track progress and ensures no steps are forgotten
+1. **Always create a todo list** at the start using the TodoWrite tool
+2. Break down the task into specific, actionable items
+3. Update the todo list as you progress through each item
+4. Mark items as complete immediately after finishing them
+5. This helps track progress and ensures no steps are forgotten
 
 Example todo list for adding a new feature:
-- Create new git branch (e.g., `feat/new-feature`)
 - Research existing code structure
 - Update TypeScript types
 - Implement component changes
@@ -56,7 +34,6 @@ Example todo list for adding a new feature:
 - Run type check
 - Build the project
 - Commit changes with conventional commit message
-- Push branch and create pull request
 
 ## Git Commit Conventions
 
@@ -115,142 +92,61 @@ Added icon support for metadata display including:
 - Include body for complex changes explaining the "why" not the "what"
 - Reference issues/PRs in footer if applicable
 
-## Git Workflow & Branching Strategy - Complete Process
+## Detailed Git Workflow
 
-**CRITICAL**: You MUST complete the ENTIRE workflow for every task - from branch creation through PR submission. Do not stop after just staging files!
+### Complete Workflow for Every Task
 
-### Complete Workflow Steps
+For EVERY task, follow these steps:
 
-For EVERY task, you must complete ALL these steps:
+1. **Make your changes**
+   - Edit files as needed
+   - Test your changes thoroughly
 
-1. **Check current branch and status**
+2. **Run all checks**
    ```bash
-   git status
-   git branch
+   npm test
+   npm run type-check
+   npm run build
    ```
 
-2. **Ensure you're on main and it's up to date**
+3. **Stage and commit**
    ```bash
-   git checkout main
-   git pull origin main
-   ```
-
-3. **Create a new branch with descriptive name**
-   ```bash
-   git checkout -b <branch-name>
-   ```
-
-4. **Make your changes and commit** (following conventional commit format)
-   ```bash
-   # Make changes...
    git add .
    git commit -m "feat: add new feature description"
    ```
 
-5. **Push branch to remote**
-   ```bash
-   git push -u origin <branch-name>
-   ```
+4. **DO NOT push** - the user will decide when to push
 
-6. **Create a Pull Request** using GitHub CLI or web interface
-   ```bash
-   gh pr create --title "feat: feature description" --body "Detailed description"
-   ```
-
-### Branch Naming Conventions
-
-Use descriptive branch names that follow this pattern:
-```
-<type>/<short-description>
-```
-
-**Examples:**
-- `feat/recipe-images` - Adding image support for recipes
-- `fix/icon-cutoff` - Fixing icon display issues
-- `docs/update-readme` - Documentation updates
-- `test/recipe-parser` - Adding tests for recipe parser
-- `refactor/component-structure` - Code refactoring
-- `chore/dependencies` - Dependency updates
-
-**Branch naming rules:**
-- Use lowercase
-- Use hyphens to separate words
-- Keep it concise but descriptive
-- Match the type to your commit type
-
-### When to Create a New Branch
-
-Create a new branch for:
-- ✅ Adding new features
-- ✅ Fixing bugs
-- ✅ Refactoring code
-- ✅ Adding or updating tests
-- ✅ Documentation changes
-- ✅ Dependency updates
-- ✅ ANY set of related changes
-
-**NEVER** commit directly to `main` branch.
-
-### Pull Request Guidelines
-
-When creating a pull request:
-
-1. **Use conventional commit format in PR title**
-   ```
-   feat: add image support for recipe cards
-   fix: resolve icon cutoff in recipe meta section
-   ```
-
-2. **Provide detailed description** including:
-   - Summary of changes
-   - Why the change is needed
-   - Testing performed
-   - Screenshots (if UI changes)
-
-3. **Ensure all checks pass before requesting review**:
-   - [ ] All tests pass (`npm test`)
-   - [ ] Type check passes (`npm run type-check`)
-   - [ ] Build succeeds (`npm run build`)
-   - [ ] No console errors or warnings
-
-4. **Reference related issues** if applicable
-
-### Example Complete Workflow
+### Example Workflow
 
 ```bash
-# 1. Start from main
-git checkout main
-git pull origin main
+# Make your changes to files...
 
-# 2. Create feature branch
-git checkout -b feat/lucide-icons
-
-# 3. Make changes, test, commit
-# ... make changes ...
+# Run all checks
 npm test
 npm run type-check
 npm run build
+
+# Stage all changes
 git add .
-git commit -m "feat: add Lucide icons to recipe components"
 
-# 4. Push branch
-git push -u origin feat/lucide-icons
+# Commit with conventional commit message
+git commit -m "feat: add Lucide icons to recipe components
 
-# 5. Create PR
-gh pr create --title "feat: add Lucide icons to recipe components" \
-  --body "Added icon support for metadata display with Clock, ChefHat, Users, and Gauge icons"
+Added icon support for metadata display including:
+- Clock icon for preparation time
+- ChefHat icon for cooking time
+- Users icon for servings
+- Gauge icon for difficulty level"
 
-# 6. After PR is approved and merged, clean up
-git checkout main
-git pull origin main
-git branch -d feat/lucide-icons
+# STOP HERE - do not push
+# The user will manually decide when to run: git push origin main
 ```
 
 ### Task Completion Checklist
 
 Before considering ANY task complete, verify you have done ALL of the following:
 
-- [ ] Created a new branch (not on `main`)
 - [ ] Made the code changes
 - [ ] Written/updated tests
 - [ ] Run `npm test` - all tests pass
@@ -258,21 +154,15 @@ Before considering ANY task complete, verify you have done ALL of the following:
 - [ ] Run `npm run build` - build succeeds
 - [ ] Staged changes with `git add`
 - [ ] Committed with conventional commit message
-- [ ] Pushed branch to remote with `git push -u origin <branch-name>`
-- [ ] Created pull request with `gh pr create`
-- [ ] Verified PR was created successfully
-
-**DO NOT** stop after staging files! Complete the entire workflow!
+- [ ] **STOPPED before pushing** - user controls when to push
 
 ### Important Reminders
 
-- 🚫 **NEVER** work directly on the `main` branch
-- ✅ **ALWAYS** create a new branch BEFORE making changes
-- ✅ **ALWAYS** commit, push, and create a PR
-- ✅ **COMPLETE** the entire workflow, don't stop halfway
-- ✅ Test thoroughly before pushing
+- ✅ Work directly on the `main` branch
+- ✅ Test thoroughly before committing
 - ✅ Use conventional commit format
-- ✅ Keep branches focused on a single feature/fix
+- ✅ Keep commits focused on a single feature/fix
+- 🚫 **DO NOT push to remote** - the user will decide when to push
 
 ## Project Overview
 
