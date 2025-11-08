@@ -9,7 +9,8 @@
       "Bash(npm test:*)",
       "Bash(npm run type-check:*)",
       "Bash(git lfs install:*)",
-      "Bash(git lfs track:*)"
+      "Bash(git lfs track:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

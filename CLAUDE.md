@@ -24,6 +24,203 @@ Example todo list for adding a new feature:
 - Run type check
 - Build the project
 
+## Git Commit Conventions
+
+**REQUIRED**: All git commits MUST follow the Conventional Commits specification.
+
+### Commit Message Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Commit Types
+
+- **feat**: A new feature
+- **fix**: A bug fix
+- **docs**: Documentation only changes
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc.)
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **test**: Adding missing tests or correcting existing tests
+- **chore**: Changes to the build process or auxiliary tools and libraries
+
+### Examples
+
+```bash
+# Feature addition
+feat: add image support for recipe cards
+
+# Bug fix
+fix: resolve icon cutoff in recipe card meta section
+
+# Documentation update
+docs: update CLAUDE.md with Git LFS instructions
+
+# Test addition
+test: add tests for RecipeCard component with icons
+
+# Multiple changes
+feat: add Lucide icons to recipe components
+
+Added icon support for metadata display including:
+- Clock icon for preparation time
+- ChefHat icon for cooking time
+- Users icon for servings
+- Gauge icon for difficulty level
+```
+
+### Important Notes
+
+- Use lowercase for type and description
+- Keep the description concise (under 72 characters)
+- Use imperative mood ("add" not "added" or "adds")
+- Include body for complex changes explaining the "why" not the "what"
+- Reference issues/PRs in footer if applicable
+
+## Git Workflow & Branching Strategy
+
+**CRITICAL**: ALWAYS create a new branch and pull request for ANY new workload or set of changes. NEVER commit directly to the main branch.
+
+### Workflow Steps
+
+When starting ANY new task or feature:
+
+1. **Check current branch and status**
+   ```bash
+   git status
+   git branch
+   ```
+
+2. **Ensure you're on main and it's up to date**
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+
+3. **Create a new branch with descriptive name**
+   ```bash
+   git checkout -b <branch-name>
+   ```
+
+4. **Make your changes and commit** (following conventional commit format)
+   ```bash
+   # Make changes...
+   git add .
+   git commit -m "feat: add new feature description"
+   ```
+
+5. **Push branch to remote**
+   ```bash
+   git push -u origin <branch-name>
+   ```
+
+6. **Create a Pull Request** using GitHub CLI or web interface
+   ```bash
+   gh pr create --title "feat: feature description" --body "Detailed description"
+   ```
+
+### Branch Naming Conventions
+
+Use descriptive branch names that follow this pattern:
+```
+<type>/<short-description>
+```
+
+**Examples:**
+- `feat/recipe-images` - Adding image support for recipes
+- `fix/icon-cutoff` - Fixing icon display issues
+- `docs/update-readme` - Documentation updates
+- `test/recipe-parser` - Adding tests for recipe parser
+- `refactor/component-structure` - Code refactoring
+- `chore/dependencies` - Dependency updates
+
+**Branch naming rules:**
+- Use lowercase
+- Use hyphens to separate words
+- Keep it concise but descriptive
+- Match the type to your commit type
+
+### When to Create a New Branch
+
+Create a new branch for:
+- ✅ Adding new features
+- ✅ Fixing bugs
+- ✅ Refactoring code
+- ✅ Adding or updating tests
+- ✅ Documentation changes
+- ✅ Dependency updates
+- ✅ ANY set of related changes
+
+**NEVER** commit directly to `main` branch.
+
+### Pull Request Guidelines
+
+When creating a pull request:
+
+1. **Use conventional commit format in PR title**
+   ```
+   feat: add image support for recipe cards
+   fix: resolve icon cutoff in recipe meta section
+   ```
+
+2. **Provide detailed description** including:
+   - Summary of changes
+   - Why the change is needed
+   - Testing performed
+   - Screenshots (if UI changes)
+
+3. **Ensure all checks pass before requesting review**:
+   - [ ] All tests pass (`npm test`)
+   - [ ] Type check passes (`npm run type-check`)
+   - [ ] Build succeeds (`npm run build`)
+   - [ ] No console errors or warnings
+
+4. **Reference related issues** if applicable
+
+### Example Complete Workflow
+
+```bash
+# 1. Start from main
+git checkout main
+git pull origin main
+
+# 2. Create feature branch
+git checkout -b feat/lucide-icons
+
+# 3. Make changes, test, commit
+# ... make changes ...
+npm test
+npm run type-check
+npm run build
+git add .
+git commit -m "feat: add Lucide icons to recipe components"
+
+# 4. Push branch
+git push -u origin feat/lucide-icons
+
+# 5. Create PR
+gh pr create --title "feat: add Lucide icons to recipe components" \
+  --body "Added icon support for metadata display with Clock, ChefHat, Users, and Gauge icons"
+
+# 6. After PR is approved and merged, clean up
+git checkout main
+git pull origin main
+git branch -d feat/lucide-icons
+```
+
+### Important Reminders
+
+- 🚫 **NEVER** work directly on the `main` branch
+- ✅ **ALWAYS** create a new branch for changes
+- ✅ **ALWAYS** create a pull request for review
+- ✅ Test thoroughly before pushing
+- ✅ Use conventional commit format
+- ✅ Keep branches focused on a single feature/fix
+
 ## Project Overview
 
 A TypeScript static web application for hosting food recipes in Swedish. Recipes are stored as markdown files in the repository and rendered as a static website hosted on GitHub Pages.
