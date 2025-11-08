@@ -1,10 +1,11 @@
 export interface RecipeFrontmatter {
   title: string;
   description?: string;
+  image?: string;
   prepTime?: string;
   cookTime?: string;
   servings?: number;
-  difficulty?: 'Easy' | 'Medium' | 'Hard';
+  difficulty?: 'Lätt' | 'Medel' | 'Svår' | 'Easy' | 'Medium' | 'Hard';
   tags?: string[];
 }
 

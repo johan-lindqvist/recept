@@ -1,50 +1,51 @@
 ---
-title: Classic Chocolate Chip Cookies
-description: Soft and chewy chocolate chip cookies that are perfect every time
-prepTime: 15 minutes
-cookTime: 12 minutes
+title: Klassiska Chocolate Chip Cookies
+description: Mjuka och sega chokladkakor som alltid blir perfekta
+image: /recept/images/recipes/chocolate-chip-cookies.svg
+prepTime: 15 minuter
+cookTime: 12 minuter
 servings: 24
-difficulty: Easy
+difficulty: Lätt
 tags:
-  - dessert
-  - cookies
-  - chocolate
+  - efterrätt
+  - kakor
+  - choklad
 ---
 
-## Ingredients
+## Ingredienser
 
-- 2 1/4 cups all-purpose flour
-- 1 tsp baking soda
-- 1 tsp salt
-- 1 cup (2 sticks) butter, softened
-- 3/4 cup granulated sugar
-- 3/4 cup packed brown sugar
-- 2 large eggs
-- 2 tsp vanilla extract
-- 2 cups chocolate chips
+- 280 g vetemjöl
+- 1 tsk bikarbonat
+- 1 tsk salt
+- 225 g smör, rumstempererat
+- 150 g strösocker
+- 165 g farinsocker
+- 2 ägg
+- 2 tsk vaniljextrakt
+- 350 g chokladchips
 
-## Instructions
+## Instruktioner
 
-1. Preheat oven to 375°F (190°C).
+1. Värm ugnen till 190°C.
 
-2. In a medium bowl, whisk together flour, baking soda, and salt. Set aside.
+2. Vispa ihop vetemjöl, bikarbonat och salt i en medelstor skål. Ställ åt sidan.
 
-3. In a large bowl, cream together the softened butter, granulated sugar, and brown sugar until light and fluffy (about 2-3 minutes).
+3. Vispa smöret, strösocker och farinsocker luftigt och fluffigt i en stor skål (cirka 2-3 minuter).
 
-4. Beat in eggs one at a time, then stir in vanilla extract.
+4. Tillsätt äggen ett i taget och blanda sedan i vaniljextrakten.
 
-5. Gradually blend in the dry ingredients until just combined.
+5. Blanda försiktigt ner de torra ingredienserna tills allt är precis blandat.
 
-6. Fold in chocolate chips.
+6. Vänd ner chokladchipsen.
 
-7. Drop rounded tablespoons of dough onto ungreased cookie sheets, spacing them about 2 inches apart.
+7. Portionera degen med matsked på plåtar med bakplåtspapper, med cirka 5 cm mellanrum.
 
-8. Bake for 10-12 minutes, or until golden brown around the edges.
+8. Grädda i 10-12 minuter, eller tills kakorna är gyllene i kanterna.
 
-9. Cool on baking sheet for 2 minutes before transferring to a wire rack.
+9. Låt svalna på plåten i 2 minuter innan du flyttar dem till ett galler.
 
 ## Tips
 
-- For chewier cookies, slightly underbake them and let them finish cooking on the hot pan.
-- Room temperature ingredients mix more easily and create a better texture.
-- Don't overmix the dough after adding flour to keep cookies tender.
+- För segare kakor, ta ut dem lite tidigare och låt dem färdiggrädda på den varma plåten.
+- Ingredienser i rumstemperatur blandar lättare och ger bättre konsistens.
+- Rör inte degen för mycket efter att mjölet tillsatts för att hålla kakorna mjuka.

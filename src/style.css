@@ -40,9 +40,9 @@ header p {
 }
 
 main {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 #search-container {
@@ -72,15 +72,44 @@ main {
 .recipe-card {
   background: var(--card-background);
   border-radius: var(--border-radius);
-  padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recipe-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  flex-shrink: 0;
+}
+
+.recipe-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.recipe-card:hover .recipe-card-image img {
+  transform: scale(1.05);
+}
+
+.recipe-card-content {
+  padding: 1.5rem;
+  padding-bottom: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .recipe-card h2 {
@@ -89,41 +118,160 @@ main {
   font-size: 1.5rem;
 }
 
+.recipe-card .description {
+  color: #555;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 .recipe-card .meta {
   display: flex;
-  gap: 1rem;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
+  gap: 0.5rem;
+  row-gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-size: 0.85rem;
   color: #7f8c8d;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.recipe-card .meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.recipe-card .meta-item svg {
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 #recipe-detail {
   background: var(--card-background);
   border-radius: var(--border-radius);
-  padding: 2rem;
+  padding: 2.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-detail-image {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  background-color: #f8f9fa;
+}
+
+.recipe-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 #recipe-detail h1 {
   color: var(--primary-color);
+  margin-bottom: 0.75rem;
+  font-size: 2.5rem;
+}
+
+.recipe-description {
+  font-size: 1.15rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+#recipe-detail .meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+
+#recipe-detail .meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+#recipe-detail .meta-item svg {
+  flex-shrink: 0;
+  color: var(--secondary-color);
+  margin-top: 0.15rem;
+}
+
+#recipe-detail .meta-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#recipe-detail .meta-label-text {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-weight: 400;
+}
+
+#recipe-detail .meta-value {
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+#recipe-detail .recipe-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+#recipe-detail .recipe-content h2 {
+  color: var(--primary-color);
+  margin-top: 2rem;
   margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+#recipe-detail .recipe-content ul,
+#recipe-detail .recipe-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#recipe-detail .recipe-content li {
+  margin-bottom: 0.5rem;
 }
 
 #recipe-detail .back-button {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 1.2rem;
   background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: var(--border-radius);
   cursor: pointer;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
 }
 
 #recipe-detail .back-button:hover {
-  opacity: 0.9;
+  background-color: #c0392b;
+}
+
+#recipe-detail .back-button svg {
+  flex-shrink: 0;
 }
 
 footer {

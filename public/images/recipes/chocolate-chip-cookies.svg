@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#F5E6D3"/>
+
+  <!-- Cookie base -->
+  <circle cx="400" cy="300" r="180" fill="#D2691E"/>
+
+  <!-- Chocolate chips -->
+  <circle cx="340" cy="260" r="18" fill="#3E2723"/>
+  <circle cx="420" cy="270" r="18" fill="#3E2723"/>
+  <circle cx="380" cy="320" r="18" fill="#3E2723"/>
+  <circle cx="440" cy="330" r="18" fill="#3E2723"/>
+  <circle cx="360" cy="350" r="18" fill="#3E2723"/>
+  <circle cx="450" cy="280" r="18" fill="#3E2723"/>
+  <circle cx="350" cy="310" r="18" fill="#3E2723"/>
+  <circle cx="410" cy="350" r="18" fill="#3E2723"/>
+
+  <!-- Texture/highlights -->
+  <circle cx="320" cy="240" r="12" fill="#E6A87A" opacity="0.6"/>
+  <circle cx="460" cy="250" r="12" fill="#E6A87A" opacity="0.6"/>
+  <circle cx="390" cy="290" r="12" fill="#E6A87A" opacity="0.6"/>
+</svg>

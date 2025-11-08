@@ -3,21 +3,20 @@ import { marked } from 'marked';
 import type { Recipe, RecipeFrontmatter } from '@/types/Recipe';
 
 export async function loadRecipes(): Promise<Recipe[]> {
-  // In a real implementation, this would dynamically load all markdown files
-  // from the recipes directory. For now, we'll return an empty array
-  // and this will be populated when we add the build step to parse recipes.
   const recipes: Recipe[] = [];
 
-  // This is a placeholder - actual implementation will use Vite's
-  // import.meta.glob to load all markdown files
+  // Use Vite's import.meta.glob to load all markdown files
+  // Using relative path from this file (src/utils/)
   const recipeModules = import.meta.glob('../../recipes/*.md', {
-    as: 'raw',
-    eager: false
+    eager: true,
+    query: '?raw',
+    import: 'default',
   });
 
   for (const path in recipeModules) {
     const slug = path.split('/').pop()?.replace('.md', '') || '';
-    const markdown = await recipeModules[path]() as string;
+    // With eager: true, the value is already loaded, not a function
+    const markdown = recipeModules[path] as string;
     const { data, content } = matter(markdown);
 
     recipes.push({

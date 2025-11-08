@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FFF8DC"/>
+
+  <!-- Plate -->
+  <ellipse cx="400" cy="350" rx="280" ry="220" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="8"/>
+
+  <!-- Pasta base -->
+  <ellipse cx="400" cy="340" rx="240" ry="180" fill="#F5DEB3"/>
+
+  <!-- Spaghetti strands -->
+  <path d="M 200 340 Q 250 320, 300 340 T 400 340 T 500 340 T 600 340" stroke="#FFD700" stroke-width="8" fill="none" opacity="0.8"/>
+  <path d="M 220 360 Q 270 340, 320 360 T 420 360 T 520 360 T 580 360" stroke="#FFD700" stroke-width="8" fill="none" opacity="0.8"/>
+  <path d="M 240 380 Q 290 360, 340 380 T 440 380 T 540 380 T 560 380" stroke="#FFD700" stroke-width="8" fill="none" opacity="0.8"/>
+  <path d="M 180 320 Q 230 300, 280 320 T 380 320 T 480 320 T 620 320" stroke="#FFD700" stroke-width="8" fill="none" opacity="0.8"/>
+
+  <!-- Bacon/Pancetta pieces -->
+  <rect x="320" y="280" width="30" height="20" fill="#CD853F" rx="4"/>
+  <rect x="380" y="310" width="35" height="20" fill="#CD853F" rx="4"/>
+  <rect x="450" y="295" width="28" height="18" fill="#CD853F" rx="4"/>
+  <rect x="340" y="340" width="32" height="20" fill="#CD853F" rx="4"/>
+  <rect x="420" y="360" width="30" height="20" fill="#CD853F" rx="4"/>
+
+  <!-- Pepper specks -->
+  <circle cx="360" cy="300" r="3" fill="#2C2C2C"/>
+  <circle cx="410" cy="330" r="3" fill="#2C2C2C"/>
+  <circle cx="450" cy="340" r="3" fill="#2C2C2C"/>
+  <circle cx="380" cy="370" r="3" fill="#2C2C2C"/>
+  <circle cx="320" cy="350" r="3" fill="#2C2C2C"/>
+</svg>

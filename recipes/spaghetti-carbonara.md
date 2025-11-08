@@ -1,44 +1,45 @@
 ---
 title: Spaghetti Carbonara
-description: Traditional Italian pasta with eggs, cheese, and pancetta
-prepTime: 10 minutes
-cookTime: 15 minutes
+description: Traditionell italiensk pasta med ägg, ost och pancetta
+image: /recept/images/recipes/spaghetti-carbonara.svg
+prepTime: 10 minuter
+cookTime: 15 minuter
 servings: 4
-difficulty: Medium
+difficulty: Medel
 tags:
   - pasta
-  - italian
-  - dinner
+  - italienskt
+  - middag
 ---
 
-## Ingredients
+## Ingredienser
 
-- 1 lb spaghetti
-- 6 oz pancetta or guanciale, diced
-- 4 large eggs
-- 1 cup Pecorino Romano cheese, freshly grated
-- Freshly ground black pepper
-- Salt for pasta water
+- 450 g spaghetti
+- 170 g pancetta eller guanciale, tärnad
+- 4 ägg
+- 100 g Pecorino Romano, nyriven
+- Nymald svartpeppar
+- Salt till pastavattnet
 
-## Instructions
+## Instruktioner
 
-1. Bring a large pot of salted water to boil and cook spaghetti according to package directions until al dente.
+1. Koka upp en stor kastrull med saltat vatten och koka spaghetti enligt förpackningens anvisningar tills al dente.
 
-2. While pasta cooks, heat a large skillet over medium heat. Add pancetta and cook until crispy, about 5-7 minutes.
+2. Medan pastan kokar, hetta upp en stor stekpanna på medelvärme. Tillsätt pancetta och stek tills den är krispig, cirka 5-7 minuter.
 
-3. In a bowl, whisk together eggs, grated Pecorino Romano, and a generous amount of black pepper.
+3. Vispa ihop ägg, riven Pecorino Romano och en generös mängd svartpeppar i en skål.
 
-4. Reserve 1 cup of pasta cooking water, then drain the pasta.
+4. Spara 2,5 dl av pastavattnet och häll sedan av pastan.
 
-5. Remove the skillet from heat and add the hot pasta to the pancetta, tossing to combine.
+5. Ta bort stekpannan från värmen och tillsätt den heta pastan till pancettan, rör om ordentligt.
 
-6. Quickly pour the egg mixture over the pasta, tossing constantly. The residual heat will cook the eggs into a creamy sauce. Add reserved pasta water a little at a time if needed to achieve desired consistency.
+6. Häll snabbt över äggblandningen över pastan och rör hela tiden. Restvärmen kommer att göra äggen till en krämig sås. Tillsätt lite av det sparade pastavattnet i taget om det behövs för att få rätt konsistens.
 
-7. Serve immediately with extra Pecorino Romano and black pepper.
+7. Servera omedelbart med extra Pecorino Romano och svartpeppar.
 
 ## Tips
 
-- Use freshly grated cheese for the best flavor and texture.
-- Work quickly when adding the egg mixture to prevent scrambling.
-- The key is using the pasta's heat to create a creamy sauce without scrambling the eggs.
-- Traditional carbonara doesn't include cream or garlic.
+- Använd nyriven ost för bästa smak och konsistens.
+- Arbeta snabbt när du tillsätter äggblandningen för att undvika att äggen blir äggröra.
+- Nyckeln är att använda pastans värme för att skapa en krämig sås utan att äggen koagulerar.
+- Traditionell carbonara innehåller inte grädde eller vitlök.

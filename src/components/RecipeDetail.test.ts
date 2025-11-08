@@ -1,0 +1,176 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderRecipeDetail } from './RecipeDetail';
+import type { Recipe } from '@/types/Recipe';
+
+// Mock Lucide icons
+vi.mock('lucide', () => ({
+  createElement: vi.fn((icon: any) => {
+    const svg = document.createElement('svg');
+    svg.setAttribute('data-icon', icon.name || 'icon');
+    return svg;
+  }),
+  icons: {
+    Clock: { name: 'clock' },
+    ChefHat: { name: 'chef-hat' },
+    Gauge: { name: 'gauge' },
+    Users: { name: 'users' },
+    ArrowLeft: { name: 'arrow-left' },
+  },
+}));
+
+describe('renderRecipeDetail', () => {
+  let container: HTMLElement;
+
+  beforeEach(() => {
+    container = document.createElement('div');
+  });
+
+  it('should render recipe details with all fields', () => {
+    const recipe: Recipe = {
+      slug: 'test-recipe',
+      frontmatter: {
+        title: 'Test Recipe',
+        description: 'A delicious test recipe',
+        prepTime: '15 minutes',
+        cookTime: '30 minutes',
+        servings: 4,
+        difficulty: 'Medium',
+        tags: ['test', 'example'],
+      },
+      content: `## Ingredients
+
+- 1 cup flour
+- 2 eggs
+
+## Instructions
+
+1. Mix ingredients
+2. Cook`,
+    };
+
+    const onBack = vi.fn();
+    renderRecipeDetail(recipe, container, onBack);
+
+    // Check back button
+    const backButton = container.querySelector('.back-button');
+    expect(backButton).toBeTruthy();
+    expect(backButton?.textContent).toContain('Tillbaka till recept');
+
+    // Check title
+    const title = container.querySelector('h1');
+    expect(title).toBeTruthy();
+    expect(title?.textContent).toBe('Test Recipe');
+
+    // Check description
+    const description = container.querySelector('.recipe-description');
+    expect(description).toBeTruthy();
+    expect(description?.textContent).toBe('A delicious test recipe');
+
+    // Check meta information
+    const meta = container.querySelector('.meta');
+    expect(meta).toBeTruthy();
+    expect(meta?.textContent).toContain('Förberedelse');
+    expect(meta?.textContent).toContain('15 minutes');
+    expect(meta?.textContent).toContain('Tillagningstid');
+    expect(meta?.textContent).toContain('30 minutes');
+    expect(meta?.textContent).toContain('Portioner');
+    expect(meta?.textContent).toContain('4');
+
+    // Check content
+    const content = container.querySelector('.recipe-content');
+    expect(content).toBeTruthy();
+    expect(content?.innerHTML).toContain('<h2>Ingredients</h2>');
+    expect(content?.innerHTML).toContain('<h2>Instructions</h2>');
+    expect(content?.innerHTML).toContain('1 cup flour');
+    expect(content?.innerHTML).toContain('Mix ingredients');
+
+    // Check back button click
+    backButton?.dispatchEvent(new Event('click'));
+    expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render recipe without optional fields', () => {
+    const recipe: Recipe = {
+      slug: 'minimal-recipe',
+      frontmatter: {
+        title: 'Minimal Recipe',
+      },
+      content: 'Just simple text content.',
+    };
+
+    const onBack = vi.fn();
+    renderRecipeDetail(recipe, container, onBack);
+
+    // Check title
+    const title = container.querySelector('h1');
+    expect(title?.textContent).toBe('Minimal Recipe');
+
+    // Check meta (should exist but may be empty)
+    const meta = container.querySelector('.meta');
+    expect(meta).toBeTruthy();
+
+    // Check content
+    const content = container.querySelector('.recipe-content');
+    expect(content).toBeTruthy();
+    expect(content?.textContent).toContain('Just simple text content');
+  });
+
+  it('should clear previous content when rendering', () => {
+    container.innerHTML = '<p>Old content</p>';
+
+    const recipe: Recipe = {
+      slug: 'new-recipe',
+      frontmatter: {
+        title: 'New Recipe',
+      },
+      content: 'New content',
+    };
+
+    const onBack = vi.fn();
+    renderRecipeDetail(recipe, container, onBack);
+
+    expect(container.textContent).not.toContain('Old content');
+    expect(container.textContent).toContain('New Recipe');
+  });
+
+  it('should render markdown content as HTML', () => {
+    const recipe: Recipe = {
+      slug: 'markdown-recipe',
+      frontmatter: {
+        title: 'Markdown Recipe',
+      },
+      content: `**Bold text** and *italic text*
+
+- List item 1
+- List item 2`,
+    };
+
+    const onBack = vi.fn();
+    renderRecipeDetail(recipe, container, onBack);
+
+    const content = container.querySelector('.recipe-content');
+    expect(content?.innerHTML).toContain('<strong>Bold text</strong>');
+    expect(content?.innerHTML).toContain('<em>italic text</em>');
+    expect(content?.innerHTML).toContain('<li>List item 1</li>');
+    expect(content?.innerHTML).toContain('<li>List item 2</li>');
+  });
+
+  it('should call onBack when back button is clicked', () => {
+    const recipe: Recipe = {
+      slug: 'test-recipe',
+      frontmatter: {
+        title: 'Test Recipe',
+      },
+      content: 'Content',
+    };
+
+    const onBack = vi.fn();
+    renderRecipeDetail(recipe, container, onBack);
+
+    const backButton = container.querySelector('.back-button') as HTMLButtonElement;
+    backButton.click();
+    backButton.click();
+
+    expect(onBack).toHaveBeenCalledTimes(2);
+  });
+});

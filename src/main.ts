@@ -23,7 +23,7 @@ function renderRecipeList() {
 
   if (filteredRecipes.length === 0) {
     const emptyMessage = document.createElement('p');
-    emptyMessage.textContent = 'No recipes found.';
+    emptyMessage.textContent = 'Inga recept hittades.';
     recipeListContainer.appendChild(emptyMessage);
     return;
   }
