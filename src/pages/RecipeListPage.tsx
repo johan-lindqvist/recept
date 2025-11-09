@@ -44,17 +44,16 @@ export function RecipeListPage() {
       <div className="search-container">
         <input
           type="text"
-          id="search"
           placeholder="Sök recept..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button id="create-recipe" onClick={handleCreateClick}>
+        <button className="btn-primary" onClick={handleCreateClick}>
           + Skapa Recept
         </button>
       </div>
 
-      <div id="recipe-list" className="recipe-grid">
+      <div className="recipe-grid">
         {filteredRecipes.map(recipe => (
           <RecipeCard
             key={recipe.slug}

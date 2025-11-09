@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Header } from '@/components/Header';
 import { RecipeListPage } from '@/pages/RecipeListPage';
 import { RecipeDetailPage } from '@/pages/RecipeDetailPage';
 import { RecipeCreatorPage } from '@/pages/RecipeCreatorPage';
@@ -6,6 +7,7 @@ import { RecipeCreatorPage } from '@/pages/RecipeCreatorPage';
 function App() {
   return (
     <BrowserRouter basename="/recept">
+      <Header />
       <Routes>
         <Route path="/" element={<RecipeListPage />} />
         <Route path="/recipe/:slug" element={<RecipeDetailPage />} />

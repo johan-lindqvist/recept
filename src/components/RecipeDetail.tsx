@@ -1,12 +1,15 @@
 import { marked } from 'marked';
+import { useNavigate } from 'react-router-dom';
 import type { Recipe } from '@/types/Recipe';
-import { Clock, Users } from 'lucide-react';
+import { Clock, Users, ArrowLeft } from 'lucide-react';
 
 interface RecipeDetailProps {
   recipe: Recipe;
 }
 
 export function RecipeDetail({ recipe }: RecipeDetailProps) {
+  const navigate = useNavigate();
+
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = '/recept/images/recipes/default-recipe.svg';
   };
@@ -17,6 +20,11 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
   return (
     <div className="recipe-detail">
+      <button className="back-button" onClick={() => navigate('/')}>
+        <ArrowLeft size={20} />
+        <span>Tillbaka till alla recept</span>
+      </button>
+
       <div className="recipe-detail-image">
         <img
           src={`/recept/images/recipes/${recipe.slug}.svg`}

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { RecipeDetail } from './RecipeDetail';
 import type { Recipe } from '@/types/Recipe';
 
@@ -24,8 +25,16 @@ describe('RecipeDetail', () => {
 2. Cook`,
   };
 
+  const renderWithRouter = (recipe: Recipe) => {
+    return render(
+      <BrowserRouter>
+        <RecipeDetail recipe={recipe} />
+      </BrowserRouter>
+    );
+  };
+
   it('should render recipe details with all fields', () => {
-    render(<RecipeDetail recipe={mockRecipe} />);
+    renderWithRouter(mockRecipe);
 
     // Check title
     expect(screen.getByRole('heading', { level: 1, name: 'Test Recipe' })).toBeInTheDocument();
@@ -54,7 +63,7 @@ describe('RecipeDetail', () => {
       content: 'Just simple text content.',
     };
 
-    render(<RecipeDetail recipe={minimalRecipe} />);
+    renderWithRouter(minimalRecipe);
 
     expect(screen.getByRole('heading', { level: 1, name: 'Minimal Recipe' })).toBeInTheDocument();
     expect(screen.getByText('Just simple text content.')).toBeInTheDocument();
@@ -74,7 +83,7 @@ describe('RecipeDetail', () => {
 - List item 2`,
     };
 
-    render(<RecipeDetail recipe={markdownRecipe} />);
+    renderWithRouter(markdownRecipe);
 
     // Check that markdown is converted
     const content = screen.getByText((content, element) => {
@@ -84,11 +93,18 @@ describe('RecipeDetail', () => {
   });
 
   it('should handle image error with fallback', () => {
-    const { container } = render(<RecipeDetail recipe={mockRecipe} />);
+    const { container } = renderWithRouter(mockRecipe);
 
     const img = container.querySelector('img');
     expect(img).toBeInTheDocument();
     expect(img?.src).toContain('/recept/images/recipes/test-recipe.svg');
     expect(img?.alt).toBe('Test Recipe');
+  });
+
+  it('should render back button', () => {
+    renderWithRouter(mockRecipe);
+
+    const backButton = screen.getByRole('button', { name: /tillbaka till alla recept/i });
+    expect(backButton).toBeInTheDocument();
   });
 });
