@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { generateRecipeMarkdown, generateFilename, type RecipeFormData } from '@/utils/markdownGenerator';
 
 export function RecipeCreator() {
@@ -7,6 +8,7 @@ export function RecipeCreator() {
   const [filename, setFilename] = useState('recipe-name.md');
   const [copyButtonText, setCopyButtonText] = useState('📋 Kopiera');
   const [copyButtonDisabled, setCopyButtonDisabled] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   useEffect(() => {
     const generated = generateRecipeMarkdown(formData);
@@ -186,20 +188,32 @@ export function RecipeCreator() {
           <span id="suggested-filename">{filename}</span>
         </div>
 
-        <div className="instructions">
-          <h3>Nästa steg:</h3>
-          <ol>
-            <li>Kopiera markdown-texten ovan</li>
-            <li>Skapa en ny fil i <code>recipes/</code> mappen med det föreslagna filnamnet</li>
-            <li>Klistra in markdown-texten i filen</li>
-            <li>
-              <strong>Bild (valfritt):</strong> Om du vill lägga till en bild:
-              <ul>
-                <li>Placera bildfilen i <code>public/images/recipes/</code></li>
-                <li>Bildens filnamn <strong>måste</strong> matcha receptets filnamn exakt (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code>)</li>
-              </ul>
-            </li>
-          </ol>
+        <div className="instructions-accordion">
+          <button
+            className="accordion-header"
+            onClick={() => setInstructionsOpen(!instructionsOpen)}
+            aria-expanded={instructionsOpen}
+          >
+            <h3>Instruktioner för att lägga till receptet på GitHub</h3>
+            {instructionsOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+          </button>
+
+          {instructionsOpen && (
+            <div className="accordion-content">
+              <ol>
+                <li>Kopiera markdown-texten ovan</li>
+                <li>Skapa en ny fil i <code>recipes/</code> mappen med det föreslagna filnamnet</li>
+                <li>Klistra in markdown-texten i filen</li>
+                <li>
+                  <strong>Bild (valfritt):</strong> Om du vill lägga till en bild:
+                  <ul>
+                    <li>Placera bildfilen i <code>public/images/recipes/</code></li>
+                    <li>Bildens filnamn <strong>måste</strong> matcha receptets filnamn exakt (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code>)</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -146,4 +146,42 @@ describe('RecipeCreator', () => {
 
     expect(screen.getByText('recipe-name.md')).toBeInTheDocument();
   });
+
+  it('should render instructions accordion collapsed by default', () => {
+    render(<RecipeCreator />);
+
+    const accordionButton = screen.getByRole('button', { name: /instruktioner för att lägga till receptet på github/i });
+    expect(accordionButton).toBeInTheDocument();
+    expect(accordionButton).toHaveAttribute('aria-expanded', 'false');
+
+    // Content should not be visible
+    expect(screen.queryByText('Kopiera markdown-texten ovan')).not.toBeInTheDocument();
+  });
+
+  it('should expand accordion when clicked', async () => {
+    const user = userEvent.setup();
+    render(<RecipeCreator />);
+
+    const accordionButton = screen.getByRole('button', { name: /instruktioner för att lägga till receptet på github/i });
+
+    await user.click(accordionButton);
+
+    expect(accordionButton).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByText('Kopiera markdown-texten ovan')).toBeInTheDocument();
+  });
+
+  it('should collapse accordion when clicked again', async () => {
+    const user = userEvent.setup();
+    render(<RecipeCreator />);
+
+    const accordionButton = screen.getByRole('button', { name: /instruktioner för att lägga till receptet på github/i });
+
+    // Expand
+    await user.click(accordionButton);
+    expect(screen.getByText('Kopiera markdown-texten ovan')).toBeInTheDocument();
+
+    // Collapse
+    await user.click(accordionButton);
+    expect(screen.queryByText('Kopiera markdown-texten ovan')).not.toBeInTheDocument();
+  });
 });
