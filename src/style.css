@@ -47,10 +47,13 @@ main {
 
 #search-container {
   margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 #search-input {
-  width: 100%;
+  flex: 1;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   border: 2px solid #bdc3c7;
@@ -274,6 +277,194 @@ main {
   flex-shrink: 0;
 }
 
+/* Recipe Creator */
+.recipe-creator {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-creator-header {
+  margin-bottom: 2rem;
+}
+
+.recipe-creator-header h1 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+.recipe-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #bdc3c7;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+}
+
+.output-section {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.output-header h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.copy-button {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.copy-button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.copy-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.markdown-output {
+  width: 100%;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  border: 2px solid #bdc3c7;
+  border-radius: var(--border-radius);
+  background-color: #f8f9fa;
+  resize: vertical;
+  min-height: 400px;
+}
+
+.filename-suggestion {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+}
+
+.filename-suggestion strong {
+  color: var(--primary-color);
+}
+
+.filename-suggestion span {
+  font-family: 'Courier New', monospace;
+  color: var(--secondary-color);
+}
+
+.instructions {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: #fff8dc;
+  border-left: 4px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+
+.instructions h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.instructions ol {
+  margin-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.instructions code {
+  background-color: #f5f5f5;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+#create-recipe-btn {
+  padding: 0.6rem 1.2rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+  margin-left: auto;
+}
+
+#create-recipe-btn:hover {
+  background-color: #c0392b;
+}
+
 @media (max-width: 768px) {
   header h1 {
     font-size: 2rem;
@@ -281,5 +472,19 @@ main {
 
   #recipe-list {
     grid-template-columns: 1fr;
+  }
+
+  .recipe-form {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .recipe-creator-header h1 {
+    font-size: 2rem;
+  }
+
+  .form-section,
+  .output-section {
+    padding: 1.5rem;
   }
 }

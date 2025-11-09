@@ -1,6 +1,7 @@
 import { loadRecipes } from '@/utils/recipeParser';
 import { createRecipeCard } from '@/components/RecipeCard';
 import { renderRecipeDetail } from '@/components/RecipeDetail';
+import { createRecipeCreator } from '@/components/RecipeCreator';
 import type { Recipe } from '@/types/Recipe';
 
 let allRecipes: Recipe[] = [];
@@ -8,7 +9,9 @@ let filteredRecipes: Recipe[] = [];
 
 const recipeListContainer = document.getElementById('recipe-list') as HTMLElement;
 const recipeDetailContainer = document.getElementById('recipe-detail') as HTMLElement;
+const recipeCreatorContainer = document.getElementById('recipe-creator') as HTMLElement;
 const searchInput = document.getElementById('search-input') as HTMLInputElement;
+const createRecipeBtn = document.getElementById('create-recipe-btn') as HTMLButtonElement;
 
 async function init() {
   allRecipes = await loadRecipes();
@@ -20,6 +23,7 @@ function renderRecipeList() {
   recipeListContainer.innerHTML = '';
   recipeListContainer.style.display = 'grid';
   recipeDetailContainer.style.display = 'none';
+  recipeCreatorContainer.style.display = 'none';
 
   if (filteredRecipes.length === 0) {
     const emptyMessage = document.createElement('p');
@@ -37,7 +41,17 @@ function renderRecipeList() {
 function showRecipeDetail(recipe: Recipe) {
   recipeListContainer.style.display = 'none';
   recipeDetailContainer.style.display = 'block';
+  recipeCreatorContainer.style.display = 'none';
   renderRecipeDetail(recipe, recipeDetailContainer, () => {
+    renderRecipeList();
+  });
+}
+
+function showRecipeCreator() {
+  recipeListContainer.style.display = 'none';
+  recipeDetailContainer.style.display = 'none';
+  recipeCreatorContainer.style.display = 'block';
+  createRecipeCreator(recipeCreatorContainer, () => {
     renderRecipeList();
   });
 }
@@ -56,6 +70,10 @@ searchInput.addEventListener('input', (e) => {
   });
 
   renderRecipeList();
+});
+
+createRecipeBtn.addEventListener('click', () => {
+  showRecipeCreator();
 });
 
 init();
