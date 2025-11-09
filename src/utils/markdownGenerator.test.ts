@@ -6,7 +6,6 @@ describe('generateRecipeMarkdown', () => {
     const data: RecipeFormData = {
       title: 'Test Recipe',
       description: 'A test recipe',
-      image: '/recept/images/recipes/test.svg',
       prepTime: '15 minuter',
       cookTime: '30 minuter',
       servings: 4,
@@ -21,7 +20,6 @@ describe('generateRecipeMarkdown', () => {
 
     expect(markdown).toContain('title: Test Recipe');
     expect(markdown).toContain('description: A test recipe');
-    expect(markdown).toContain('image: /recept/images/recipes/test.svg');
     expect(markdown).toContain('prepTime: 15 minuter');
     expect(markdown).toContain('cookTime: 30 minuter');
     expect(markdown).toContain('servings: 4');

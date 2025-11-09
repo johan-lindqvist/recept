@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#ecf0f1"/>
+
+  <!-- Plate -->
+  <ellipse cx="200" cy="200" rx="120" ry="30" fill="#95a5a6"/>
+  <ellipse cx="200" cy="195" rx="120" ry="30" fill="#bdc3c7"/>
+
+  <!-- Food items on plate -->
+  <!-- Main dish circle -->
+  <circle cx="200" cy="175" r="50" fill="#e67e22"/>
+  <circle cx="200" cy="175" r="45" fill="#f39c12"/>
+
+  <!-- Side items -->
+  <circle cx="150" cy="185" r="20" fill="#27ae60"/>
+  <circle cx="250" cy="185" r="20" fill="#c0392b"/>
+  <circle cx="175" cy="205" r="15" fill="#f1c40f"/>
+  <circle cx="225" cy="205" r="15" fill="#e74c3c"/>
+
+  <!-- Utensils -->
+  <!-- Fork -->
+  <g transform="translate(80, 120)">
+    <rect x="0" y="0" width="4" height="120" fill="#7f8c8d"/>
+    <rect x="-6" y="0" width="4" height="25" fill="#7f8c8d"/>
+    <rect x="6" y="0" width="4" height="25" fill="#7f8c8d"/>
+  </g>
+
+  <!-- Knife -->
+  <g transform="translate(320, 120)">
+    <rect x="0" y="0" width="4" height="120" fill="#7f8c8d"/>
+    <polygon points="0,0 4,0 6,-15 -2,-15" fill="#95a5a6"/>
+  </g>
+
+  <!-- Text -->
+  <text x="200" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50" text-anchor="middle">
+    Recept
+  </text>
+</svg>

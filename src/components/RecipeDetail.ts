@@ -15,18 +15,20 @@ export function renderRecipeDetail(recipe: Recipe, container: HTMLElement, onBac
   backButton.onclick = onBack;
   container.appendChild(backButton);
 
-  // Image
-  if (recipe.frontmatter.image) {
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'recipe-detail-image';
+  // Image - always show, auto-detect based on recipe slug
+  const imageContainer = document.createElement('div');
+  imageContainer.className = 'recipe-detail-image';
 
-    const img = document.createElement('img');
-    img.src = recipe.frontmatter.image;
-    img.alt = recipe.frontmatter.title;
+  const img = document.createElement('img');
+  // Try to load image with recipe slug name, fallback to default
+  img.src = `/recept/images/recipes/${recipe.slug}.svg`;
+  img.alt = recipe.frontmatter.title;
+  img.onerror = () => {
+    img.src = '/recept/images/recipes/default-recipe.svg';
+  };
 
-    imageContainer.appendChild(img);
-    container.appendChild(imageContainer);
-  }
+  imageContainer.appendChild(img);
+  container.appendChild(imageContainer);
 
   const title = document.createElement('h1');
   title.textContent = recipe.frontmatter.title;

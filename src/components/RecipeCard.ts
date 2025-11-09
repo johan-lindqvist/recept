@@ -6,19 +6,21 @@ export function createRecipeCard(recipe: Recipe, onClick: () => void): HTMLEleme
   card.className = 'recipe-card';
   card.onclick = onClick;
 
-  // Image
-  if (recipe.frontmatter.image) {
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'recipe-card-image';
+  // Image - always show, auto-detect based on recipe slug
+  const imageContainer = document.createElement('div');
+  imageContainer.className = 'recipe-card-image';
 
-    const img = document.createElement('img');
-    img.src = recipe.frontmatter.image;
-    img.alt = recipe.frontmatter.title;
-    img.loading = 'lazy';
+  const img = document.createElement('img');
+  // Try to load image with recipe slug name, fallback to default
+  img.src = `/recept/images/recipes/${recipe.slug}.svg`;
+  img.alt = recipe.frontmatter.title;
+  img.loading = 'lazy';
+  img.onerror = () => {
+    img.src = '/recept/images/recipes/default-recipe.svg';
+  };
 
-    imageContainer.appendChild(img);
-    card.appendChild(imageContainer);
-  }
+  imageContainer.appendChild(img);
+  card.appendChild(imageContainer);
 
   const content = document.createElement('div');
   content.className = 'recipe-card-content';

@@ -177,8 +177,9 @@ export function createRecipeCreator(container: HTMLElement, onBack: () => void):
       <li><strong>Bild (valfritt):</strong> Om du vill lägga till en bild:
         <ul>
           <li>Placera bildfilen i <code>public/images/recipes/</code></li>
-          <li>Bildens filnamn ska matcha receptets filnamn (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code> eller <code>kottbullar.jpg</code>)</li>
-          <li>Lägg till raden <code>image: /recept/images/recipes/ditt-filnamn.svg</code> i YAML-sektionen (efter <code>description</code>)</li>
+          <li>Bildens filnamn <strong>måste</strong> matcha receptets filnamn exakt (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code>)</li>
+          <li>Bilden kommer automatiskt att visas - du behöver inte lägga till någon <code>image:</code>-rad i markdown-filen</li>
+          <li>Om ingen bild hittas visas en standardbild</li>
         </ul>
       </li>
       <li>Commit och pusha dina ändringar</li>

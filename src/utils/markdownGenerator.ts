@@ -1,7 +1,6 @@
 export interface RecipeFormData {
   title: string;
   description?: string;
-  image?: string;
   prepTime?: string;
   cookTime?: string;
   servings?: number;
@@ -21,10 +20,6 @@ export function generateRecipeMarkdown(data: RecipeFormData): string {
 
   if (data.description && data.description.trim()) {
     parts.push(`description: ${data.description}`);
-  }
-
-  if (data.image && data.image.trim()) {
-    parts.push(`image: ${data.image}`);
   }
 
   if (data.prepTime && data.prepTime.trim()) {
