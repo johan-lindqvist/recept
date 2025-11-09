@@ -84,6 +84,82 @@ export function createRecipeCard(recipe: Recipe, onClick: () => void): HTMLEleme
   }
 
   content.appendChild(meta);
+
+  // Tags
+  if (recipe.frontmatter.tags && recipe.frontmatter.tags.length > 0) {
+    const tagsContainer = document.createElement('div');
+    tagsContainer.className = 'recipe-tags';
+
+    const maxVisibleTags = 3;
+    const tags = recipe.frontmatter.tags;
+    const visibleTags = tags.slice(0, maxVisibleTags);
+    const hiddenTags = tags.slice(maxVisibleTags);
+
+    // Create visible tag labels
+    visibleTags.forEach(tag => {
+      const tagLabel = document.createElement('span');
+      tagLabel.className = 'tag-label';
+      tagLabel.textContent = tag;
+      tagsContainer.appendChild(tagLabel);
+    });
+
+    // Create "more" indicator if there are hidden tags
+    if (hiddenTags.length > 0) {
+      const moreLabel = document.createElement('span');
+      moreLabel.className = 'tag-label tag-more';
+      moreLabel.textContent = `+${hiddenTags.length} mer`;
+
+      // Prevent card click when clicking the more button
+      const toggleTags = (e: MouseEvent) => {
+        e.stopPropagation();
+
+        // Toggle expansion
+        const isExpanded = tagsContainer.classList.contains('expanded');
+
+        if (isExpanded) {
+          // Collapse: remove hidden tags and the "visa färre" button
+          const allLabels = Array.from(tagsContainer.querySelectorAll('.tag-label'));
+          allLabels.slice(maxVisibleTags).forEach(label => label.remove());
+
+          // Add back the "+X mer" button
+          const newMoreLabel = document.createElement('span');
+          newMoreLabel.className = 'tag-label tag-more';
+          newMoreLabel.textContent = `+${hiddenTags.length} mer`;
+          newMoreLabel.onclick = toggleTags;
+          tagsContainer.appendChild(newMoreLabel);
+
+          tagsContainer.classList.remove('expanded');
+        } else {
+          // Expand: remove the "+X mer" button
+          const currentMoreLabel = tagsContainer.querySelector('.tag-more');
+          currentMoreLabel?.remove();
+
+          // Show all hidden tags
+          hiddenTags.forEach(tag => {
+            const tagLabel = document.createElement('span');
+            tagLabel.className = 'tag-label';
+            tagLabel.textContent = tag;
+            tagsContainer.appendChild(tagLabel);
+          });
+
+          // Add collapse label
+          const lessLabel = document.createElement('span');
+          lessLabel.className = 'tag-label tag-more';
+          lessLabel.textContent = 'visa färre';
+          lessLabel.onclick = toggleTags;
+          tagsContainer.appendChild(lessLabel);
+          tagsContainer.classList.add('expanded');
+        }
+      };
+
+      moreLabel.onclick = toggleTags;
+
+      tagsContainer.appendChild(moreLabel);
+    }
+
+    content.appendChild(tagsContainer);
+  }
+
   card.appendChild(content);
 
   return card;
