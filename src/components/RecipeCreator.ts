@@ -178,11 +178,8 @@ export function createRecipeCreator(container: HTMLElement, onBack: () => void):
         <ul>
           <li>Placera bildfilen i <code>public/images/recipes/</code></li>
           <li>Bildens filnamn <strong>måste</strong> matcha receptets filnamn exakt (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code>)</li>
-          <li>Bilden kommer automatiskt att visas - du behöver inte lägga till någon <code>image:</code>-rad i markdown-filen</li>
-          <li>Om ingen bild hittas visas en standardbild</li>
         </ul>
       </li>
-      <li>Commit och pusha dina ändringar</li>
     </ol>
   `;
   outputSection.appendChild(instructions);
