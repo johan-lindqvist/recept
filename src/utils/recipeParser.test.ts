@@ -6,8 +6,7 @@ describe('parseRecipeMarkdown', () => {
     const markdown = `---
 title: Test Recipe
 description: A test recipe
-prepTime: 10 minutes
-cookTime: 20 minutes
+totalTime: 30 minutes
 servings: 4
 difficulty: Easy
 tags:
@@ -29,8 +28,7 @@ tags:
 
     expect(result.frontmatter.title).toBe('Test Recipe');
     expect(result.frontmatter.description).toBe('A test recipe');
-    expect(result.frontmatter.prepTime).toBe('10 minutes');
-    expect(result.frontmatter.cookTime).toBe('20 minutes');
+    expect(result.frontmatter.totalTime).toBe('30 minutes');
     expect(result.frontmatter.servings).toBe(4);
     expect(result.frontmatter.difficulty).toBe('Easy');
     expect(result.frontmatter.tags).toEqual(['test', 'example']);

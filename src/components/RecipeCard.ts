@@ -39,26 +39,15 @@ export function createRecipeCard(recipe: Recipe, onClick: () => void): HTMLEleme
   const meta = document.createElement('div');
   meta.className = 'meta';
 
-  if (recipe.frontmatter.prepTime) {
-    const prepTime = document.createElement('span');
-    prepTime.className = 'meta-item';
+  if (recipe.frontmatter.totalTime) {
+    const totalTime = document.createElement('span');
+    totalTime.className = 'meta-item';
     const icon = createElement(icons.Clock, { size: 16 });
-    prepTime.appendChild(icon);
+    totalTime.appendChild(icon);
     const text = document.createElement('span');
-    text.textContent = recipe.frontmatter.prepTime;
-    prepTime.appendChild(text);
-    meta.appendChild(prepTime);
-  }
-
-  if (recipe.frontmatter.cookTime) {
-    const cookTime = document.createElement('span');
-    cookTime.className = 'meta-item';
-    const icon = createElement(icons.ChefHat, { size: 16 });
-    cookTime.appendChild(icon);
-    const text = document.createElement('span');
-    text.textContent = recipe.frontmatter.cookTime;
-    cookTime.appendChild(text);
-    meta.appendChild(cookTime);
+    text.textContent = recipe.frontmatter.totalTime;
+    totalTime.appendChild(text);
+    meta.appendChild(totalTime);
   }
 
   if (recipe.frontmatter.servings) {

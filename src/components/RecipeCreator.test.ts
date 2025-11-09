@@ -32,8 +32,7 @@ describe('createRecipeCreator', () => {
     // Check all input fields exist
     expect(container.querySelector('#title')).toBeTruthy();
     expect(container.querySelector('#description')).toBeTruthy();
-    expect(container.querySelector('#prepTime')).toBeTruthy();
-    expect(container.querySelector('#cookTime')).toBeTruthy();
+    expect(container.querySelector('#totalTime')).toBeTruthy();
     expect(container.querySelector('#servings')).toBeTruthy();
     expect(container.querySelector('#difficulty')).toBeTruthy();
     expect(container.querySelector('#tags')).toBeTruthy();
@@ -88,11 +87,8 @@ describe('createRecipeCreator', () => {
     (container.querySelector('#description') as HTMLInputElement).value = 'A test recipe';
     (container.querySelector('#description') as HTMLInputElement).dispatchEvent(new Event('input'));
 
-    (container.querySelector('#prepTime') as HTMLInputElement).value = '15 minuter';
-    (container.querySelector('#prepTime') as HTMLInputElement).dispatchEvent(new Event('input'));
-
-    (container.querySelector('#cookTime') as HTMLInputElement).value = '30 minuter';
-    (container.querySelector('#cookTime') as HTMLInputElement).dispatchEvent(new Event('input'));
+    (container.querySelector('#totalTime') as HTMLInputElement).value = '45 minuter';
+    (container.querySelector('#totalTime') as HTMLInputElement).dispatchEvent(new Event('input'));
 
     (container.querySelector('#servings') as HTMLInputElement).value = '4';
     (container.querySelector('#servings') as HTMLInputElement).dispatchEvent(new Event('input'));
@@ -116,8 +112,7 @@ describe('createRecipeCreator', () => {
 
     expect(markdownOutput.value).toContain('title: Test Recipe');
     expect(markdownOutput.value).toContain('description: A test recipe');
-    expect(markdownOutput.value).toContain('prepTime: 15 minuter');
-    expect(markdownOutput.value).toContain('cookTime: 30 minuter');
+    expect(markdownOutput.value).toContain('totalTime: 45 minuter');
     expect(markdownOutput.value).toContain('servings: 4');
     expect(markdownOutput.value).toContain('difficulty: Medel');
     expect(markdownOutput.value).toContain('  - tag1');

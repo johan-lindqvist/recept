@@ -34,42 +34,23 @@ export function renderRecipeDetail(recipe: Recipe, container: HTMLElement): void
   const meta = document.createElement('div');
   meta.className = 'meta';
 
-  if (recipe.frontmatter.prepTime) {
-    const prepTime = document.createElement('span');
-    prepTime.className = 'meta-item';
+  if (recipe.frontmatter.totalTime) {
+    const totalTime = document.createElement('span');
+    totalTime.className = 'meta-item';
     const icon = createElement(icons.Clock, { size: 20 });
-    prepTime.appendChild(icon);
+    totalTime.appendChild(icon);
     const label = document.createElement('div');
     label.className = 'meta-label';
     const labelText = document.createElement('span');
     labelText.className = 'meta-label-text';
-    labelText.textContent = 'Förberedelse';
+    labelText.textContent = 'Total tid';
     const value = document.createElement('span');
     value.className = 'meta-value';
-    value.textContent = recipe.frontmatter.prepTime;
+    value.textContent = recipe.frontmatter.totalTime;
     label.appendChild(labelText);
     label.appendChild(value);
-    prepTime.appendChild(label);
-    meta.appendChild(prepTime);
-  }
-
-  if (recipe.frontmatter.cookTime) {
-    const cookTime = document.createElement('span');
-    cookTime.className = 'meta-item';
-    const icon = createElement(icons.ChefHat, { size: 20 });
-    cookTime.appendChild(icon);
-    const label = document.createElement('div');
-    label.className = 'meta-label';
-    const labelText = document.createElement('span');
-    labelText.className = 'meta-label-text';
-    labelText.textContent = 'Tillagningstid';
-    const value = document.createElement('span');
-    value.className = 'meta-value';
-    value.textContent = recipe.frontmatter.cookTime;
-    label.appendChild(labelText);
-    label.appendChild(value);
-    cookTime.appendChild(label);
-    meta.appendChild(cookTime);
+    totalTime.appendChild(label);
+    meta.appendChild(totalTime);
   }
 
   if (recipe.frontmatter.servings) {

@@ -11,7 +11,6 @@ vi.mock('lucide', () => ({
   }),
   icons: {
     Clock: { name: 'clock' },
-    ChefHat: { name: 'chef-hat' },
     Gauge: { name: 'gauge' },
     Users: { name: 'users' },
   },
@@ -30,8 +29,7 @@ describe('renderRecipeDetail', () => {
       frontmatter: {
         title: 'Test Recipe',
         description: 'A delicious test recipe',
-        prepTime: '15 minutes',
-        cookTime: '30 minutes',
+        totalTime: '45 minutes',
         servings: 4,
         difficulty: 'Medium',
         tags: ['test', 'example'],
@@ -62,10 +60,8 @@ describe('renderRecipeDetail', () => {
     // Check meta information
     const meta = container.querySelector('.meta');
     expect(meta).toBeTruthy();
-    expect(meta?.textContent).toContain('Förberedelse');
-    expect(meta?.textContent).toContain('15 minutes');
-    expect(meta?.textContent).toContain('Tillagningstid');
-    expect(meta?.textContent).toContain('30 minutes');
+    expect(meta?.textContent).toContain('Total tid');
+    expect(meta?.textContent).toContain('45 minutes');
     expect(meta?.textContent).toContain('Portioner');
     expect(meta?.textContent).toContain('4');
 

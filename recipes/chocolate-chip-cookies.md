@@ -2,8 +2,7 @@
 title: Klassiska Chocolate Chip Cookies
 description: Mjuka och sega chokladkakor som alltid blir perfekta
 image: /recept/images/recipes/chocolate-chip-cookies.svg
-prepTime: 15 minuter
-cookTime: 12 minuter
+totalTime: 27 minuter
 servings: 24
 difficulty: Lätt
 tags:

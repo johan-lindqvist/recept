@@ -1,8 +1,7 @@
 export interface RecipeFormData {
   title: string;
   description?: string;
-  prepTime?: string;
-  cookTime?: string;
+  totalTime?: string;
   servings?: number;
   difficulty?: 'Lätt' | 'Medel' | 'Svår';
   tags?: string;
@@ -22,12 +21,8 @@ export function generateRecipeMarkdown(data: RecipeFormData): string {
     parts.push(`description: ${data.description}`);
   }
 
-  if (data.prepTime && data.prepTime.trim()) {
-    parts.push(`prepTime: ${data.prepTime}`);
-  }
-
-  if (data.cookTime && data.cookTime.trim()) {
-    parts.push(`cookTime: ${data.cookTime}`);
+  if (data.totalTime && data.totalTime.trim()) {
+    parts.push(`totalTime: ${data.totalTime}`);
   }
 
   if (data.servings) {

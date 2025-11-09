@@ -11,7 +11,6 @@ vi.mock('lucide', () => ({
   }),
   icons: {
     Clock: { name: 'clock' },
-    ChefHat: { name: 'chef-hat' },
     Gauge: { name: 'gauge' },
     Users: { name: 'users' },
   },
@@ -24,8 +23,7 @@ describe('createRecipeCard', () => {
       frontmatter: {
         title: 'Test Recipe',
         description: 'A delicious test recipe',
-        prepTime: '15 minutes',
-        cookTime: '30 minutes',
+        totalTime: '45 minutes',
         servings: 4,
         difficulty: 'Medium',
         tags: ['test', 'example'],
@@ -53,8 +51,7 @@ describe('createRecipeCard', () => {
     // Check meta information
     const meta = card.querySelector('.meta');
     expect(meta).toBeTruthy();
-    expect(meta?.textContent).toContain('15 minutes');
-    expect(meta?.textContent).toContain('30 minutes');
+    expect(meta?.textContent).toContain('45 minutes');
     expect(meta?.textContent).toContain('4 port.');
     expect(meta?.textContent).toContain('Medium');
 
@@ -93,7 +90,7 @@ describe('createRecipeCard', () => {
       slug: 'partial-recipe',
       frontmatter: {
         title: 'Partial Recipe',
-        prepTime: '10 minutes',
+        totalTime: '10 minutes',
         difficulty: 'Easy',
       },
       content: 'Partial content',
@@ -106,7 +103,6 @@ describe('createRecipeCard', () => {
     expect(meta).toBeTruthy();
     expect(meta?.textContent).toContain('10 minutes');
     expect(meta?.textContent).toContain('Easy');
-    expect(meta?.textContent).not.toContain('30 minutes');
   });
 
   it('should be clickable', () => {

@@ -97,8 +97,7 @@ export function createRecipeCreator(container: HTMLElement): void {
 
   metadataSection.appendChild(createInputGroup('Titel', 'text', 'title', true, 'T.ex. Köttbullar med gräddsås'));
   metadataSection.appendChild(createInputGroup('Beskrivning', 'text', 'description', false, 'En kort beskrivning av receptet'));
-  metadataSection.appendChild(createInputGroup('Förberedelsetid', 'text', 'prepTime', false, '15 minuter'));
-  metadataSection.appendChild(createInputGroup('Tillagningstid', 'text', 'cookTime', false, '30 minuter'));
+  metadataSection.appendChild(createInputGroup('Total tid', 'text', 'totalTime', false, '45 minuter'));
   metadataSection.appendChild(createInputGroup('Portioner', 'number', 'servings', false, '4'));
   metadataSection.appendChild(createInputGroup('Svårighetsgrad', 'select', 'difficulty'));
   metadataSection.appendChild(createInputGroup('Taggar', 'text', 'tags', false, 'middag, kött, svensk (separera med komma)'));
