@@ -1,20 +1,14 @@
 import { generateRecipeMarkdown, generateFilename, type RecipeFormData } from '@/utils/markdownGenerator';
 
-export function createRecipeCreator(container: HTMLElement, onBack: () => void): void {
+export function createRecipeCreator(container: HTMLElement): void {
   container.innerHTML = '';
 
   const creator = document.createElement('div');
   creator.className = 'recipe-creator';
 
-  // Header with back button
+  // Header
   const header = document.createElement('div');
   header.className = 'recipe-creator-header';
-
-  const backButton = document.createElement('button');
-  backButton.className = 'back-button';
-  backButton.textContent = '← Tillbaka';
-  backButton.onclick = onBack;
-  header.appendChild(backButton);
 
   const headerTitle = document.createElement('h1');
   headerTitle.textContent = 'Skapa Nytt Recept';

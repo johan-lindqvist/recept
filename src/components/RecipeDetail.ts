@@ -2,18 +2,8 @@ import { marked } from 'marked';
 import type { Recipe } from '@/types/Recipe';
 import { createElement, icons } from 'lucide';
 
-export function renderRecipeDetail(recipe: Recipe, container: HTMLElement, onBack: () => void): void {
+export function renderRecipeDetail(recipe: Recipe, container: HTMLElement): void {
   container.innerHTML = '';
-
-  const backButton = document.createElement('button');
-  backButton.className = 'back-button';
-  const backIcon = createElement(icons.ArrowLeft, { size: 20 });
-  backButton.appendChild(backIcon);
-  const backText = document.createElement('span');
-  backText.textContent = 'Tillbaka till recept';
-  backButton.appendChild(backText);
-  backButton.onclick = onBack;
-  container.appendChild(backButton);
 
   // Image - always show, auto-detect based on recipe slug
   const imageContainer = document.createElement('div');

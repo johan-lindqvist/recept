@@ -16,6 +16,45 @@ const createRecipeBtn = document.getElementById('create-recipe-btn') as HTMLButt
 async function init() {
   allRecipes = await loadRecipes();
   filteredRecipes = [...allRecipes];
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', () => {
+    handleRoute();
+  });
+
+  // Handle initial route
+  handleRoute();
+}
+
+function handleRoute() {
+  const path = window.location.pathname;
+
+  // Match /recept/recipe/{slug}
+  const recipeMatch = path.match(/\/recept\/recipe\/(.+)/);
+  if (recipeMatch) {
+    const slug = recipeMatch[1];
+    const recipe = allRecipes.find(r => r.slug === slug);
+    if (recipe) {
+      showRecipeDetail(recipe);
+    } else {
+      // Recipe not found, go to list
+      navigateToList();
+    }
+    return;
+  }
+
+  // Match /recept/create
+  if (path === '/recept/create') {
+    showRecipeCreator();
+    return;
+  }
+
+  // Default: show recipe list
+  renderRecipeList();
+}
+
+function navigateToList() {
+  window.history.pushState({}, '', '/recept/');
   renderRecipeList();
 }
 
@@ -33,27 +72,33 @@ function renderRecipeList() {
   }
 
   filteredRecipes.forEach((recipe) => {
-    const card = createRecipeCard(recipe, () => showRecipeDetail(recipe));
+    const card = createRecipeCard(recipe, () => navigateToRecipe(recipe));
     recipeListContainer.appendChild(card);
   });
+}
+
+function navigateToRecipe(recipe: Recipe) {
+  window.history.pushState({}, '', `/recept/recipe/${recipe.slug}`);
+  showRecipeDetail(recipe);
 }
 
 function showRecipeDetail(recipe: Recipe) {
   recipeListContainer.style.display = 'none';
   recipeDetailContainer.style.display = 'block';
   recipeCreatorContainer.style.display = 'none';
-  renderRecipeDetail(recipe, recipeDetailContainer, () => {
-    renderRecipeList();
-  });
+  renderRecipeDetail(recipe, recipeDetailContainer);
+}
+
+function navigateToCreator() {
+  window.history.pushState({}, '', '/recept/create');
+  showRecipeCreator();
 }
 
 function showRecipeCreator() {
   recipeListContainer.style.display = 'none';
   recipeDetailContainer.style.display = 'none';
   recipeCreatorContainer.style.display = 'block';
-  createRecipeCreator(recipeCreatorContainer, () => {
-    renderRecipeList();
-  });
+  createRecipeCreator(recipeCreatorContainer);
 }
 
 searchInput.addEventListener('input', (e) => {
@@ -73,7 +118,7 @@ searchInput.addEventListener('input', (e) => {
 });
 
 createRecipeBtn.addEventListener('click', () => {
-  showRecipeCreator();
+  navigateToCreator();
 });
 
 init();

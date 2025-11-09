@@ -14,7 +14,6 @@ vi.mock('lucide', () => ({
     ChefHat: { name: 'chef-hat' },
     Gauge: { name: 'gauge' },
     Users: { name: 'users' },
-    ArrowLeft: { name: 'arrow-left' },
   },
 }));
 
@@ -48,13 +47,7 @@ describe('renderRecipeDetail', () => {
 2. Cook`,
     };
 
-    const onBack = vi.fn();
-    renderRecipeDetail(recipe, container, onBack);
-
-    // Check back button
-    const backButton = container.querySelector('.back-button');
-    expect(backButton).toBeTruthy();
-    expect(backButton?.textContent).toContain('Tillbaka till recept');
+    renderRecipeDetail(recipe, container);
 
     // Check title
     const title = container.querySelector('h1');
@@ -83,10 +76,6 @@ describe('renderRecipeDetail', () => {
     expect(content?.innerHTML).toContain('<h2>Instructions</h2>');
     expect(content?.innerHTML).toContain('1 cup flour');
     expect(content?.innerHTML).toContain('Mix ingredients');
-
-    // Check back button click
-    backButton?.dispatchEvent(new Event('click'));
-    expect(onBack).toHaveBeenCalledTimes(1);
   });
 
   it('should render recipe without optional fields', () => {
@@ -98,8 +87,7 @@ describe('renderRecipeDetail', () => {
       content: 'Just simple text content.',
     };
 
-    const onBack = vi.fn();
-    renderRecipeDetail(recipe, container, onBack);
+    renderRecipeDetail(recipe, container);
 
     // Check title
     const title = container.querySelector('h1');
@@ -126,8 +114,7 @@ describe('renderRecipeDetail', () => {
       content: 'New content',
     };
 
-    const onBack = vi.fn();
-    renderRecipeDetail(recipe, container, onBack);
+    renderRecipeDetail(recipe, container);
 
     expect(container.textContent).not.toContain('Old content');
     expect(container.textContent).toContain('New Recipe');
@@ -145,32 +132,12 @@ describe('renderRecipeDetail', () => {
 - List item 2`,
     };
 
-    const onBack = vi.fn();
-    renderRecipeDetail(recipe, container, onBack);
+    renderRecipeDetail(recipe, container);
 
     const content = container.querySelector('.recipe-content');
     expect(content?.innerHTML).toContain('<strong>Bold text</strong>');
     expect(content?.innerHTML).toContain('<em>italic text</em>');
     expect(content?.innerHTML).toContain('<li>List item 1</li>');
     expect(content?.innerHTML).toContain('<li>List item 2</li>');
-  });
-
-  it('should call onBack when back button is clicked', () => {
-    const recipe: Recipe = {
-      slug: 'test-recipe',
-      frontmatter: {
-        title: 'Test Recipe',
-      },
-      content: 'Content',
-    };
-
-    const onBack = vi.fn();
-    renderRecipeDetail(recipe, container, onBack);
-
-    const backButton = container.querySelector('.back-button') as HTMLButtonElement;
-    backButton.click();
-    backButton.click();
-
-    expect(onBack).toHaveBeenCalledTimes(2);
   });
 });

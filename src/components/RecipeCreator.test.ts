@@ -3,11 +3,9 @@ import { createRecipeCreator } from './RecipeCreator';
 
 describe('createRecipeCreator', () => {
   let container: HTMLElement;
-  let onBack: () => void;
 
   beforeEach(() => {
     container = document.createElement('div');
-    onBack = vi.fn() as () => void;
 
     // Mock clipboard API
     Object.defineProperty(navigator, 'clipboard', {
@@ -20,17 +18,12 @@ describe('createRecipeCreator', () => {
   });
 
   it('should render the form with all input fields', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     // Check header
     const header = container.querySelector('.recipe-creator-header');
     expect(header).toBeTruthy();
     expect(header?.querySelector('h1')?.textContent).toBe('Skapa Nytt Recept');
-
-    // Check back button
-    const backButton = container.querySelector('.back-button');
-    expect(backButton).toBeTruthy();
-    expect(backButton?.textContent).toBe('← Tillbaka');
 
     // Check form exists
     const form = container.querySelector('.recipe-form');
@@ -61,17 +54,8 @@ describe('createRecipeCreator', () => {
     expect(filenameSuggestion).toBeTruthy();
   });
 
-  it('should call onBack when back button is clicked', () => {
-    createRecipeCreator(container, onBack);
-
-    const backButton = container.querySelector('.back-button') as HTMLButtonElement;
-    backButton.click();
-
-    expect(onBack).toHaveBeenCalledTimes(1);
-  });
-
   it('should update markdown output when title is entered', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     const markdownOutput = container.querySelector('.markdown-output') as HTMLTextAreaElement;
@@ -83,7 +67,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should update filename suggestion when title is entered', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     const filenameSpan = container.querySelector('#suggested-filename');
@@ -95,7 +79,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should generate complete markdown with all fields', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     // Fill in all fields
     (container.querySelector('#title') as HTMLInputElement).value = 'Test Recipe';
@@ -147,7 +131,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should generate markdown with only required fields', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     titleInput.value = 'Minimal Recipe';
@@ -162,7 +146,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should copy markdown to clipboard when copy button is clicked', async () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     titleInput.value = 'Test Recipe';
@@ -182,7 +166,7 @@ describe('createRecipeCreator', () => {
   it('should update copy button text after copying', async () => {
     vi.useFakeTimers();
 
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     titleInput.value = 'Test Recipe';
@@ -203,7 +187,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should handle Swedish characters in filename', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const titleInput = container.querySelector('#title') as HTMLInputElement;
     const filenameSpan = container.querySelector('#suggested-filename');
@@ -215,14 +199,14 @@ describe('createRecipeCreator', () => {
   });
 
   it('should show default filename when no title is entered', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const filenameSpan = container.querySelector('#suggested-filename');
     expect(filenameSpan?.textContent).toBe('recipe-name.md');
   });
 
   it('should handle number input for servings', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const servingsInput = container.querySelector('#servings') as HTMLInputElement;
     const markdownOutput = container.querySelector('.markdown-output') as HTMLTextAreaElement;
@@ -238,7 +222,7 @@ describe('createRecipeCreator', () => {
   });
 
   it('should handle select input for difficulty', () => {
-    createRecipeCreator(container, onBack);
+    createRecipeCreator(container);
 
     const difficultySelect = container.querySelector('#difficulty') as HTMLSelectElement;
 
