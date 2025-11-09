@@ -1,14 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { userEvent } from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import { Header } from './Header';
 
 describe('Header', () => {
-  const renderWithRouter = () => {
+  const renderWithRouter = (initialRoute = '/') => {
     return render(
-      <BrowserRouter>
+      <MemoryRouter initialEntries={[initialRoute]}>
         <Header />
-      </BrowserRouter>
+      </MemoryRouter>
     );
   };
 
@@ -18,10 +19,9 @@ describe('Header', () => {
     expect(screen.getByText('Mina Recept')).toBeInTheDocument();
   });
 
-  it('should render navigation links', () => {
+  it('should render create recipe button', () => {
     renderWithRouter();
 
-    expect(screen.getByText('Alla Recept')).toBeInTheDocument();
     expect(screen.getByText('+ Skapa Recept')).toBeInTheDocument();
   });
 
@@ -29,11 +29,9 @@ describe('Header', () => {
     renderWithRouter();
 
     const homeLink = screen.getByText('Mina Recept').closest('a');
-    const allRecipesLink = screen.getByText('Alla Recept').closest('a');
     const createLink = screen.getByText('+ Skapa Recept').closest('a');
 
     expect(homeLink).toHaveAttribute('href', '/');
-    expect(allRecipesLink).toHaveAttribute('href', '/');
     expect(createLink).toHaveAttribute('href', '/create');
   });
 
@@ -43,5 +41,29 @@ describe('Header', () => {
     // Check for SVG element (lucide-react renders as SVG)
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
+  });
+
+  it('should show search bar on home page', () => {
+    renderWithRouter('/');
+
+    const searchInput = screen.getByPlaceholderText('Sök recept...');
+    expect(searchInput).toBeInTheDocument();
+  });
+
+  it('should not show search bar on other pages', () => {
+    renderWithRouter('/create');
+
+    const searchInput = screen.queryByPlaceholderText('Sök recept...');
+    expect(searchInput).not.toBeInTheDocument();
+  });
+
+  it('should update URL search params when typing in search', async () => {
+    const user = userEvent.setup();
+    renderWithRouter('/');
+
+    const searchInput = screen.getByPlaceholderText('Sök recept...');
+    await user.type(searchInput, 'pasta');
+
+    expect(searchInput).toHaveValue('pasta');
   });
 });

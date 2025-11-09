@@ -1,12 +1,13 @@
-import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeCard } from '@/components/RecipeCard';
 
 export function RecipeListPage() {
   const navigate = useNavigate();
   const { recipes, loading, error } = useRecipes();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
 
   const filteredRecipes = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -27,10 +28,6 @@ export function RecipeListPage() {
     navigate(`/recipe/${slug}`);
   };
 
-  const handleCreateClick = () => {
-    navigate('/create');
-  };
-
   if (loading) {
     return <div className="loading">Laddar recept...</div>;
   }
@@ -41,18 +38,6 @@ export function RecipeListPage() {
 
   return (
     <div className="app">
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Sök recept..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button className="btn-primary" onClick={handleCreateClick}>
-          + Skapa Recept
-        </button>
-      </div>
-
       <div className="recipe-grid">
         {filteredRecipes.map(recipe => (
           <RecipeCard
