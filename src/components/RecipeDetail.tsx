@@ -27,7 +27,7 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
       <div className="recipe-detail-image">
         <img
-          src={`/recept/images/recipes/${recipe.slug}.svg`}
+          src={recipe.frontmatter.image ?? `/recept/images/recipes/${recipe.slug}.svg`} // TODO: Claude change so we can handle different image types (not just svg, but jpg etc)
           alt={recipe.frontmatter.title}
           onError={handleImageError}
         />

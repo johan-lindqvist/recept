@@ -28,7 +28,7 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
     <div className="recipe-card" onClick={onClick}>
       <div className="recipe-card-image">
         <img
-          src={`/recept/images/recipes/${recipe.slug}.svg`}
+          src={recipe.frontmatter.image ?? `/recept/images/recipes/${recipe.slug}.svg`} // TODO: Claude change so we can handle different image types (not just svg, but jpg etc)
           alt={recipe.frontmatter.title}
           loading="lazy"
           onError={handleImageError}
