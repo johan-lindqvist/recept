@@ -4,7 +4,6 @@ description: Mjuka och sega chokladkakor som alltid blir perfekta
 image: /recept/images/recipes/chocolate-chip-cookies.svg
 totalTime: 27 minuter
 servings: 24
-difficulty: Lätt
 tags:
   - efterrätt
   - kakor

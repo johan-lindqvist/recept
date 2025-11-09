@@ -3,7 +3,6 @@ export interface RecipeFormData {
   description?: string;
   totalTime?: string;
   servings?: number;
-  difficulty?: 'Lätt' | 'Medel' | 'Svår';
   tags?: string;
   ingredients?: string;
   instructions?: string;
@@ -27,10 +26,6 @@ export function generateRecipeMarkdown(data: RecipeFormData): string {
 
   if (data.servings) {
     parts.push(`servings: ${data.servings}`);
-  }
-
-  if (data.difficulty && data.difficulty.trim()) {
-    parts.push(`difficulty: ${data.difficulty}`);
   }
 
   if (data.tags && data.tags.trim()) {

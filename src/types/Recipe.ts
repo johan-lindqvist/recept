@@ -4,7 +4,6 @@ export interface RecipeFrontmatter {
   image?: string;
   totalTime?: string;
   servings?: number;
-  difficulty?: 'Lätt' | 'Medel' | 'Svår' | 'Easy' | 'Medium' | 'Hard';
   tags?: string[];
 }
 

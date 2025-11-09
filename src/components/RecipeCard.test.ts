@@ -11,7 +11,6 @@ vi.mock('lucide', () => ({
   }),
   icons: {
     Clock: { name: 'clock' },
-    Gauge: { name: 'gauge' },
     Users: { name: 'users' },
   },
 }));
@@ -25,7 +24,6 @@ describe('createRecipeCard', () => {
         description: 'A delicious test recipe',
         totalTime: '45 minutes',
         servings: 4,
-        difficulty: 'Medium',
         tags: ['test', 'example'],
       },
       content: 'Recipe content',
@@ -53,7 +51,6 @@ describe('createRecipeCard', () => {
     expect(meta).toBeTruthy();
     expect(meta?.textContent).toContain('45 minutes');
     expect(meta?.textContent).toContain('4 port.');
-    expect(meta?.textContent).toContain('Medium');
 
     // Check click handler
     card.click();
@@ -91,7 +88,6 @@ describe('createRecipeCard', () => {
       frontmatter: {
         title: 'Partial Recipe',
         totalTime: '10 minutes',
-        difficulty: 'Easy',
       },
       content: 'Partial content',
     };
@@ -102,7 +98,6 @@ describe('createRecipeCard', () => {
     const meta = card.querySelector('.meta');
     expect(meta).toBeTruthy();
     expect(meta?.textContent).toContain('10 minutes');
-    expect(meta?.textContent).toContain('Easy');
   });
 
   it('should be clickable', () => {

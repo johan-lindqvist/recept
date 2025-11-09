@@ -8,7 +8,6 @@ title: Test Recipe
 description: A test recipe
 totalTime: 30 minutes
 servings: 4
-difficulty: Easy
 tags:
   - test
   - example
@@ -30,7 +29,6 @@ tags:
     expect(result.frontmatter.description).toBe('A test recipe');
     expect(result.frontmatter.totalTime).toBe('30 minutes');
     expect(result.frontmatter.servings).toBe(4);
-    expect(result.frontmatter.difficulty).toBe('Easy');
     expect(result.frontmatter.tags).toEqual(['test', 'example']);
     expect(result.html).toContain('<h2>Ingredients</h2>');
     expect(result.html).toContain('<h2>Instructions</h2>');
@@ -85,7 +83,6 @@ describe('loadRecipes', () => {
 
     expect(cookieRecipe).toBeDefined();
     expect(cookieRecipe?.frontmatter.title).toBe('Klassiska Chocolate Chip Cookies');
-    expect(cookieRecipe?.frontmatter.difficulty).toBe('Lätt');
     expect(cookieRecipe?.frontmatter.tags).toContain('efterrätt');
     expect(cookieRecipe?.content).toContain('Ingredienser');
   });
@@ -96,7 +93,6 @@ describe('loadRecipes', () => {
 
     expect(carbonaraRecipe).toBeDefined();
     expect(carbonaraRecipe?.frontmatter.title).toBe('Spaghetti Carbonara');
-    expect(carbonaraRecipe?.frontmatter.difficulty).toBe('Medel');
     expect(carbonaraRecipe?.frontmatter.tags).toContain('pasta');
     expect(carbonaraRecipe?.content).toContain('Ingredienser');
   });

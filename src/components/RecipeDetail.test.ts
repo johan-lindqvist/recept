@@ -11,7 +11,6 @@ vi.mock('lucide', () => ({
   }),
   icons: {
     Clock: { name: 'clock' },
-    Gauge: { name: 'gauge' },
     Users: { name: 'users' },
   },
 }));
@@ -31,7 +30,6 @@ describe('renderRecipeDetail', () => {
         description: 'A delicious test recipe',
         totalTime: '45 minutes',
         servings: 4,
-        difficulty: 'Medium',
         tags: ['test', 'example'],
       },
       content: `## Ingredients

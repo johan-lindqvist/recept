@@ -61,17 +61,6 @@ export function createRecipeCard(recipe: Recipe, onClick: () => void): HTMLEleme
     meta.appendChild(servings);
   }
 
-  if (recipe.frontmatter.difficulty) {
-    const difficulty = document.createElement('span');
-    difficulty.className = 'meta-item';
-    const icon = createElement(icons.Gauge, { size: 16 });
-    difficulty.appendChild(icon);
-    const text = document.createElement('span');
-    text.textContent = recipe.frontmatter.difficulty;
-    difficulty.appendChild(text);
-    meta.appendChild(difficulty);
-  }
-
   content.appendChild(meta);
 
   // Tags

@@ -34,7 +34,6 @@ describe('createRecipeCreator', () => {
     expect(container.querySelector('#description')).toBeTruthy();
     expect(container.querySelector('#totalTime')).toBeTruthy();
     expect(container.querySelector('#servings')).toBeTruthy();
-    expect(container.querySelector('#difficulty')).toBeTruthy();
     expect(container.querySelector('#tags')).toBeTruthy();
     expect(container.querySelector('#ingredients')).toBeTruthy();
     expect(container.querySelector('#instructions')).toBeTruthy();
@@ -93,9 +92,6 @@ describe('createRecipeCreator', () => {
     (container.querySelector('#servings') as HTMLInputElement).value = '4';
     (container.querySelector('#servings') as HTMLInputElement).dispatchEvent(new Event('input'));
 
-    (container.querySelector('#difficulty') as HTMLSelectElement).value = 'Medel';
-    (container.querySelector('#difficulty') as HTMLSelectElement).dispatchEvent(new Event('input'));
-
     (container.querySelector('#tags') as HTMLInputElement).value = 'tag1, tag2';
     (container.querySelector('#tags') as HTMLInputElement).dispatchEvent(new Event('input'));
 
@@ -114,7 +110,6 @@ describe('createRecipeCreator', () => {
     expect(markdownOutput.value).toContain('description: A test recipe');
     expect(markdownOutput.value).toContain('totalTime: 45 minuter');
     expect(markdownOutput.value).toContain('servings: 4');
-    expect(markdownOutput.value).toContain('difficulty: Medel');
     expect(markdownOutput.value).toContain('  - tag1');
     expect(markdownOutput.value).toContain('  - tag2');
     expect(markdownOutput.value).toContain('## Ingredienser');
@@ -214,29 +209,5 @@ describe('createRecipeCreator', () => {
     servingsInput.dispatchEvent(new Event('input'));
 
     expect(markdownOutput.value).toContain('servings: 6');
-  });
-
-  it('should handle select input for difficulty', () => {
-    createRecipeCreator(container);
-
-    const difficultySelect = container.querySelector('#difficulty') as HTMLSelectElement;
-
-    // First add a title (required field)
-    (container.querySelector('#title') as HTMLInputElement).value = 'Test';
-    (container.querySelector('#title') as HTMLInputElement).dispatchEvent(new Event('input'));
-
-    // Check that all options exist
-    const options = Array.from(difficultySelect.options).map(opt => opt.value);
-    expect(options).toContain('');
-    expect(options).toContain('Lätt');
-    expect(options).toContain('Medel');
-    expect(options).toContain('Svår');
-
-    // Select a difficulty
-    difficultySelect.value = 'Svår';
-    difficultySelect.dispatchEvent(new Event('input'));
-
-    const markdownOutput = container.querySelector('.markdown-output') as HTMLTextAreaElement;
-    expect(markdownOutput.value).toContain('difficulty: Svår');
   });
 });

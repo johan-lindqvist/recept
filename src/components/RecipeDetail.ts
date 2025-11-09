@@ -72,25 +72,6 @@ export function renderRecipeDetail(recipe: Recipe, container: HTMLElement): void
     meta.appendChild(servings);
   }
 
-  if (recipe.frontmatter.difficulty) {
-    const difficulty = document.createElement('span');
-    difficulty.className = 'meta-item';
-    const icon = createElement(icons.Gauge, { size: 20 });
-    difficulty.appendChild(icon);
-    const label = document.createElement('div');
-    label.className = 'meta-label';
-    const labelText = document.createElement('span');
-    labelText.className = 'meta-label-text';
-    labelText.textContent = 'Svårighetsgrad';
-    const value = document.createElement('span');
-    value.className = 'meta-value';
-    value.textContent = recipe.frontmatter.difficulty;
-    label.appendChild(labelText);
-    label.appendChild(value);
-    difficulty.appendChild(label);
-    meta.appendChild(difficulty);
-  }
-
   container.appendChild(meta);
 
   const content = document.createElement('div');

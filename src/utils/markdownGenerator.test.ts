@@ -8,7 +8,6 @@ describe('generateRecipeMarkdown', () => {
       description: 'A test recipe',
       totalTime: '45 minuter',
       servings: 4,
-      difficulty: 'Medel',
       tags: 'tag1, tag2, tag3',
       ingredients: 'Ingredient 1\nIngredient 2\nIngredient 3',
       instructions: 'Step 1\nStep 2\nStep 3',
@@ -21,7 +20,6 @@ describe('generateRecipeMarkdown', () => {
     expect(markdown).toContain('description: A test recipe');
     expect(markdown).toContain('totalTime: 45 minuter');
     expect(markdown).toContain('servings: 4');
-    expect(markdown).toContain('difficulty: Medel');
     expect(markdown).toContain('tags:');
     expect(markdown).toContain('  - tag1');
     expect(markdown).toContain('  - tag2');

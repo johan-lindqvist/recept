@@ -42,20 +42,11 @@ export function createRecipeCreator(container: HTMLElement): void {
     labelEl.htmlFor = name;
     group.appendChild(labelEl);
 
-    let input: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+    let input: HTMLInputElement | HTMLTextAreaElement;
 
     if (type === 'textarea') {
       input = document.createElement('textarea');
       input.rows = 5;
-    } else if (type === 'select') {
-      input = document.createElement('select');
-      const options = ['', 'Lätt', 'Medel', 'Svår'];
-      options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt;
-        option.textContent = opt || 'Välj...';
-        input.appendChild(option);
-      });
     } else {
       input = document.createElement('input');
       input.type = type;
@@ -63,17 +54,13 @@ export function createRecipeCreator(container: HTMLElement): void {
 
     input.id = name;
     input.name = name;
-    if (!(input instanceof HTMLSelectElement)) {
-      input.placeholder = placeholder;
-    }
+    input.placeholder = placeholder;
     if (required) {
       input.required = true;
     }
 
     input.oninput = () => {
-      if (input instanceof HTMLSelectElement) {
-        (formData as any)[name] = input.value;
-      } else if (type === 'number') {
+      if (type === 'number') {
         (formData as any)[name] = input.value ? parseInt(input.value) : undefined;
       } else {
         (formData as any)[name] = input.value;
@@ -99,7 +86,6 @@ export function createRecipeCreator(container: HTMLElement): void {
   metadataSection.appendChild(createInputGroup('Beskrivning', 'text', 'description', false, 'En kort beskrivning av receptet'));
   metadataSection.appendChild(createInputGroup('Total tid', 'text', 'totalTime', false, '45 minuter'));
   metadataSection.appendChild(createInputGroup('Portioner', 'number', 'servings', false, '4'));
-  metadataSection.appendChild(createInputGroup('Svårighetsgrad', 'select', 'difficulty'));
   metadataSection.appendChild(createInputGroup('Taggar', 'text', 'tags', false, 'middag, kött, svensk (separera med komma)'));
 
   form.appendChild(metadataSection);
