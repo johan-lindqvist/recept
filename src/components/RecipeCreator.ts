@@ -103,7 +103,6 @@ export function createRecipeCreator(container: HTMLElement, onBack: () => void):
 
   metadataSection.appendChild(createInputGroup('Titel', 'text', 'title', true, 'T.ex. Köttbullar med gräddsås'));
   metadataSection.appendChild(createInputGroup('Beskrivning', 'text', 'description', false, 'En kort beskrivning av receptet'));
-  metadataSection.appendChild(createInputGroup('Bild', 'text', 'image', false, '/recept/images/recipes/filename.svg'));
   metadataSection.appendChild(createInputGroup('Förberedelsetid', 'text', 'prepTime', false, '15 minuter'));
   metadataSection.appendChild(createInputGroup('Tillagningstid', 'text', 'cookTime', false, '30 minuter'));
   metadataSection.appendChild(createInputGroup('Portioner', 'number', 'servings', false, '4'));
@@ -175,7 +174,13 @@ export function createRecipeCreator(container: HTMLElement, onBack: () => void):
       <li>Kopiera markdown-texten ovan</li>
       <li>Skapa en ny fil i <code>recipes/</code> mappen med det föreslagna filnamnet</li>
       <li>Klistra in markdown-texten i filen</li>
-      <li>Om du har en bild för receptet, lägg den i <code>public/images/recipes/</code></li>
+      <li><strong>Bild (valfritt):</strong> Om du vill lägga till en bild:
+        <ul>
+          <li>Placera bildfilen i <code>public/images/recipes/</code></li>
+          <li>Bildens filnamn ska matcha receptets filnamn (t.ex. för <code>kottbullar.md</code>, använd <code>kottbullar.svg</code> eller <code>kottbullar.jpg</code>)</li>
+          <li>Lägg till raden <code>image: /recept/images/recipes/ditt-filnamn.svg</code> i YAML-sektionen (efter <code>description</code>)</li>
+        </ul>
+      </li>
       <li>Commit och pusha dina ändringar</li>
     </ol>
   `;
