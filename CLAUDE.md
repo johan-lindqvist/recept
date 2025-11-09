@@ -216,26 +216,52 @@ npm test -- path/to/test-file
 - **Integration**: Test the interaction between components and data flow
 - **Minimum Coverage**: Aim for high test coverage on all new code
 
-### Testing with Lucide Icons
+### Testing React Components
 
-When testing components that use Lucide icons, you must mock the `lucide` module:
+When testing React components, use React Testing Library patterns:
 
 ```typescript
-vi.mock('lucide', () => ({
-  createElement: vi.fn((icon: any) => {
-    const svg = document.createElement('svg');
-    svg.setAttribute('data-icon', icon.name || 'icon');
-    return svg;
-  }),
-  icons: {
-    Clock: { name: 'clock' },
-    ChefHat: { name: 'chef-hat' },
-    // ... other icons
-  },
-}));
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+
+describe('MyComponent', () => {
+  it('should render correctly', () => {
+    render(<MyComponent />);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  it('should handle user interactions', async () => {
+    const user = userEvent.setup();
+    render(<MyComponent />);
+    await user.click(screen.getByRole('button'));
+    expect(screen.getByText('Clicked!')).toBeInTheDocument();
+  });
+});
 ```
 
-This ensures icons render as SVG elements in tests without requiring the full Lucide library.
+**Testing with lucide-react icons**: lucide-react icons work automatically in tests with happy-dom, no mocking required.
+
+**Testing clipboard API**: When testing components that use `navigator.clipboard.writeText`:
+
+```typescript
+let clipboardSpy: ReturnType<typeof vi.spyOn>;
+
+beforeEach(() => {
+  if (!navigator.clipboard) {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: vi.fn().mockResolvedValue(undefined) },
+      writable: true,
+      configurable: true,
+    });
+  }
+  clipboardSpy = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+});
+
+afterEach(() => {
+  clipboardSpy.mockRestore();
+});
+```
 
 ### Task Completion Checklist
 
@@ -275,17 +301,30 @@ recept/
 │   ├── chocolate-chip-cookies.md
 │   └── spaghetti-carbonara.md
 ├── src/
-│   ├── components/                 # UI components
-│   │   ├── RecipeCard.ts          # Recipe card component for listing
-│   │   ├── RecipeCard.test.ts     # Tests for RecipeCard
-│   │   ├── RecipeDetail.ts        # Recipe detail view component
-│   │   └── RecipeDetail.test.ts   # Tests for RecipeDetail
+│   ├── components/                 # React UI components
+│   │   ├── RecipeCard.tsx         # Recipe card component for listing
+│   │   ├── RecipeCard.test.tsx    # Tests for RecipeCard
+│   │   ├── RecipeCreator.tsx      # Recipe creation form component
+│   │   ├── RecipeCreator.test.tsx # Tests for RecipeCreator
+│   │   ├── RecipeDetail.tsx       # Recipe detail view component
+│   │   └── RecipeDetail.test.tsx  # Tests for RecipeDetail
+│   ├── hooks/
+│   │   └── useRecipes.ts          # Custom hook for loading recipes
+│   ├── pages/                      # Page components for routing
+│   │   ├── RecipeListPage.tsx     # Recipe listing page
+│   │   ├── RecipeDetailPage.tsx   # Recipe detail page
+│   │   └── RecipeCreatorPage.tsx  # Recipe creation page
 │   ├── types/
 │   │   └── Recipe.ts              # TypeScript interfaces for recipes
 │   ├── utils/
 │   │   ├── recipeParser.ts        # Markdown parsing utilities
-│   │   └── recipeParser.test.ts   # Tests for recipeParser
-│   ├── main.ts                    # Application entry point
+│   │   ├── recipeParser.test.ts   # Tests for recipeParser
+│   │   ├── markdownGenerator.ts   # Markdown generation utilities
+│   │   └── markdownGenerator.test.ts # Tests for markdownGenerator
+│   ├── test/
+│   │   └── setup.ts               # Test setup (React Testing Library)
+│   ├── App.tsx                    # Root component with routing
+│   ├── main.tsx                   # React application entry point
 │   └── style.css                  # Global styles
 ├── index.html                     # HTML entry point
 ├── vite.config.ts                 # Vite build configuration
@@ -316,45 +355,102 @@ recept/
   - `tags` (string[], optional): Recipe tags for categorization in Swedish
 
 ### Build Process
-- **Bundler**: Vite is used for development server and production builds
+- **Framework**: React 18+ with TypeScript
+- **Bundler**: Vite is used for development server and production builds with React plugin
 - **Output**: Built files are placed in `dist/` directory
 - **Recipe Loading**: Recipes are loaded at runtime using Vite's `import.meta.glob` to dynamically import markdown files
 - **Markdown Parsing**: Uses `gray-matter` for frontmatter extraction and `marked` for markdown-to-HTML conversion
+- **Routing**: Client-side routing with React Router DOM
 - **Deployment**: Automatic deployment to GitHub Pages via GitHub Actions on push to main branch
 
 ### Application Flow
-1. `main.ts` initializes the app and loads all recipes from `recipes/` directory
-2. Recipe listing is rendered as a grid of cards using `RecipeCard.ts`
-3. Search functionality filters recipes by title, description, and tags
-4. Clicking a recipe card displays the full recipe using `RecipeDetail.ts`
-5. Users can navigate back to the recipe list from the detail view
+1. `main.tsx` initializes the React app with React Router
+2. `App.tsx` sets up routing with `BrowserRouter` (basename: `/recept/`)
+3. Routes:
+   - `/` → `RecipeListPage` - displays recipe grid with search
+   - `/recipe/:slug` → `RecipeDetailPage` - displays full recipe details
+   - `/create` → `RecipeCreatorPage` - form for creating new recipes
+4. `useRecipes` hook loads all recipes from `recipes/` directory with loading/error states
+5. Recipe listing is rendered as a grid of cards using `RecipeCard` component
+6. Search functionality filters recipes by title, description, and tags (using `useMemo`)
+7. Clicking a recipe card navigates to the detail page using React Router
+8. Recipe detail page displays full recipe information using `RecipeDetail` component
+9. Recipe creator page provides a form to generate markdown for new recipes
 
 ### Key Files
-- `src/main.ts`: Entry point, handles app initialization and search functionality
+- `src/main.tsx`: React entry point using ReactDOM.createRoot
+- `src/App.tsx`: Root component with React Router setup
+- `src/hooks/useRecipes.ts`: Custom hook for loading recipes with state management
+- `src/pages/`: Page components that compose other components for each route
+- `src/components/`: Reusable React components (RecipeCard, RecipeDetail, RecipeCreator)
 - `src/utils/recipeParser.ts`: Parses markdown files and extracts frontmatter
+- `src/utils/markdownGenerator.ts`: Generates markdown from form data
 - `src/types/Recipe.ts`: TypeScript interfaces for type safety
-- `vite.config.ts`: Configures base URL for GitHub Pages (`/recept/`)
+- `vite.config.ts`: Configures base URL for GitHub Pages (`/recept/`) and React plugin
 
 ### UI Components
+
+**React Components** (functional components with hooks):
+
 - **RecipeCard**: Displays recipe cards in a grid layout
+  - Props: `recipe` (Recipe), `onClick` (callback)
+  - State: `tagsExpanded` (boolean) for showing all tags
   - Shows recipe image with hover zoom effect
   - Displays title, description, and metadata
-  - Uses Lucide icons for metadata (Clock, ChefHat, Users, Gauge)
-  - Clickable to view full recipe details
+  - Uses lucide-react icons (Clock, Users)
+  - Clickable to navigate to recipe details
 
 - **RecipeDetail**: Displays full recipe information
-  - Shows large recipe image
+  - Props: `recipe` (Recipe)
+  - Shows large recipe image with fallback handling
   - Displays all metadata with icons and labels
-  - Renders markdown content as HTML
-  - Includes back button with ArrowLeft icon
+  - Renders markdown content as HTML using `dangerouslySetInnerHTML`
+  - Uses lucide-react icons (Clock, Users)
+
+- **RecipeCreator**: Form for creating new recipes
+  - State: `formData`, `markdown`, `filename`, `copyButtonText`, `copyButtonDisabled`
+  - Controlled form inputs with `handleInputChange`
+  - Real-time markdown generation with `useEffect`
+  - Clipboard API integration for copying markdown
+  - Automatic filename generation from title
+
+**Page Components** (compose other components):
+
+- **RecipeListPage**: Main recipe listing with search
+  - Uses `useRecipes` hook for data loading
+  - Uses `useNavigate` for routing
+  - Search filtering with `useMemo`
+  - Displays loading and error states
+
+- **RecipeDetailPage**: Individual recipe display
+  - Uses `useParams` to get recipe slug from URL
+  - Uses `useRecipes` hook for data loading
+  - Displays loading, error, and not-found states
+
+- **RecipeCreatorPage**: Recipe creation form
+  - Simple wrapper around `RecipeCreator` component
+
+**Custom Hooks**:
+
+- **useRecipes**: Loads all recipes from markdown files
+  - Returns: `{ recipes, loading, error }`
+  - Uses `useState` for state management
+  - Uses `useEffect` for async data loading
+  - Cleanup on unmount to prevent memory leaks
 
 ### Key Dependencies
-- **Vite**: Build tool and dev server
+- **React**: UI framework (18+)
+- **React DOM**: React rendering
+- **React Router DOM**: Client-side routing
+- **Vite**: Build tool and dev server with React plugin
 - **TypeScript**: Type safety
 - **Vitest**: Testing framework with happy-dom for DOM testing
+- **@testing-library/react**: React Testing Library for component testing
+- **@testing-library/user-event**: User interaction simulation for tests
+- **@testing-library/jest-dom**: Custom matchers for DOM assertions
 - **gray-matter**: YAML frontmatter parsing
 - **marked**: Markdown to HTML conversion
-- **Lucide**: Icon library for UI elements
+- **lucide-react**: React-compatible icon library
 
 ### Git LFS for Images
 - Repository uses Git LFS to efficiently store image files
@@ -362,25 +458,32 @@ recept/
 - Setup: `git lfs install` (already configured in `.gitattributes`)
 - Images in `public/images/recipes/` are automatically tracked
 
-### Working with Lucide Icons
+### Working with Lucide React Icons
 
-To use Lucide icons in UI components:
+To use Lucide icons in React components:
 
 ```typescript
-import { createElement, icons } from 'lucide';
+import { Clock, Users } from 'lucide-react';
 
-// Create an icon element
-const iconElement = createElement(icons.Clock, { size: 16 });
-
-// Append to DOM
-element.appendChild(iconElement);
+function MyComponent() {
+  return (
+    <div>
+      <Clock size={20} />
+      <Users size={16} />
+    </div>
+  );
+}
 ```
 
 **Available icons in this project:**
-- `icons.Clock` - Preparation time
-- `icons.ChefHat` - Cooking time
-- `icons.Users` - Servings
-- `icons.Gauge` - Difficulty level
-- `icons.ArrowLeft` - Navigation (back button)
+- `Clock` - Time (preparation/cooking/total)
+- `Users` - Servings
+- `ArrowLeft` - Navigation (back button)
 
-**Do NOT** use the functional import style (e.g., `import { Clock } from 'lucide'`) as it causes TypeScript errors. Always use `createElement(icons.IconName, options)` pattern.
+**Icon Props:**
+- `size`: Number (pixel size, default 24)
+- `color`: String (CSS color)
+- `strokeWidth`: Number (default 2)
+- Standard HTML/SVG attributes (className, style, etc.)
+
+**IMPORTANT**: Always import icons directly from `lucide-react`, not from `lucide`. The `lucide-react` package provides React components, while `lucide` provides vanilla JavaScript functions.

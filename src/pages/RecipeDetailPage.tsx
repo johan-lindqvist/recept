@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRecipes } from '@/hooks/useRecipes';
+import { RecipeDetail } from '@/components/RecipeDetail';
 
 export function RecipeDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -23,11 +24,7 @@ export function RecipeDetailPage() {
 
   return (
     <div className="app">
-      <div className="recipe-detail">
-        <h1>{recipe.frontmatter.title}</h1>
-        <p>Recipe detail page - To be implemented</p>
-        <button onClick={() => navigate('/')}>Tillbaka</button>
-      </div>
+      <RecipeDetail recipe={recipe} />
     </div>
   );
 }
