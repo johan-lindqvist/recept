@@ -5,20 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recept - Matrecept</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <main>
-    <div id="search-container">
-      <input type="text" id="search-input" placeholder="Sök recept...">
-      <button id="create-recipe-btn">Skapa Recept</button>
-    </div>
-
-    <div id="recipe-list"></div>
-    <div id="recipe-detail" style="display: none;"></div>
-    <div id="recipe-creator" style="display: none;"></div>
-  </main>
-
-  <script type="module" src="/src/main.ts"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

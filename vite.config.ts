@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
   base: '/recept/',
   plugins: [
+    react(),
     nodePolyfills({
       // Enable polyfills for Buffer and other Node.js globals
       globals: {
