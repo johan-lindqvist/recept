@@ -100,8 +100,8 @@ body {
 
 .header-search input:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.2);
+  border-color: #0891b2;
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.25);
 }
 
 .header-page-title {
@@ -427,7 +427,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   padding-bottom: var(--spacing-xs);
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 2px solid rgba(8, 145, 178, 0.4);
 }
 
 .recipe-detail .recipe-content h2:first-child {
@@ -454,7 +454,7 @@ body {
 }
 
 .recipe-detail .recipe-content ul li::marker {
-  color: var(--accent-color);
+  color: rgba(8, 145, 178, 0.7);
 }
 
 .recipe-detail .recipe-content strong {
@@ -621,8 +621,8 @@ body {
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.2);
+  border-color: #0891b2;
+  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.25);
 }
 
 .form-group textarea {
