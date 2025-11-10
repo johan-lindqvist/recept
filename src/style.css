@@ -160,7 +160,7 @@ body {
 .app {
   max-width: 1400px;
   margin: 0 auto;
-  padding: var(--spacing-2xl) var(--spacing-xl);
+  padding: var(--spacing-md) var(--spacing-sm);
 }
 
 /* Loading and Error States */
@@ -316,12 +316,10 @@ body {
 /* Recipe Detail */
 .recipe-detail {
   background: var(--card-background);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  padding: 0;
   max-width: 1400px;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
 }
 
 .recipe-detail-header {
@@ -375,6 +373,7 @@ body {
 .recipe-detail .meta {
   display: flex;
   gap: var(--spacing-lg);
+  margin: var(--spacing-lg);
   margin-bottom: var(--spacing-lg);
   padding: var(--spacing-md);
   background: linear-gradient(135deg, var(--background-color) 0%, #edf2f7 100%);
@@ -419,8 +418,9 @@ body {
 
 .recipe-detail .recipe-content {
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.4;
   color: var(--text-color);
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
 }
 
 .recipe-detail .recipe-content h2 {
@@ -467,8 +467,14 @@ body {
 
 /* Two-column layout for larger screens */
 @media (min-width: 900px) {
+  .app {
+    padding: var(--spacing-xl);
+  }
+
   .recipe-detail {
-    padding: var(--spacing-2xl);
+    padding: 0;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
   }
 
   .recipe-detail-header {
@@ -495,6 +501,7 @@ body {
 
   .recipe-detail .meta {
     gap: var(--spacing-2xl);
+    margin: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
     padding: var(--spacing-lg);
     font-size: 1rem;
@@ -517,7 +524,8 @@ body {
     grid-template-columns: minmax(auto, 400px) 1fr;
     gap: var(--spacing-2xl);
     font-size: 1.05rem;
-    line-height: 1.6;
+    line-height: 1.4;
+    padding: 0 var(--spacing-2xl) var(--spacing-2xl);
   }
 
   .recipe-detail .recipe-section h2 {
