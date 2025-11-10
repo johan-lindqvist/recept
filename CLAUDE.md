@@ -309,7 +309,8 @@ recept/
 │   │   ├── RecipeDetail.tsx       # Recipe detail view component
 │   │   └── RecipeDetail.test.tsx  # Tests for RecipeDetail
 │   ├── hooks/
-│   │   └── useRecipes.ts          # Custom hook for loading recipes
+│   │   ├── useRecipes.ts          # Custom hook for loading recipes
+│   │   └── useRecipeImage.ts      # Custom hook for automatic image detection
 │   ├── pages/                      # Page components for routing
 │   │   ├── RecipeListPage.tsx     # Recipe listing page
 │   │   ├── RecipeDetailPage.tsx   # Recipe detail page
@@ -343,16 +344,18 @@ recept/
 - Each recipe uses YAML frontmatter with the following schema:
   - `title` (string, required): Recipe name in Swedish
   - `description` (string, optional): Short description in Swedish
-  - `image` (string, optional): Path to recipe image (e.g., "/recept/images/recipes/recipe-name.svg")
-    - Images should be placed in `public/images/recipes/`
-    - Use the base path `/recept/` to match the Vite config
-    - Supported formats: .svg, .jpg, .jpeg, .png, .webp
-    - Images are tracked with Git LFS
-  - `prepTime` (string, optional): Preparation time (e.g., "15 minuter")
-  - `cookTime` (string, optional): Cooking time (e.g., "30 minuter")
+  - `totalTime` (string, optional): Total time (e.g., "45 minuter")
   - `servings` (number, optional): Number of servings (e.g., 4)
-  - `difficulty` (string, optional): Lätt | Medel | Svår
   - `tags` (string[], optional): Recipe tags for categorization in Swedish
+
+### Recipe Images
+- Recipe images are **automatically detected** - no need to specify image paths in frontmatter
+- Images should be placed in `public/images/recipes/`
+- Name the image file to match the recipe slug (e.g., `korv-stroganoff.jpg` for `korv-stroganoff.md`)
+- Supported formats (tried in order): .svg, .jpg, .jpeg, .png, .webp
+- If no matching image is found, a default image is used
+- Images are tracked with Git LFS for efficient storage
+- The `useRecipeImage` hook handles automatic detection by trying each extension until one loads successfully
 
 ### Build Process
 - **Framework**: React 18+ with TypeScript
@@ -395,6 +398,7 @@ recept/
 - **RecipeCard**: Displays recipe cards in a grid layout
   - Props: `recipe` (Recipe), `onClick` (callback)
   - State: `tagsExpanded` (boolean) for showing all tags
+  - Uses `useRecipeImage` hook for automatic image detection
   - Shows recipe image with hover zoom effect
   - Displays title, description, and metadata
   - Uses lucide-react icons (Clock, Users)
@@ -402,10 +406,11 @@ recept/
 
 - **RecipeDetail**: Displays full recipe information
   - Props: `recipe` (Recipe)
-  - Shows large recipe image with fallback handling
+  - Uses `useRecipeImage` hook for automatic image detection
+  - Shows large recipe image with fallback to default
   - Displays all metadata with icons and labels
   - Renders markdown content as HTML using `dangerouslySetInnerHTML`
-  - Uses lucide-react icons (Clock, Users)
+  - Uses lucide-react icons (Clock, Users, ArrowLeft)
 
 - **RecipeCreator**: Form for creating new recipes
   - State: `formData`, `markdown`, `filename`, `copyButtonText`, `copyButtonDisabled`
@@ -437,6 +442,14 @@ recept/
   - Uses `useState` for state management
   - Uses `useEffect` for async data loading
   - Cleanup on unmount to prevent memory leaks
+
+- **useRecipeImage**: Automatically detects and loads recipe images
+  - Param: `slug` (string) - The recipe slug to find image for
+  - Returns: `string` - The image URL or default image
+  - Tries extensions in order: svg, jpg, jpeg, png, webp
+  - Uses Image() API to test loading before setting src
+  - Falls back to default image if no match found
+  - Resets when slug changes
 
 ### Key Dependencies
 - **React**: UI framework (18+)

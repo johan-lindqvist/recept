@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Recipe } from '@/types/Recipe';
 import { Clock, Users } from 'lucide-react';
+import { useRecipeImage } from '@/hooks/useRecipeImage';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -10,10 +11,7 @@ interface RecipeCardProps {
 export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const maxVisibleTags = 3;
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = '/recept/images/recipes/default-recipe.svg';
-  };
+  const imageSrc = useRecipeImage(recipe.slug);
 
   const toggleTags = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -28,10 +26,9 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
     <div className="recipe-card" onClick={onClick}>
       <div className="recipe-card-image">
         <img
-          src={recipe.frontmatter.image ?? `/recept/images/recipes/${recipe.slug}.svg`} // TODO: Claude change so we can handle different image types (not just svg, but jpg etc)
+          src={imageSrc}
           alt={recipe.frontmatter.title}
           loading="lazy"
-          onError={handleImageError}
         />
       </div>
 

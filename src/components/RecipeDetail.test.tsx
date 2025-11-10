@@ -92,12 +92,13 @@ describe('RecipeDetail', () => {
     expect(content).toBeInTheDocument();
   });
 
-  it('should handle image error with fallback', () => {
+  it('should render image with default fallback when recipe image not found', () => {
     const { container } = renderWithRouter(mockRecipe);
 
     const img = container.querySelector('img');
     expect(img).toBeInTheDocument();
-    expect(img?.src).toContain('/recept/images/recipes/test-recipe.svg');
+    // Since test-recipe image doesn't exist, useRecipeImage hook falls back to default
+    expect(img?.src).toContain('/recept/images/recipes/default-recipe.svg');
     expect(img?.alt).toBe('Test Recipe');
   });
 

@@ -1,7 +1,6 @@
 export interface RecipeFrontmatter {
   title: string;
   description?: string;
-  image?: string;
   totalTime?: string;
   servings?: number;
   tags?: string[];

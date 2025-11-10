@@ -2,6 +2,7 @@ import { marked } from 'marked';
 import { useNavigate } from 'react-router-dom';
 import type { Recipe } from '@/types/Recipe';
 import { Clock, Users, ArrowLeft } from 'lucide-react';
+import { useRecipeImage } from '@/hooks/useRecipeImage';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -9,10 +10,7 @@ interface RecipeDetailProps {
 
 export function RecipeDetail({ recipe }: RecipeDetailProps) {
   const navigate = useNavigate();
-
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = '/recept/images/recipes/default-recipe.svg';
-  };
+  const imageSrc = useRecipeImage(recipe.slug);
 
   const renderMarkdown = (content: string) => {
     return { __html: marked(content) as string };
@@ -27,9 +25,8 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
       <div className="recipe-detail-image">
         <img
-          src={recipe.frontmatter.image ?? `/recept/images/recipes/${recipe.slug}.svg`} // TODO: Claude change so we can handle different image types (not just svg, but jpg etc)
+          src={imageSrc}
           alt={recipe.frontmatter.title}
-          onError={handleImageError}
         />
       </div>
 
