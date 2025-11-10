@@ -20,7 +20,7 @@ tags:
 - 1 morot
 - 1 rödlök
 - 2 msk smör
-- !½ dl hackad persilja
+- 1½ dl hackad persilja
 - 1 ägg
 
 ## Instruktioner

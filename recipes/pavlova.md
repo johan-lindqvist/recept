@@ -14,7 +14,7 @@ tags:
 - 2 tsk majsena (majsmjöl)
 - 1 tsk ljus vinäger
 - 5 dl vispgrädde
-- frukt och bär efter smak och tillgång 
+- frukt och bär efter smak och tillgång
 
 ## Instruktioner
 

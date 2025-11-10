@@ -12,36 +12,23 @@ tags:
 
 **Botten**
 - 200 g kavring
-- 
-75 g smör
+- 75 g smör
 
 **Fyllning**
-- 
-4 st gelatinblad
-- 
-200 g kallrökt lax
-- 
-1 burk(ar) kesella, (250 g)
-- 
-3 dl gräddfil
-- 
-100 g löjrom, sikrom eller ofärgad stenbitsrom
-- 
-2 - 3 msk pepparrot, riven
-- 
-½ tsk salt
-- 
-1 krm vitpeppar, nymald
+- 4 st gelatinblad
+- 200 g kallrökt lax
+- 1 burk(ar) kesella, (250 g)
+- 3 dl gräddfil
+- 100 g löjrom, sikrom eller ofärgad stenbitsrom
+- 2 - 3 msk pepparrot, riven
+- ½ tsk salt
+- 1 krm vitpeppar, nymald
 
 **Örtgelé**
-- 
-2 st gelantinblad
-- 
-2 dl grovhackad persilja
+- 2 st gelantinblad
+- 2 dl grovhackad persilja
 - 2 dl vatten
-- 
-3 krm salt
-- 
+- 3 krm salt
 
 ## Instruktioner
 

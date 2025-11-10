@@ -23,7 +23,6 @@ tags:
 - 5 dl krämig kokosmjölk
 - 1 msk sriracha sås
 
-
 ## Instruktioner
 
 1. Skär kycklingköttet i strimlor. Bryn det i en stekpanna eller wok med olja.

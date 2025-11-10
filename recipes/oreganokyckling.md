@@ -19,7 +19,6 @@ tags:
 - 2 - 3 tsk färsk eller torkad oregano
 - 1½ msk balsamvinäger
 
-
 ## Instruktioner
 
 1. Skär varje kycklingfilé i 3 bitar på längden. Skala och hacka vitlöken.

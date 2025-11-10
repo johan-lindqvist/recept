@@ -15,10 +15,8 @@ tags:
 
 **Chokladglasyr**
 - 25 g smör eller margarin
-- 
-1 dl vispgrädde
+- 1 dl vispgrädde
 - 20 plattor after eight
-- 
 
 ## Instruktioner
 

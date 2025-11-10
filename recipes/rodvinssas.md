@@ -30,7 +30,4 @@ pannan tillsammans med övriga ingredienser.
 3. Koka upp under omrörning.Låt sakta koka utan 
 lock i 8-10 min.
 4. Sila såsen.
-5. 
-Såsen kan förvaras i kylen i flera dagar.Inför serveringen kokar man upp såsen och vipar ner 
-
-smöret.
+5. Såsen kan förvaras i kylen i flera dagar.Inför serveringen kokar man upp såsen och vipar ner smöret.

@@ -8,7 +8,6 @@ tags:
 
 ## Ingredienser
 
-
 **Botten**
 - 100 g rumsvarmt smör
 - 1½ dl strösocker
@@ -22,8 +21,6 @@ tags:
 **Fyllning**
 - 3 dl vispgrädde
 - 2 dl lemon curd
-
-
 
 ## Instruktioner
 
