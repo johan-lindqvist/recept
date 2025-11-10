@@ -1,6 +1,6 @@
 ---
 title: Korv Stroganoff (Markus Aujulay)
-description: Korv Stroganoff med ris från Markus Aujulays YouTube-kanal med dill och senap. [YouTube video](https://www.youtube.com/watch?v=A3bMi5Q3pvw)
+description: Korv Stroganoff med ris från Markus Aujulays YouTube-kanal med dill och senap
 totalTime: 45 minuter
 servings: 4
 tags:
@@ -44,4 +44,4 @@ tags:
 
 - Fräs tomatpurén ett par minuter för att få en mildare smak och minska smaken av syra
 - Variera mängden mjölk och vispgrädde om receptet ska vara mer eller mindre såsigt.
-- 
+- [Recept i videoformat på YouTube](https://www.youtube.com/watch?v=A3bMi5Q3pvw)
