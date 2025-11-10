@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const IMAGE_EXTENSIONS = ['svg', 'jpg', 'jpeg', 'png', 'webp'];
-const DEFAULT_IMAGE = '/recept/images/recipes/default-recipe.svg';
+const BASE_URL = import.meta.env.BASE_URL || '/';
+const DEFAULT_IMAGE = `${BASE_URL}images/recipes/default-recipe.svg`;
 
 /**
  * Hook to find and load the correct recipe image by trying multiple file extensions
@@ -21,7 +22,7 @@ export function useRecipeImage(slug: string): string {
   useEffect(() => {
     if (extensionIndex < IMAGE_EXTENSIONS.length) {
       const extension = IMAGE_EXTENSIONS[extensionIndex];
-      const testSrc = `/recept/images/recipes/${slug}.${extension}`;
+      const testSrc = `${BASE_URL}images/recipes/${slug}.${extension}`;
 
       // Try loading the image
       const img = new Image();

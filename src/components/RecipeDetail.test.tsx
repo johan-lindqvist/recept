@@ -98,7 +98,7 @@ describe('RecipeDetail', () => {
     const img = container.querySelector('img');
     expect(img).toBeInTheDocument();
     // Since test-recipe image doesn't exist, useRecipeImage hook falls back to default
-    expect(img?.src).toContain('/recept/images/recipes/default-recipe.svg');
+    expect(img?.src).toContain('images/recipes/default-recipe.svg');
     expect(img?.alt).toBe('Test Recipe');
   });
 
