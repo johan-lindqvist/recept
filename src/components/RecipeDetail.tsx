@@ -45,18 +45,20 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
   return (
     <div className="recipe-detail">
-      <div className="recipe-detail-image">
-        <img
-          src={imageSrc}
-          alt={recipe.frontmatter.title}
-        />
+      <div className="recipe-detail-header">
+        <div className="recipe-detail-image">
+          <img
+            src={imageSrc}
+            alt={recipe.frontmatter.title}
+          />
+        </div>
+        <div className="recipe-detail-overlay">
+          <h1>{recipe.frontmatter.title}</h1>
+          {recipe.frontmatter.description && (
+            <p className="recipe-description">{recipe.frontmatter.description}</p>
+          )}
+        </div>
       </div>
-
-      <h1>{recipe.frontmatter.title}</h1>
-
-      {recipe.frontmatter.description && (
-        <p className="recipe-description">{recipe.frontmatter.description}</p>
-      )}
 
       <div className="meta">
         {recipe.frontmatter.totalTime && (
