@@ -101,11 +101,4 @@ describe('RecipeDetail', () => {
     expect(img?.src).toContain('images/recipes/default-recipe.svg');
     expect(img?.alt).toBe('Test Recipe');
   });
-
-  it('should render back button', () => {
-    renderWithRouter(mockRecipe);
-
-    const backButton = screen.getByRole('button', { name: /tillbaka till alla recept/i });
-    expect(backButton).toBeInTheDocument();
-  });
 });
