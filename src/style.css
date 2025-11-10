@@ -79,7 +79,7 @@ body {
 }
 
 .header-title:hover {
-  color: var(--accent-color);
+  color: #0891b2;
 }
 
 .header-search {
@@ -272,7 +272,7 @@ body {
 
 .recipe-card .meta-item svg {
   flex-shrink: 0;
-  color: var(--accent-color);
+  color: #0891b2;
 }
 
 .recipe-tags {
@@ -296,9 +296,9 @@ body {
 }
 
 .tag-label:hover {
-  background-color: var(--accent-color);
+  background-color: #0891b2;
   color: white;
-  border-color: var(--accent-color);
+  border-color: #0891b2;
 }
 
 .tag-more {
@@ -309,9 +309,9 @@ body {
 }
 
 .tag-more:hover {
-  background-color: var(--accent-color);
+  background-color: #0891b2;
   color: white;
-  border-color: var(--accent-color);
+  border-color: #0891b2;
 }
 
 /* Recipe Detail */
@@ -710,7 +710,7 @@ body {
 
 .filename-suggestion span {
   font-family: 'Courier New', monospace;
-  color: var(--accent-color);
+  color: #0891b2;
   font-weight: 600;
 }
 
@@ -729,16 +729,16 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-lg);
-  background-color: rgba(252, 129, 129, 0.1);
+  background-color: rgba(8, 145, 178, 0.1);
   border: none;
-  border-left: 4px solid var(--accent-color);
+  border-left: 4px solid #0891b2;
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
 }
 
 .accordion-header:hover {
-  background-color: rgba(252, 129, 129, 0.15);
+  background-color: rgba(8, 145, 178, 0.15);
 }
 
 .accordion-header h3 {
@@ -750,7 +750,7 @@ body {
 }
 
 .accordion-header svg {
-  color: var(--accent-color);
+  color: #0891b2;
   flex-shrink: 0;
   transition: transform 0.2s;
 }
@@ -788,7 +788,7 @@ body {
   border-radius: var(--radius-sm);
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
-  color: var(--accent-color);
+  color: #0891b2;
   border: 1px solid var(--border-color);
 }
 
