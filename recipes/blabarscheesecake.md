@@ -8,11 +8,13 @@ tags:
 
 ## Ingredienser
 
-- %Botten
+
+**Botten**
 - 8 Digestivekex
 - 75 g smält smör
 - 1 msk strösocker
-- %Fyllning
+
+**Fyllning**
 - 200 g Philadelphiaost
 - 2 dl strösocker
 - 3 ägg, delade i gulor och vitor

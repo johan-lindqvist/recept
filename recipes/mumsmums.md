@@ -15,7 +15,8 @@ tags:
 - 1½ dl vatten, kallt
 - 1½ msk gelatinpulver
 - 1½ dl vatten, kokhett
-- %Garnering
+
+**Garnering**
 - 4 dl kokos
 - 1-2 msk kakao
 - 1 msk vaniljsocker

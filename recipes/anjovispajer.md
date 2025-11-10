@@ -9,11 +9,13 @@ tags:
 
 ## Ingredienser
 
-- %Deg
+
+**Deg**
 - 2½ dl vetemjöl
 - 100 g smör
 - 100 g keso
-- %Fyllning
+
+**Fyllning**
 - 1 ask anjovisfilé (125 g)
 - 1 msk vanlig svensk senap
 - nymald svartpeppar

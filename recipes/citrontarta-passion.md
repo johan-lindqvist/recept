@@ -15,7 +15,8 @@ tags:
 - 1 dl socker
 - 1½ dl gräddfil
 - 2 äggvitor
-- %Sås
+
+**Sås**
 - ½ dl vatten
 - ½ dl socker
 - 4 passionsfrukter

@@ -9,11 +9,13 @@ tags:
 
 ## Ingredienser
 
-- %Botten
+
+**Botten**
 - 200 g kavring
 - 
 75 g smör
-- %Fyllning
+
+**Fyllning**
 - 
 4 st gelatinblad
 - 
@@ -30,7 +32,8 @@ tags:
 ½ tsk salt
 - 
 1 krm vitpeppar, nymald
-- %Örtgelé
+
+**Örtgelé**
 - 
 2 st gelantinblad
 - 

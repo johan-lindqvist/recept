@@ -14,7 +14,8 @@ tags:
 - 1 påse snabbmarsanpulver (ca 50 g)
 - 100 g finhackade nötter
 - 4 msk mandelspån
-- %Fyllning
+
+**Fyllning**
 - 3 dl vispgrädde
 - 1 burk hackade mandariner
 - Kakao

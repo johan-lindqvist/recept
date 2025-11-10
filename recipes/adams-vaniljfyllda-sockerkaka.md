@@ -8,17 +8,20 @@ tags:
 
 ## Ingredienser
 
-- %Sockerkaka
+
+**Sockerkaka**
 - 3 dl strösocker
 - 4 ägg
 - 2 tsk	bakpulver
 - 3 dl vetemjöl
 - 1 dl vatten, kokande
-- %Vaniljfyllning
+
+**Vaniljfyllning**
 - 125 g smör
 - 1 dl	mjölk
 - 4 msk vaniljsocker
-- %Garnering
+
+**Garnering**
 - 1 msk florsocker
 
 ## Instruktioner

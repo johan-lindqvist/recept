@@ -9,11 +9,13 @@ tags:
 
 ## Ingredienser
 
-- %Deg
+
+**Deg**
 - 2½ dl vetemjöl
 - 100 g smör
 - 100 g keso
-- %Fyllning
+
+**Fyllning**
 - 150 g chèvre
 - 2 små ägg
 - 1 burk crème fraîche

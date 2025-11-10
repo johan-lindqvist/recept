@@ -9,10 +9,12 @@ tags:
 
 ## Ingredienser
 
-- %Karamel
+
+**Karamel**
 - 2 dl strösocker
 - 3/4 dl vatten
-- %Crème
+
+**Crème**
 - 6 dl mjölk (ev 5 dl mjölk & 1 dl grädde)
 - 5 ägg
 - 1 dl strösocker

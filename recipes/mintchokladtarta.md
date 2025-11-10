@@ -12,7 +12,8 @@ tags:
 - 3 ägg
 - 2 1/2 dl strösocker
 - 3 dl vetemjöl (3 dl motsvarar ca 180 g)
-- %Chokladglasyr
+
+**Chokladglasyr**
 - 25 g smör eller margarin
 - 
 1 dl vispgrädde

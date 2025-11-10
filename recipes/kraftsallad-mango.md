@@ -15,7 +15,8 @@ tags:
 - 2 st salladslökar
 - 1-2 st paprikor
 - 8-16 romansalladsblad
-- %Dressing
+
+**Dressing**
 - 2 msk lime, pressad
 - 2 msk rapsolja
 - ½ tsk salt

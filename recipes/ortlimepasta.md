@@ -13,7 +13,8 @@ tags:
 - 2 l vatten
 - 2 msk olivolja
 - 1 msk salt
-- %Sås
+
+**Sås**
 - 2 dl crème fraiche
 - 2 dl majonnäs
 - 3 dl gräddfil

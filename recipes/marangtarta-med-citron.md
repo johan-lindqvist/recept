@@ -8,7 +8,8 @@ tags:
 
 ## Ingredienser
 
-- %Botten
+
+**Botten**
 - 100 g rumsvarmt smör
 - 1½ dl strösocker
 - 5 ägg
@@ -17,7 +18,8 @@ tags:
 - 2 tsk bakpulver
 - 2½ dl strösocker
 - 50 g mandelspån
-- %Fyllning
+
+**Fyllning**
 - 3 dl vispgrädde
 - 2 dl lemon curd
 

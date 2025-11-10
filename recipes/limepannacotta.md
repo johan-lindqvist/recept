@@ -14,7 +14,8 @@ tags:
 - finrivet skal av 1 lime
 - 1 dl gelésocker multi
 - 1 tsk	vaniljsocker
-- %Tillbehör
+
+**Tillbehör**
 - 250 g jordgubbar
 - 12-15 basilikablad
 - florsocker
