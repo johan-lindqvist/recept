@@ -1,6 +1,6 @@
 ---
 title: Korv Stroganoff (Markus Aujulay)
-description: Korv Stroganoff med ris från Markus Aujulays YouTube-kanal med dill och senap
+description: Korv Stroganoff med ris från Markus Aujulays YouTube-kanal med dill och senap. [YouTube video](https://www.youtube.com/watch?v=A3bMi5Q3pvw)
 totalTime: 45 minuter
 servings: 4
 tags:
@@ -31,23 +31,17 @@ tags:
 ## Instruktioner
 
 1. Strimla och stek falukorven tills den fått lite färg
-
 2. Hacka och stek löken tillsammans med falukorven tills löken är mjuk (undvik för hög värme)
-
 3. Värm mjölk och vispgrädde i en kastrull
-
 4. Tillsätt tomatpurén i stekpannan och låt den fräsa med ett par minuter
-
 5. Blanda runt falukorven och löken så det täcks av tomatpurén
-
 6. Pudra över vetemjölet och blanda runt
-
 7. Tillsätt mjölk och vispgrädde
-
 8. Tillsätt senap och låt allt koka någon minut
-
 9. Tillsätt grovhackad dill
 
 ## Tips
 
 - Fräs tomatpurén ett par minuter för att få en mildare smak och minska smaken av syra
+- Variera mängden mjölk och vispgrädde om receptet ska vara mer eller mindre såsigt.
+- 
