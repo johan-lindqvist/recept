@@ -57,29 +57,29 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
           {recipe.frontmatter.description && (
             <p className="recipe-description">{recipe.frontmatter.description}</p>
           )}
+
+          <div className="meta">
+            {recipe.frontmatter.totalTime && (
+              <span className="meta-item">
+                <Clock size={20} />
+                <div className="meta-label">
+                  <span className="meta-label-text">Total tid</span>
+                  <span className="meta-value">{recipe.frontmatter.totalTime}</span>
+                </div>
+              </span>
+            )}
+
+            {recipe.frontmatter.servings && (
+              <span className="meta-item">
+                <Users size={20} />
+                <div className="meta-label">
+                  <span className="meta-label-text">Portioner</span>
+                  <span className="meta-value">{recipe.frontmatter.servings}</span>
+                </div>
+              </span>
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="meta">
-        {recipe.frontmatter.totalTime && (
-          <span className="meta-item">
-            <Clock size={20} />
-            <div className="meta-label">
-              <span className="meta-label-text">Total tid</span>
-              <span className="meta-value">{recipe.frontmatter.totalTime}</span>
-            </div>
-          </span>
-        )}
-
-        {recipe.frontmatter.servings && (
-          <span className="meta-item">
-            <Users size={20} />
-            <div className="meta-label">
-              <span className="meta-label-text">Portioner</span>
-              <span className="meta-value">{recipe.frontmatter.servings}</span>
-            </div>
-          </span>
-        )}
       </div>
 
       <div className="recipe-content">
