@@ -1,13 +1,26 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LayoutGrid, List } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeCard } from '@/components/RecipeCard';
+
+type ViewMode = 'grid' | 'list';
 
 export function RecipeListPage() {
   const navigate = useNavigate();
   const { recipes, loading, error } = useRecipes();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
+
+  // View mode state with localStorage persistence
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    const saved = localStorage.getItem('recipeViewMode');
+    return (saved === 'grid' || saved === 'list') ? saved : 'grid';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('recipeViewMode', viewMode);
+  }, [viewMode]);
 
   const filteredRecipes = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -38,7 +51,24 @@ export function RecipeListPage() {
 
   return (
     <div className="app">
-      <div className="recipe-grid">
+      <div className="view-toggle">
+        <button
+          className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+          onClick={() => setViewMode('grid')}
+          aria-label="Grid view"
+        >
+          <LayoutGrid size={20} />
+        </button>
+        <button
+          className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+          onClick={() => setViewMode('list')}
+          aria-label="List view"
+        >
+          <List size={20} />
+        </button>
+      </div>
+
+      <div className={viewMode === 'grid' ? 'recipe-grid' : 'recipe-list'}>
         {filteredRecipes.map(recipe => (
           <RecipeCard
             key={recipe.slug}
