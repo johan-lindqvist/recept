@@ -9,6 +9,7 @@ pnpm-debug.log*
 dist/
 build/
 .cache/
+src/generated/
 
 # Environment variables
 .env

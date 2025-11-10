@@ -4,8 +4,9 @@
   "description": "A static web app for hosting food recipes",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "generate:image-index": "node scripts/generate-image-index.cjs",
+    "dev": "npm run generate:image-index && vite",
+    "build": "npm run generate:image-index && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
