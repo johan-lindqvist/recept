@@ -206,7 +206,7 @@ body {
 .recipe-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
-  border-color: var(--accent-color);
+  border-color: #0891b2;
 }
 
 .recipe-card-image {
