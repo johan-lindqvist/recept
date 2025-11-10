@@ -27,11 +27,11 @@ describe('RecipeCard', () => {
     // Check description
     expect(screen.getByText('A delicious test recipe')).toBeInTheDocument();
 
-    // Check time
-    expect(screen.getByText('45 minutes')).toBeInTheDocument();
+    // Check time (meta is rendered twice - once for grid view, once for list view overlay)
+    expect(screen.getAllByText('45 minutes').length).toBeGreaterThan(0);
 
-    // Check servings
-    expect(screen.getByText('4 port.')).toBeInTheDocument();
+    // Check servings (meta is rendered twice - once for grid view, once for list view overlay)
+    expect(screen.getAllByText('4 port.').length).toBeGreaterThan(0);
 
     // Check tags
     expect(screen.getByText('test')).toBeInTheDocument();

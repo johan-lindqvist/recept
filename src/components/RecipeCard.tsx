@@ -22,6 +22,24 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
   const hiddenTags = recipe.frontmatter.tags?.slice(maxVisibleTags) || [];
   const displayTags = tagsExpanded ? recipe.frontmatter.tags || [] : visibleTags;
 
+  const renderMeta = () => (
+    <div className="meta">
+      {recipe.frontmatter.totalTime && (
+        <span className="meta-item">
+          <Clock size={16} />
+          <span>{recipe.frontmatter.totalTime}</span>
+        </span>
+      )}
+
+      {recipe.frontmatter.servings && (
+        <span className="meta-item">
+          <Users size={16} />
+          <span>{recipe.frontmatter.servings} port.</span>
+        </span>
+      )}
+    </div>
+  );
+
   return (
     <div className="recipe-card" onClick={onClick}>
       <div className="recipe-card-image">
@@ -30,6 +48,8 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
           alt={recipe.frontmatter.title}
           loading="lazy"
         />
+        {/* Meta overlay for list view */}
+        {renderMeta()}
       </div>
 
       <div className="recipe-card-content">
@@ -39,21 +59,8 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
           <p className="description">{recipe.frontmatter.description}</p>
         )}
 
-        <div className="meta">
-          {recipe.frontmatter.totalTime && (
-            <span className="meta-item">
-              <Clock size={16} />
-              <span>{recipe.frontmatter.totalTime}</span>
-            </span>
-          )}
-
-          {recipe.frontmatter.servings && (
-            <span className="meta-item">
-              <Users size={16} />
-              <span>{recipe.frontmatter.servings} port.</span>
-            </span>
-          )}
-        </div>
+        {/* Meta for grid view */}
+        {renderMeta()}
 
         {recipe.frontmatter.tags && recipe.frontmatter.tags.length > 0 && (
           <div className={`recipe-tags ${tagsExpanded ? 'expanded' : ''}`}>
