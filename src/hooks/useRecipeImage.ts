@@ -20,13 +20,22 @@ export function useRecipeImage(slug: string): string {
   }, [slug]);
 
   useEffect(() => {
+    // Skip if we already found a valid image
+    if (imageSrc && extensionIndex > 0) {
+      return;
+    }
+
     if (extensionIndex < IMAGE_EXTENSIONS.length) {
       const extension = IMAGE_EXTENSIONS[extensionIndex];
       const testSrc = `${BASE_URL}images/recipes/${slug}.${extension}`;
 
+      let cancelled = false;
+
       // Try loading the image
       const img = new Image();
       img.onload = () => {
+        if (cancelled) return;
+
         // Verify it's actually an image (not HTML returned by SPA routing)
         // If naturalWidth and naturalHeight are 0, it's not a valid image
         if (img.naturalWidth > 0 && img.naturalHeight > 0) {
@@ -37,15 +46,21 @@ export function useRecipeImage(slug: string): string {
         }
       };
       img.onerror = () => {
+        if (cancelled) return;
         // Try next extension
         setExtensionIndex(prev => prev + 1);
       };
       img.src = testSrc;
-    } else if (!imageSrc) {
+
+      // Cleanup function to prevent race conditions
+      return () => {
+        cancelled = true;
+      };
+    } else {
       // No valid image found, use default
       setImageSrc(DEFAULT_IMAGE);
     }
-  }, [slug, extensionIndex, imageSrc]);
+  }, [slug, extensionIndex]);
 
   return imageSrc || DEFAULT_IMAGE;
 }
