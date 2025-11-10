@@ -27,7 +27,14 @@ export function useRecipeImage(slug: string): string {
       // Try loading the image
       const img = new Image();
       img.onload = () => {
-        setImageSrc(testSrc);
+        // Verify it's actually an image (not HTML returned by SPA routing)
+        // If naturalWidth and naturalHeight are 0, it's not a valid image
+        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+          setImageSrc(testSrc);
+        } else {
+          // Not a valid image, try next extension
+          setExtensionIndex(prev => prev + 1);
+        }
       };
       img.onerror = () => {
         // Try next extension
