@@ -1,15 +1,15 @@
 :root {
-  /* Modern color palette */
-  --primary-color: #1a202c;
-  --primary-light: #2d3748;
-  --accent-color: #f56565;
-  --accent-hover: #e53e3e;
-  --background-color: #f7fafc;
-  --card-background: #ffffff;
-  --text-color: #2d3748;
-  --text-secondary: #718096;
-  --border-color: #e2e8f0;
-  --success-color: #48bb78;
+  /* Dark theme color palette */
+  --primary-color: #e2e8f0;
+  --primary-light: #cbd5e0;
+  --accent-color: #fc8181;
+  --accent-hover: #f56565;
+  --background-color: #1a202c;
+  --card-background: #2d3748;
+  --text-color: #e2e8f0;
+  --text-secondary: #a0aec0;
+  --border-color: #4a5568;
+  --success-color: #68d391;
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -94,13 +94,14 @@ body {
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
   transition: all 0.2s;
-  background-color: var(--background-color);
+  background-color: var(--card-background);
+  color: var(--text-color);
 }
 
 .header-search input:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.1);
+  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.2);
 }
 
 .header-page-title {
@@ -131,8 +132,8 @@ body {
 }
 
 .nav-link:hover {
-  color: var(--primary-color);
-  background-color: var(--background-color);
+  color: var(--primary-light);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .btn-primary {
@@ -212,7 +213,7 @@ body {
   width: 100%;
   height: 220px;
   overflow: hidden;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0.3);
   flex-shrink: 0;
 }
 
@@ -284,7 +285,7 @@ body {
 .tag-label {
   display: inline-block;
   padding: 0.3rem 0.75rem;
-  background-color: var(--background-color);
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--text-color);
   border-radius: var(--radius-xl);
   font-size: 0.8rem;
@@ -335,7 +336,7 @@ body {
   width: 100%;
   height: 300px;
   overflow: hidden;
-  background-color: var(--background-color);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .recipe-detail-image img {
@@ -612,7 +613,8 @@ body {
   border-radius: var(--radius-md);
   font-family: inherit;
   transition: all 0.2s;
-  background-color: var(--card-background);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .form-group input:focus,
@@ -620,7 +622,7 @@ body {
 .form-group select:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.1);
+  box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.2);
 }
 
 .form-group textarea {
@@ -685,7 +687,8 @@ body {
   font-size: 0.9rem;
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
-  background-color: var(--background-color);
+  background-color: #1a1f2e;
+  color: var(--text-color);
   resize: vertical;
   min-height: 450px;
   line-height: 1.6;
@@ -694,7 +697,7 @@ body {
 .filename-suggestion {
   margin-top: var(--spacing-lg);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--background-color) 0%, #edf2f7 100%);
+  background: linear-gradient(135deg, var(--card-background) 0%, #374151 100%);
   border-radius: var(--radius-md);
   font-size: 1rem;
   border: 1px solid var(--border-color);
@@ -726,7 +729,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-lg);
-  background-color: #fff5f5;
+  background-color: rgba(252, 129, 129, 0.1);
   border: none;
   border-left: 4px solid var(--accent-color);
   cursor: pointer;
@@ -735,7 +738,7 @@ body {
 }
 
 .accordion-header:hover {
-  background-color: #ffe5e5;
+  background-color: rgba(252, 129, 129, 0.15);
 }
 
 .accordion-header h3 {
@@ -780,7 +783,7 @@ body {
 }
 
 .accordion-content code {
-  background-color: #f7f7f7;
+  background-color: rgba(0, 0, 0, 0.3);
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-sm);
   font-family: 'Courier New', monospace;
