@@ -6,6 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 When working on this project, Claude acts as a **senior React web developer** with expertise in TypeScript, modern web development practices, testing, and code quality. Claude should apply best practices, write maintainable code, and ensure all features are thoroughly tested.
 
+## Maintaining Documentation
+
+**IMPORTANT**: After completing any significant feature, architectural change, or design update:
+
+1. **Update CLAUDE.md** to reflect the changes
+2. Update relevant sections:
+   - Project Structure (if files added/removed)
+   - UI Components (if components changed)
+   - Design Principles (if design patterns changed)
+   - Code Architecture (if architecture changed)
+3. Keep documentation accurate and current
+4. Include the documentation update in the same commit as the feature
+
+This ensures future Claude sessions have accurate context and can maintain consistency.
+
 ## Git Workflow
 
 **Workflow Summary:**
@@ -302,6 +317,8 @@ recept/
 │   └── spaghetti-carbonara.md
 ├── src/
 │   ├── components/                 # React UI components
+│   │   ├── Header.tsx             # Header with navigation and search
+│   │   ├── Header.test.tsx        # Tests for Header
 │   │   ├── RecipeCard.tsx         # Recipe card component for listing
 │   │   ├── RecipeCard.test.tsx    # Tests for RecipeCard
 │   │   ├── RecipeCreator.tsx      # Recipe creation form component
@@ -395,6 +412,15 @@ recept/
 
 **React Components** (functional components with hooks):
 
+- **Header**: Sticky navigation header with search and routing
+  - Props: `searchQuery` (string), `onSearchChange` (callback), `showSearch` (boolean), `pageTitle` (string, optional)
+  - Displays app logo/title with link to home page
+  - Conditional search input on recipe list page
+  - Conditional page title on other pages
+  - "Nytt recept" button for creating recipes
+  - Compact design to minimize vertical space
+  - Sticky positioning for always-visible navigation
+
 - **RecipeCard**: Displays recipe cards in a grid layout
   - Props: `recipe` (Recipe), `onClick` (callback)
   - State: `tagsExpanded` (boolean) for showing all tags
@@ -404,13 +430,15 @@ recept/
   - Uses lucide-react icons (Clock, Users)
   - Clickable to navigate to recipe details
 
-- **RecipeDetail**: Displays full recipe information
+- **RecipeDetail**: Displays full recipe information with image overlay
   - Props: `recipe` (Recipe)
   - Uses `useRecipeImage` hook for automatic image detection
-  - Shows large recipe image with fallback to default
-  - Displays all metadata with icons and labels
+  - **Image overlay design**: Title, description, and meta information (time/servings) overlay the recipe image with dark gradient background
+  - **Section parsing**: Parses markdown content into sections (Ingredienser, Instruktioner, Tips, etc.)
+  - **Two-column layout**: On desktop (≥900px), ingredients in left column (max 400px width), instructions in right column, additional sections span full width
+  - **Mobile-first**: Compact spacing and edge-to-edge design on mobile, card design on desktop
   - Renders markdown content as HTML using `dangerouslySetInnerHTML`
-  - Uses lucide-react icons (Clock, Users, ArrowLeft)
+  - Uses lucide-react icons (Clock, Users) with white color for overlay
 
 - **RecipeCreator**: Form for creating new recipes
   - State: `formData`, `markdown`, `filename`, `copyButtonText`, `copyButtonDisabled`
@@ -471,6 +499,51 @@ recept/
 - Setup: `git lfs install` (already configured in `.gitattributes`)
 - Images in `public/images/recipes/` are automatically tracked
 
+## Design Principles
+
+### Vertical Space Optimization
+The application prioritizes efficient use of vertical space to minimize scrolling:
+
+1. **Compact Header**: Header uses minimal padding (sm/md) and smaller title font (1.25rem)
+2. **Image Overlays**: Recipe titles, descriptions, and meta information overlay images with gradient backgrounds
+3. **Reduced Line Spacing**: Content uses line-height of 1.4 for compact, readable text
+4. **Edge-to-Edge Mobile**: Mobile views remove card padding and extend content to screen edges
+
+### Responsive Layout Strategy
+
+**Mobile-First Approach** (default, < 900px):
+- Single column layout for all content
+- Edge-to-edge design without card borders/shadows
+- Compact spacing and smaller fonts
+- Recipe sections stack vertically
+
+**Desktop Enhancement** (≥ 900px):
+- Card-based design with shadows and borders
+- Two-column grid for recipe content:
+  - Left column: Ingredients (dynamic width, max 400px)
+  - Right column: Instructions (flexible width)
+  - Additional sections (Tips, etc.) span full width
+- Larger fonts and generous spacing
+- Taller hero images (450px vs 300px)
+
+### Visual Hierarchy
+
+1. **Recipe Images**: Large hero images with overlay text create strong visual focus
+2. **Gradient Overlays**: Dark gradients (rgba(0,0,0,0.85) to transparent) ensure text contrast
+3. **Color System**:
+   - Primary: `#1a202c` (dark blue-gray)
+   - Accent: `#f56565` (red for CTAs and highlights)
+   - Background: `#f7fafc` (light gray)
+   - White text with text-shadow for overlays
+4. **Typography**: System font stack for native feel, with clear hierarchy through size and weight
+
+### Component Patterns
+
+1. **Automatic Image Detection**: `useRecipeImage` hook tries multiple extensions without manual configuration
+2. **Section Parsing**: Recipe markdown is parsed into semantic sections wrapped in divs for CSS Grid control
+3. **Conditional Rendering**: Components adapt based on available data (description, meta fields, etc.)
+4. **Icon Integration**: Lucide React icons provide consistent, scalable iconography
+
 ### Working with Lucide React Icons
 
 To use Lucide icons in React components:
@@ -491,7 +564,6 @@ function MyComponent() {
 **Available icons in this project:**
 - `Clock` - Time (preparation/cooking/total)
 - `Users` - Servings
-- `ArrowLeft` - Navigation (back button)
 
 **Icon Props:**
 - `size`: Number (pixel size, default 24)
