@@ -402,7 +402,7 @@ body {
 
 .recipe-detail .recipe-content {
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--text-color);
 }
 
@@ -435,7 +435,7 @@ body {
 }
 
 .recipe-detail .recipe-content li {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   padding-left: var(--spacing-xs);
 }
 
@@ -491,10 +491,10 @@ body {
 
   .recipe-detail .recipe-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(auto, 400px) 1fr;
     gap: var(--spacing-2xl);
     font-size: 1.05rem;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   .recipe-detail .recipe-section h2 {
@@ -522,11 +522,11 @@ body {
 
   .recipe-detail .recipe-content ul,
   .recipe-detail .recipe-content ol {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
   }
 
   .recipe-detail .recipe-content li {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
   }
 }
 
