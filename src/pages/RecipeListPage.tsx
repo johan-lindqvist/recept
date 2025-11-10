@@ -23,18 +23,24 @@ export function RecipeListPage() {
   }, [viewMode]);
 
   const filteredRecipes = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return recipes;
+    let results = recipes;
+
+    // Filter by search query if present
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      results = recipes.filter(recipe => {
+        const titleMatch = recipe.frontmatter.title.toLowerCase().includes(query);
+        const descMatch = recipe.frontmatter.description?.toLowerCase().includes(query);
+        const tagsMatch = recipe.frontmatter.tags?.some(tag => tag.toLowerCase().includes(query));
+
+        return titleMatch || descMatch || tagsMatch;
+      });
     }
 
-    const query = searchQuery.toLowerCase();
-    return recipes.filter(recipe => {
-      const titleMatch = recipe.frontmatter.title.toLowerCase().includes(query);
-      const descMatch = recipe.frontmatter.description?.toLowerCase().includes(query);
-      const tagsMatch = recipe.frontmatter.tags?.some(tag => tag.toLowerCase().includes(query));
-
-      return titleMatch || descMatch || tagsMatch;
-    });
+    // Sort alphabetically by title
+    return results.sort((a, b) =>
+      a.frontmatter.title.localeCompare(b.frontmatter.title, 'sv')
+    );
   }, [recipes, searchQuery]);
 
   const handleRecipeClick = (slug: string) => {
