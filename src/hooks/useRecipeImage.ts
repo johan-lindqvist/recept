@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const IMAGE_EXTENSIONS = ['svg', 'jpg', 'jpeg', 'png', 'webp'];
+const IMAGE_EXTENSIONS = ['jpg', 'webp', 'jpeg', 'png', 'svg'];
 const BASE_URL = import.meta.env.BASE_URL || '/';
 const DEFAULT_IMAGE = `${BASE_URL}images/recipes/default-recipe.svg`;
 
