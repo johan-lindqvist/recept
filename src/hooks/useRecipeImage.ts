@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const IMAGE_EXTENSIONS = ['svg', 'jpg', 'jpeg', 'png', 'webp'];
 const BASE_URL = import.meta.env.BASE_URL || '/';
@@ -10,57 +10,56 @@ const DEFAULT_IMAGE = `${BASE_URL}images/recipes/default-recipe.svg`;
  * @returns The image source URL
  */
 export function useRecipeImage(slug: string): string {
-  const [imageSrc, setImageSrc] = useState<string>('');
-  const [extensionIndex, setExtensionIndex] = useState(0);
+  const [imageSrc, setImageSrc] = useState<string>(DEFAULT_IMAGE);
+  const currentSlugRef = useRef(slug);
 
   useEffect(() => {
     // Reset when slug changes
-    setExtensionIndex(0);
-    setImageSrc('');
-  }, [slug]);
-
-  useEffect(() => {
-    // Skip if we already found a valid image
-    if (imageSrc && extensionIndex > 0) {
-      return;
+    if (currentSlugRef.current !== slug) {
+      currentSlugRef.current = slug;
+      setImageSrc(DEFAULT_IMAGE);
     }
 
-    if (extensionIndex < IMAGE_EXTENSIONS.length) {
-      const extension = IMAGE_EXTENSIONS[extensionIndex];
+    const tryNextImage = (index: number) => {
+      // Stop if slug changed or we've exhausted all extensions
+      if (currentSlugRef.current !== slug || index >= IMAGE_EXTENSIONS.length) {
+        if (index >= IMAGE_EXTENSIONS.length && currentSlugRef.current === slug) {
+          setImageSrc(DEFAULT_IMAGE);
+        }
+        return;
+      }
+
+      const extension = IMAGE_EXTENSIONS[index];
       const testSrc = `${BASE_URL}images/recipes/${slug}.${extension}`;
 
-      let cancelled = false;
-
-      // Try loading the image
       const img = new Image();
+
       img.onload = () => {
-        if (cancelled) return;
+        // Double-check slug hasn't changed
+        if (currentSlugRef.current !== slug) return;
 
         // Verify it's actually an image (not HTML returned by SPA routing)
-        // If naturalWidth and naturalHeight are 0, it's not a valid image
         if (img.naturalWidth > 0 && img.naturalHeight > 0) {
           setImageSrc(testSrc);
         } else {
           // Not a valid image, try next extension
-          setExtensionIndex(prev => prev + 1);
+          tryNextImage(index + 1);
         }
       };
+
       img.onerror = () => {
-        if (cancelled) return;
+        // Double-check slug hasn't changed
+        if (currentSlugRef.current !== slug) return;
         // Try next extension
-        setExtensionIndex(prev => prev + 1);
+        tryNextImage(index + 1);
       };
+
       img.src = testSrc;
+    };
 
-      // Cleanup function to prevent race conditions
-      return () => {
-        cancelled = true;
-      };
-    } else {
-      // No valid image found, use default
-      setImageSrc(DEFAULT_IMAGE);
-    }
-  }, [slug, extensionIndex]);
+    // Start trying from index 0
+    tryNextImage(0);
+  }, [slug]);
 
-  return imageSrc || DEFAULT_IMAGE;
+  return imageSrc;
 }
