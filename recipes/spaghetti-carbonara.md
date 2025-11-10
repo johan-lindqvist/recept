@@ -1,7 +1,6 @@
 ---
 title: Spaghetti Carbonara
 description: Traditionell italiensk pasta med ägg, ost och pancetta
-image: /recept/images/recipes/spaghetti-carbonara.svg
 totalTime: 25 minuter
 servings: 4
 tags:

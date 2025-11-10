@@ -1,7 +1,6 @@
 ---
 title: Korv Stroganoff (Markus Aujulay)
 description: Korv Stroganoff med ris från Markus Aujulays YouTube-kanal med dill och senap
-image: /recept/images/recipes/korv-stroganoff-markus-aujulay.jpg
 totalTime: 45 minuter
 servings: 4
 tags:
