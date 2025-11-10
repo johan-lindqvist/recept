@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeDetail } from '@/components/RecipeDetail';
 
-export function RecipeDetailPage() {
+function RecipeDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { recipes, loading } = useRecipes();
@@ -28,3 +28,5 @@ export function RecipeDetailPage() {
     </div>
   );
 }
+
+export default RecipeDetailPage;

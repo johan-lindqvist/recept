@@ -7,24 +7,27 @@ export async function loadRecipes(): Promise<Recipe[]> {
 
   // Use Vite's import.meta.glob to load all markdown files
   // Using relative path from this file (src/utils/)
+  // Without eager: true, recipes are code-split into separate chunks
   const recipeModules = import.meta.glob('../../recipes/*.md', {
-    eager: true,
     query: '?raw',
     import: 'default',
   });
 
-  for (const path in recipeModules) {
+  // Load all recipes in parallel
+  const recipePromises = Object.entries(recipeModules).map(async ([path, loadModule]) => {
     const slug = path.split('/').pop()?.replace('.md', '') || '';
-    // With eager: true, the value is already loaded, not a function
-    const markdown = recipeModules[path] as string;
+    const markdown = await loadModule() as string;
     const { data, content } = matter(markdown);
 
-    recipes.push({
+    return {
       slug,
       frontmatter: data as RecipeFrontmatter,
       content,
-    });
-  }
+    };
+  });
+
+  const loadedRecipes = await Promise.all(recipePromises);
+  recipes.push(...loadedRecipes);
 
   return recipes;
 }

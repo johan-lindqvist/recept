@@ -1,9 +1,11 @@
 import { RecipeCreator } from '@/components/RecipeCreator';
 
-export function RecipeCreatorPage() {
+function RecipeCreatorPage() {
   return (
     <div className="app">
       <RecipeCreator />
     </div>
   );
 }
+
+export default RecipeCreatorPage;

@@ -27,6 +27,16 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
       },
+      output: {
+        manualChunks: {
+          // React and React DOM in one chunk (changes infrequently)
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // Markdown processing libraries in another chunk
+          'markdown-vendor': ['marked', 'gray-matter'],
+          // Icons in their own chunk
+          'icons': ['lucide-react'],
+        },
+      },
     },
   },
 })

@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "lucide": "^0.553.0",
     "lucide-react": "^0.553.0",
     "marked": "^11.1.1",
     "react": "^19.2.0",
