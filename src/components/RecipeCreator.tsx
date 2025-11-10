@@ -49,10 +49,6 @@ export function RecipeCreator() {
 
   return (
     <div className="recipe-creator">
-      <div className="recipe-creator-header">
-        <h1>Skapa Nytt Recept</h1>
-      </div>
-
       <form className="recipe-form" onSubmit={(e) => e.preventDefault()}>
         {/* Metadata Section */}
         <div className="form-section">

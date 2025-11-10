@@ -6,8 +6,8 @@ export function Header() {
   const location = useLocation();
   const searchQuery = searchParams.get('q') || '';
 
-  // Only show search on the home page
   const isHomePage = location.pathname === '/';
+  const isCreatePage = location.pathname === '/create';
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -34,6 +34,12 @@ export function Header() {
               value={searchQuery}
               onChange={handleSearchChange}
             />
+          </div>
+        )}
+
+        {isCreatePage && (
+          <div className="header-page-title">
+            <h1>Skapa nytt recept</h1>
           </div>
         )}
 

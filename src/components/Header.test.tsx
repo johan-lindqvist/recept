@@ -66,4 +66,28 @@ describe('Header', () => {
 
     expect(searchInput).toHaveValue('pasta');
   });
+
+  it('should show page title on create page', () => {
+    renderWithRouter('/create');
+
+    const pageTitle = screen.getByRole('heading', { level: 1, name: /skapa nytt recept/i });
+    expect(pageTitle).toBeInTheDocument();
+  });
+
+  it('should not show page title on home page', () => {
+    renderWithRouter('/');
+
+    const pageTitle = screen.queryByRole('heading', { level: 1, name: /skapa nytt recept/i });
+    expect(pageTitle).not.toBeInTheDocument();
+  });
+
+  it('should not show search bar when page title is shown', () => {
+    renderWithRouter('/create');
+
+    const searchInput = screen.queryByPlaceholderText('Sök recept...');
+    const pageTitle = screen.getByRole('heading', { level: 1, name: /skapa nytt recept/i });
+
+    expect(searchInput).not.toBeInTheDocument();
+    expect(pageTitle).toBeInTheDocument();
+  });
 });

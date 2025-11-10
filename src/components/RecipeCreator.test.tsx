@@ -29,9 +29,6 @@ describe('RecipeCreator', () => {
   it('should render the form with all input fields', () => {
     render(<RecipeCreator />);
 
-    // Check header
-    expect(screen.getByRole('heading', { level: 1, name: 'Skapa Nytt Recept' })).toBeInTheDocument();
-
     // Check all input fields exist
     expect(screen.getByLabelText(/Titel/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Beskrivning/)).toBeInTheDocument();
