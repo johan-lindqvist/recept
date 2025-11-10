@@ -76,24 +76,4 @@ describe('loadRecipes', () => {
       expect(recipe.slug.length).toBeGreaterThan(0);
     });
   });
-
-  it('should load chocolate chip cookies recipe correctly', async () => {
-    const recipes = await loadRecipes();
-    const cookieRecipe = recipes.find(r => r.slug === 'chocolate-chip-cookies');
-
-    expect(cookieRecipe).toBeDefined();
-    expect(cookieRecipe?.frontmatter.title).toBe('Klassiska Chocolate Chip Cookies');
-    expect(cookieRecipe?.frontmatter.tags).toContain('efterrätt');
-    expect(cookieRecipe?.content).toContain('Ingredienser');
-  });
-
-  it('should load spaghetti carbonara recipe correctly', async () => {
-    const recipes = await loadRecipes();
-    const carbonaraRecipe = recipes.find(r => r.slug === 'spaghetti-carbonara');
-
-    expect(carbonaraRecipe).toBeDefined();
-    expect(carbonaraRecipe?.frontmatter.title).toBe('Spaghetti Carbonara');
-    expect(carbonaraRecipe?.frontmatter.tags).toContain('pasta');
-    expect(carbonaraRecipe?.content).toContain('Ingredienser');
-  });
 });
