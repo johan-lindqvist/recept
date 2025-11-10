@@ -101,4 +101,71 @@ describe('RecipeDetail', () => {
     expect(img?.src).toContain('images/recipes/default-recipe.svg');
     expect(img?.alt).toBe('Test Recipe');
   });
+
+  it('should parse and render recipe sections correctly', () => {
+    const { container } = renderWithRouter(mockRecipe);
+
+    // Check that sections are wrapped in .recipe-section divs
+    const sections = container.querySelectorAll('.recipe-section');
+    expect(sections).toHaveLength(2);
+
+    // Check section headings
+    expect(screen.getByRole('heading', { level: 2, name: 'Ingredients' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Instructions' })).toBeInTheDocument();
+  });
+
+  it('should render recipe with multiple sections including Tips', () => {
+    const recipeWithTips: Recipe = {
+      slug: 'recipe-with-tips',
+      frontmatter: {
+        title: 'Recipe with Tips',
+      },
+      content: `## Ingredienser
+
+- 2 ägg
+- 1 dl mjöl
+
+## Instruktioner
+
+1. Blanda ingredienserna
+2. Stek i smör
+
+## Tips
+
+- Servera varmt
+- Går bra att frysa`,
+    };
+
+    const { container } = renderWithRouter(recipeWithTips);
+
+    // Check that all three sections are rendered
+    const sections = container.querySelectorAll('.recipe-section');
+    expect(sections).toHaveLength(3);
+
+    // Check all section headings
+    expect(screen.getByRole('heading', { level: 2, name: 'Ingredienser' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Instruktioner' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Tips' })).toBeInTheDocument();
+
+    // Check content is in correct sections
+    expect(screen.getByText('2 ägg')).toBeInTheDocument();
+    expect(screen.getByText('Blanda ingredienserna')).toBeInTheDocument();
+    expect(screen.getByText('Servera varmt')).toBeInTheDocument();
+  });
+
+  it('should handle recipes with no sections gracefully', () => {
+    const noSectionsRecipe: Recipe = {
+      slug: 'no-sections',
+      frontmatter: {
+        title: 'No Sections Recipe',
+      },
+      content: 'Just plain text without any sections.',
+    };
+
+    const { container } = renderWithRouter(noSectionsRecipe);
+
+    // Should render but with no sections
+    const sections = container.querySelectorAll('.recipe-section');
+    expect(sections).toHaveLength(0);
+  });
 });
