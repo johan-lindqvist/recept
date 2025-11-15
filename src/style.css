@@ -358,7 +358,7 @@ body {
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--spacing-xl);
+  gap: var(--spacing-lg);
 }
 
 /* Recipe List Container */
@@ -1140,7 +1140,7 @@ body {
 
   .recipe-grid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
   }
 
   .recipe-detail {
