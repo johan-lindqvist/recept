@@ -94,14 +94,17 @@ describe('Header', () => {
   it('should show active tag filter when tag param is present', () => {
     renderWithRouter('/?tag=vegetarisk');
 
-    expect(screen.getByText('Filtrerar på:')).toBeInTheDocument();
+    // Tag should be shown in the inline filter
     expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+    // Clear button should be present
+    expect(screen.getByLabelText('Rensa taggfilter')).toBeInTheDocument();
   });
 
   it('should not show active tag filter when no tag param', () => {
     renderWithRouter('/');
 
-    expect(screen.queryByText('Filtrerar på:')).not.toBeInTheDocument();
+    // Clear button should not be present when no tag filter
+    expect(screen.queryByLabelText('Rensa taggfilter')).not.toBeInTheDocument();
   });
 
   it('should clear tag filter when clear button is clicked', async () => {
@@ -123,7 +126,9 @@ describe('Header', () => {
 
     const searchInput = screen.getByPlaceholderText('Sök recept...');
     expect(searchInput).toHaveValue('pasta');
-    expect(screen.getByText('Filtrerar på:')).toBeInTheDocument();
+    // Tag should be shown in the inline filter
     expect(screen.getByText('italiensk')).toBeInTheDocument();
+    // Clear button should be present
+    expect(screen.getByLabelText('Rensa taggfilter')).toBeInTheDocument();
   });
 });

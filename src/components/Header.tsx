@@ -37,25 +37,26 @@ export function Header() {
 
         {isHomePage && (
           <div className="header-search">
-            <input
-              type="text"
-              placeholder="Sök recept..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            {tagFilter && (
-              <div className="active-tag-filter">
-                <span className="filter-label">Filtrerar på:</span>
-                <span className="filter-tag">{tagFilter}</span>
-                <button
-                  className="clear-filter-btn"
-                  onClick={clearTagFilter}
-                  aria-label="Rensa taggfilter"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-            )}
+            <div className="search-input-wrapper">
+              {tagFilter && (
+                <div className="inline-tag-filter">
+                  <span className="filter-tag">{tagFilter}</span>
+                  <button
+                    className="clear-filter-btn"
+                    onClick={clearTagFilter}
+                    aria-label="Rensa taggfilter"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+              <input
+                type="text"
+                placeholder="Sök recept..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+            </div>
           </div>
         )}
 
