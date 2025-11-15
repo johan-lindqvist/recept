@@ -78,18 +78,38 @@ export function RecipeListPage() {
       const firstButtonHeight = buttons[0].getBoundingClientRect().height;
       const targetHeight = (firstButtonHeight * 2) + gap;
 
-      // Calculate how many tags fit in the target height (approximately 2 rows)
+      // Calculate how many tags fit in the target height
       let count = 0;
+      let secondRowCount = 0;
+      let currentRowTop = -1;
 
-      for (const button of buttons) {
+      for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
         const rect = button.getBoundingClientRect();
         const buttonTop = rect.top - tagContainer.getBoundingClientRect().top;
         const buttonBottom = buttonTop + rect.height;
 
+        // Detect when we move to second row
+        if (currentRowTop === -1) {
+          currentRowTop = buttonTop;
+        } else if (Math.abs(buttonTop - currentRowTop) > 5) {
+          // We've moved to second row, start counting items on this row
+          if (secondRowCount === 0) {
+            currentRowTop = buttonTop;
+          }
+          secondRowCount++;
+        }
+
         if (buttonBottom > targetHeight + gap) {
+          // We've exceeded 2 rows - we're on row 3, so stop
           break;
         }
         count++;
+      }
+
+      // If we have items on second row, reduce count by 1-2 to leave room for toggle button
+      if (secondRowCount > 0 && count > 6) {
+        count = Math.max(6, count - 2);
       }
 
       // Ensure at least 6 tags are shown
