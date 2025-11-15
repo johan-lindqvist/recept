@@ -383,8 +383,8 @@ body {
   flex-direction: row;
   gap: var(--spacing-sm);
   margin: 0;
-  padding: var(--spacing-sm);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 60%, transparent 100%);
+  padding: var(--spacing-md);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
   font-size: 0.85rem;
   color: white;
   border: none;
