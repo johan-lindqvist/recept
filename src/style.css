@@ -499,7 +499,6 @@ body {
   background-color: rgba(8, 145, 178, 0.2);
   color: var(--primary-color);
   border-color: #0891b2;
-  transform: translateY(-1px);
 }
 
 .tag-label.active {
