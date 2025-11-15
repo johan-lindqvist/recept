@@ -239,18 +239,18 @@ body {
 .tag-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   flex: 1;
 }
 
 .tag-filter-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.35rem 0.75rem;
   background-color: var(--card-background);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   transition: all 0.2s;
   white-space: nowrap;
