@@ -22,9 +22,7 @@ tags:
 ## Instruktioner
 
 1. Skär varje kycklingfilé i 3 bitar på längden. Skala och hacka vitlöken.
-2. 
-Bryn kycklingen runt om i smör i en stekpanna, salta och peppra.
-3. 
-Blanda grädde, buljongtärning, oregano och balsamvinäger i en gryta. Lägg i kycklingen och vitlöken. Låt allt koka under lock ca 5 minuter.
+2. Bryn kycklingen runt om i smör i en stekpanna, salta och peppra.
+3. Blanda grädde, buljongtärning, oregano och balsamvinäger i en gryta. Lägg i kycklingen och vitlöken. Låt allt koka under lock ca 5 minuter.
 4. Servera med kokt potatis i halvor, morötter och salladslök.
 

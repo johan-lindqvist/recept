@@ -25,4 +25,4 @@ tags:
 2. Lägg dem i långpanna.
 3. Häll vinet vid sidan av kotletterna. Det ska inte stå över dem.
 4. Lägg ostblandningen på kotletterna.
-5. Ställ långs ner i ugnen ca 30 minuter på 200°.
+5. Ställ längst ner i ugnen ca 30 minuter på 200°.

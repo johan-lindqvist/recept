@@ -22,4 +22,4 @@ tags:
 3. Häll upp den varma skummiga krämen i portionsformarna. Se till att få med vaniljkornen som annars gärna stannar kvar i botten på skålen. Ställ formarna i en större ugnsform med en bottenskyla av vatten. Eller fyll på vatten när formen står i ugnen.
 4. Grädda formarna i 45-50 minuter.
 5. Hit kan man förbereda och förvara formarna kall i väntan på råsockertäcket.
-6. Precis före serveringen: pudra över råsocker o0ch bränn av med brännaren några sekunder. OBS! Kolla noga. Sockret ska bara precis smälta och bli knäckigt.
+6. Precis före serveringen: pudra över råsocker och bränn av med brännaren några sekunder. OBS! Kolla noga. Sockret ska bara precis smälta och bli knäckigt.

@@ -17,7 +17,7 @@ tags:
 - 4 dl vatten
 - 1 köttbuljongtärning
 - 1,5 dl rödvin
-- 1 tsk tomatpure
+- 1 tsk tomatpuré
 - 2 msk kinesisk soja
 - 0.5 tsk socker
 - 2 msk smör

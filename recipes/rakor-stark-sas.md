@@ -12,7 +12,7 @@ tags:
 - 1 kg räkor
 - 1 msk soya
 - 2 msk tomatpuré
-- 1 vitlök
+- 1 vitlöksklyfta
 - 1 krm cayennepeppar
 - 2 tsk curry
 - 2 dl crème fraîche

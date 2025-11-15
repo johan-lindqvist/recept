@@ -11,12 +11,10 @@ tags:
 
 - 200 g Arla® Svenskt Smör
 - 2½ dl strösocker
-- 
-5 dl vetemjöl
+- 5 dl vetemjöl
 - 4 msk kakao
 - 1 tsk bakpulver
-- 
-1 msk vaniljsocker
+- 1 msk vaniljsocker
 - 1 ägg till pensling
 - ½ dl pärlsocker
 

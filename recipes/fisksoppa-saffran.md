@@ -18,7 +18,7 @@ tags:
 - 4 morötter
 - 1 g saffran
 - 3 dl vitt vin
--  fiskbuljong
+- fiskbuljong
 - 3 dl vispgrädde
 - 1 tsk mejram
 - 400 g potatis

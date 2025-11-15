@@ -27,4 +27,4 @@ tags:
 
 1. Häll av spadet och låt kräftstjärtarna rinna av.
 2. Blanda dressingen.
-3. Dela, skala och tärna mango och avokado. Skiva salladslöken och tärna paprikorna. Blanda alltsammans försiktigt med dressingen. Smaka av om det behövs mer salt. Kräftstjärtarna kan vara olika salta. Lägg upp i glas och stick ner tomansalladsblad som garnering.
+3. Dela, skala och tärna mango och avokado. Skiva salladslöken och tärna paprikorna. Blanda alltsammans försiktigt med dressingen. Smaka av om det behövs mer salt. Kräftstjärtarna kan vara olika salta. Lägg upp i glas och stick ner romansalladsblad som garnering.

@@ -27,7 +27,7 @@ tags:
 3. Bred ut på bakplåtpappret.
 4. Strö över med mandelspån.
 5. Grädda i 175°C i 15-20 minuter.
-6. Låt svalna lite på låten.
-7. Själp upp.
+6. Låt svalna lite på plåten.
+7. Stjälp upp.
 8. Svalna helt innan fyllningen breds på.
 9. Rulla kakan och pudra med kakao.

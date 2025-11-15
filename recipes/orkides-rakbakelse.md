@@ -27,6 +27,6 @@ tags:
 1. Börja med att ta ut runda skivor av brödet, ca 7 cm i diameter, med hjälp av tex ett glas.
 2. Blanda samman ingredienserna till fyllningen och smaka av med salt och cayennepeppar.
 3. Bred ut lite av fyllningen jämnt på 10 brödskivor. Lägg på en brödskiva till och bred ut lite ny fyllning och till sist de resterande skivorna.
-4. Tryck till lite med handen på varje bakelse. Stryk försiktigt bördkanterna med resten av den fuktiga fyllningen så att det kryddgörna kan fastna.
+4. Tryck till lite med handen på varje bakelse. Stryk försiktigt brödkanterna med resten av den fuktiga fyllningen så att det kryddgröna kan fastna.
 5. Blanda dill och persilja och klappa försiktigt in det runt om och bred ut resten av fyllningen  på toppen av varje bakelse.
 6. Serveringen: Gör en liten papperstrut av smörpapper och spritsa löjrommen från ytterkanten in mot mitten. Garnera med hackad rödlök i mitten och sätt en dillvippa på toppen. Lägg varje bakelse på en bädd av blandade salladssorter.

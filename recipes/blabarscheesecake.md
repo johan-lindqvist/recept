@@ -30,4 +30,4 @@ tags:
 4. Vispa samman ost, socker och äggulor i en skål.
 5. Blanda ostsmeten med grädden. Vänd sedan ner äggviteskummet med varsam hand.
 6. Mixa blåbären och vänd ner dem i smeten. Häll smeten i formen och frys i minst 4 timmar.
-7. Vid servering rtas cheesecaken direkt ur frysen. Skär i lagom stora bitar och servera genast(med lättvispad grädde) och blåbär.
+7. Vid servering tas cheesecaken direkt ur frysen. Skär i lagom stora bitar och servera genast (med lättvispad grädde) och blåbär.

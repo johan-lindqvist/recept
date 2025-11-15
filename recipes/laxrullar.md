@@ -16,6 +16,6 @@ tags:
 ## Instruktioner
 
 1. Bred ut halvt paket cantadou på varje tunnbröd
-2. Lägg på dill och/eller gräslök efter bevåg.
+2. Lägg på dill och/eller gräslök efter behag.
 3. Täck brödet med laxen.
 4. Rulla ihop och skär upp.

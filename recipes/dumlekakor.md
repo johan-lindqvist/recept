@@ -22,6 +22,6 @@ tags:
 1. Blanda ihop margarin, strösocker, vetemjöl och bakpulver till en smidig deg.
 2. Låt degen stå kallt i cirka 30 minuter.
 3. Dela degen i 24 delar och rulla till runda bollar. Tryck ner en halv dumlekola i varje degboll och lägg dem sedan i folieformarna.
-4. Grädda mitt i urnen i 200° i ca 10 minuter.
+4. Grädda mitt i ugnen i 200° i ca 10 minuter.
 5. Ta sedan ut kakorna och lägg på en bit noblesse på varje boll, direkt innan de har kallnat. Chokladen ska smälta ut över kakan.
 6. Ställ kakorna i kylen så att chokladen stelnar ordentligt. Sedan är det bara att njuta.

@@ -28,4 +28,4 @@ tags:
 1. Blanda ihop deg.
 2. Blanda allt
 3. Sätt in i ugnen på 200°C i 18-20 min.
-4. Strö över rosépepparnkorn och rostade pinjenötter.
+4. Strö över rosépepparkorn och rostade pinjenötter.

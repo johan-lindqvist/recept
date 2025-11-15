@@ -20,9 +20,9 @@ tags:
 - 5 st potatis
 - 1 stor gul lök
 - 50 g smör
--  2 st hönsbuljong
--  1 st grönsaksbuljong
-- Svartpeppar
+- 2 st hönsbuljong
+- 1 st grönsaksbuljong
+- svartpeppar
 
 ## Instruktioner
 

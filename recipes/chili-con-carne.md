@@ -9,7 +9,7 @@ tags:
 ## Ingredienser
 
 - 500g nötfärs
-- 1 msk tomatpure
+- 1 msk tomatpuré
 - 2 gula lökar
 - 4 vitlöksklyftor
 - 1 burk krossade tomater

@@ -19,6 +19,6 @@ tags:
 ## Instruktioner
 
 1. Sätt ugnen på 200°. Smörj i en ugnssäker form.
-2. Skala ochj kärna ur äpplena. Skär dem i tunna skivor och lägg dem i formen.
+2. Skala och kärna ur äpplena. Skär dem i tunna skivor och lägg dem i formen.
 3.  Smält smöret och rör ner socker, mjöl, bakpulver och citronskal.
 4.  Lägg blandningen över äpplena och grädda i ca 30 minuter. Serveras ljummen med vispad grädde.

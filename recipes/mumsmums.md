@@ -25,7 +25,7 @@ tags:
 
 1. Blanda strösocker, florsocker, äggvita och det kalla vattnet i en bunke.
 2. Blanda gelatinpulvret och det kokheta vattnet i en skål.
-3. Häll den varma gelatinblandningen i sockermassan och vispa kraftigt med en elvisp eller ien bakmaskin tills massan är vit och fluffig.
+3. Häll den varma gelatinblandningen i sockermassan och vispa kraftigt med en elvisp eller i en bakmaskin tills massan är vit och fluffig.
 4. Blanda ihop kokosflingor, kakao och vaniljsocker i en skål. Börja med den mindre kakaomängden och smaka av så att det blir lagom chokladsmak.
 5. Strö ett tunt lager av kokosblandningen i botten på en form, ca 20 x 30 cm, klädd med bakplåtspapper. Bred ut skumsmeten jämnt ovanpå och strö kokosblandningen även på ytan. Låt stå kallt och stelna i ett par timmar.
 6. Lyft över skumkakan på en skärbräda och skär den i bitar. Doppa kanterna i kokosblandningen. Förvara rutorna i kylskåpet.

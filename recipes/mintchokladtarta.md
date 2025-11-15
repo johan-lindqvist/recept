@@ -25,8 +25,7 @@ tags:
 3. Smält matfettet i en kastrull på svag värme. Bryt chokladen i bitar och låt den smälta i matfettet. Rör om då och då. Låt svalna.
 4. Vispa ägg och socker poröst. Tillsätt mjölet och chokladblandningen och rör till en jämn smet. Häll smeten i formen.
 5. Grädda i nedre delen av ugnen ca 20 minuter. Kakan ska inte vara helt genomgräddad.
-6. 
-Låt kakan svalna något innan kanten på formen lossas. Låt kakan bli kall.
+6. Låt kakan svalna något innan kanten på formen lossas. Låt kakan bli kall.
 7. Chokladglasyr: Blanda smör, grädde och after eight i en kastrull. Smält på svag värme under omrörning. Låt blandningen kallna och bli tjockflytande.
 8. Bred glasyren jämnt över kakan.
 9. Servera den med skivade apelsiner.

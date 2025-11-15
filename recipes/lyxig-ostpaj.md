@@ -11,7 +11,7 @@ tags:
 
 - 300 g smör
 - 7 dl vetemjöl
-- 2ägg
+- 2 ägg
 
 **Fyllning**
 - 300 g lagrad ost (tex gruyère eller cheddar)
@@ -26,8 +26,7 @@ tags:
 ## Instruktioner
 
 1. Skär smöret i bitar. Mixa smör och mjöl till en smulig massa i matberedare.
-2. 
-Tillsätt äggen och mixa snabbt ihop till en deg. (Eller nyp ihop smör och mjöl för hand. Tillsätt äggen och blanda snabbt ihop degen.)
+2. Tillsätt äggen och mixa snabbt ihop till en deg. (Eller nyp ihop smör och mjöl för hand. Tillsätt äggen och blanda snabbt ihop degen.)
 3. Lägg degen i plastfolie och låt vila ca 20 minuter i kylen.
 4. Sätt ugnen på 225°C.
 5. Fyllning: Riv den lagrade osten och parmesanen grovt. Smula ädelosten/gorgonzolan.

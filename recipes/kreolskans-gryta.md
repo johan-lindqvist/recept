@@ -30,6 +30,6 @@ tags:
 1. Putsa fläskfilén och skär den i tjocka skivor som bultas lätt. Skär korven i bitar.
 2. Strimla paprikan. Sila av syltlök, cornichons och oliver. Klyva ev urkärnade oliver.
 3. Fräs snabbt upp korven i en stekgryta och ta upp den.
-4. Bryun därefter fläskfilén. Peppra, salta, krydda med mejram, pressa ner vitlök och strö över mjölet.
+4. Bryn därefter fläskfilén. Peppra, salta, krydda med mejram, pressa ner vitlök och strö över mjölet.
 5. Lägg tillbaka korven och blanda ner paprikan, syltlöken, cornichons, oliverna och grädden.
 6. Koka grytan i 5 minuter. Smaka av, späd eventuellt med gurkspad och bär den i triumf till bordet!
