@@ -4,8 +4,10 @@ import { LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeCardGrid } from '@/components/RecipeCardGrid';
 import { RecipeCardList } from '@/components/RecipeCardList';
+import { parseTotalTimeToMinutes } from '@/utils/timeUtils';
 
 type ViewMode = 'grid' | 'list';
+type TimeFilter = '40' | '60' | null;
 
 export function RecipeListPage() {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ export function RecipeListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
   const tagFilterParam = searchParams.get('tag') || '';
+  const timeFilterParam = searchParams.get('time') as TimeFilter;
 
   const tagFiltersRef = useRef<HTMLDivElement>(null);
   const viewToggleRef = useRef<HTMLDivElement>(null);
@@ -137,6 +140,15 @@ export function RecipeListPage() {
       });
     }
 
+    // Filter by time if present
+    if (timeFilterParam) {
+      const maxMinutes = parseInt(timeFilterParam, 10);
+      results = results.filter(recipe => {
+        const recipeMinutes = parseTotalTimeToMinutes(recipe.frontmatter.totalTime);
+        return recipeMinutes !== null && recipeMinutes <= maxMinutes;
+      });
+    }
+
     // Filter by search query if present
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -153,7 +165,7 @@ export function RecipeListPage() {
     return results.sort((a, b) =>
       a.frontmatter.title.localeCompare(b.frontmatter.title, 'sv')
     );
-  }, [recipes, searchQuery, selectedTags]);
+  }, [recipes, searchQuery, selectedTags, timeFilterParam]);
 
   const handleRecipeClick = (slug: string) => {
     navigate(`/recipe/${slug}`);
@@ -179,6 +191,20 @@ export function RecipeListPage() {
     setSearchParams(newParams);
   };
 
+  const handleTimeFilterClick = (minutes: TimeFilter) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    if (timeFilterParam === minutes) {
+      // Remove time filter if clicking the same one
+      newParams.delete('time');
+    } else if (minutes) {
+      // Set new time filter
+      newParams.set('time', minutes);
+    }
+
+    setSearchParams(newParams);
+  };
+
   if (loading) {
     return <div className="loading">Laddar recept...</div>;
   }
@@ -194,6 +220,20 @@ export function RecipeListPage() {
   return (
     <div className="app">
       <div className="controls-bar">
+        <div className="time-filters">
+          <button
+            className={`time-filter-btn ${timeFilterParam === '40' ? 'active' : ''}`}
+            onClick={() => handleTimeFilterClick('40')}
+          >
+            ≤ 40 min
+          </button>
+          <button
+            className={`time-filter-btn ${timeFilterParam === '60' ? 'active' : ''}`}
+            onClick={() => handleTimeFilterClick('60')}
+          >
+            ≤ 1 timme
+          </button>
+        </div>
         <div className="tag-filters" ref={tagFiltersRef}>
           {displayedTags.map(tag => (
             <button
@@ -264,11 +304,12 @@ export function RecipeListPage() {
         ))}
       </div>
 
-      {filteredRecipes.length === 0 && (searchQuery || selectedTags.length > 0) && (
+      {filteredRecipes.length === 0 && (searchQuery || selectedTags.length > 0 || timeFilterParam) && (
         <div className="no-results">
           Inga recept hittades
           {searchQuery && ` för "${searchQuery}"`}
           {selectedTags.length > 0 && ` med ${selectedTags.length === 1 ? 'taggen' : 'taggarna'} "${selectedTags.join('", "')}"`}
+          {timeFilterParam && ` som tar ${timeFilterParam === '40' ? '40 minuter' : '1 timme'} eller mindre`}
         </div>
       )}
     </div>

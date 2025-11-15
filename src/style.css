@@ -235,6 +235,38 @@ body {
   flex-wrap: wrap;
 }
 
+/* Time Filters */
+.time-filters {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.time-filter-btn {
+  padding: 0.35rem 0.75rem;
+  background-color: var(--card-background);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.time-filter-btn:hover {
+  background-color: rgba(252, 129, 129, 0.1);
+  color: var(--primary-color);
+  border-color: var(--accent-color);
+}
+
+.time-filter-btn.active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
 /* Tag Filters */
 .tag-filters {
   display: flex;
