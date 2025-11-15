@@ -256,15 +256,15 @@ body {
 }
 
 .time-filter-btn:hover {
-  background-color: rgba(252, 129, 129, 0.1);
+  background-color: rgba(8, 145, 178, 0.1);
   color: var(--primary-color);
-  border-color: var(--accent-color);
+  border-color: #0891b2;
 }
 
 .time-filter-btn.active {
-  background-color: var(--accent-color);
+  background-color: #0891b2;
   color: white;
-  border-color: var(--accent-color);
+  border-color: #0891b2;
 }
 
 /* Tag Filters */
