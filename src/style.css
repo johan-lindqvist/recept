@@ -555,7 +555,7 @@ body {
 }
 
 .recipe-card-list .recipe-tags {
-  margin-top: 0;
+  margin-top: var(--spacing-xs);
   max-height: none;
   gap: 0.25rem;
 }
