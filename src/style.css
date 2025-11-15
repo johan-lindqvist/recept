@@ -468,6 +468,7 @@ body {
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.3);
   flex-shrink: 0;
+  position: relative;
 }
 
 .recipe-card-image img {
