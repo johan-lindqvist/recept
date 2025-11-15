@@ -527,8 +527,8 @@ body {
 }
 
 .recipe-card-list .recipe-card-image {
-  width: 135px;
-  height: 135px;
+  width: 160px;
+  height: 120px;
   flex-shrink: 0;
 }
 
