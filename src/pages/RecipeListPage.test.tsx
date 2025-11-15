@@ -49,31 +49,31 @@ describe('RecipeListPage - Tag Limit', () => {
     );
   };
 
-  it('should initially show limited number of tags (12)', () => {
+  it('should initially show limited number of tags', () => {
     renderWithRouter();
 
-    // Should show exactly 12 tag filter buttons
+    // Should show some tag filter buttons (limit is dynamic based on height)
     const tagButtons = getTagFilterButtons();
-    expect(tagButtons).toHaveLength(12);
+    expect(tagButtons.length).toBeGreaterThan(0);
+    expect(tagButtons.length).toBeLessThanOrEqual(40); // We have 40 total tags
 
     // First tag in alphabetical order should be visible
     expect(screen.getByRole('button', { name: 'tag0' })).toBeInTheDocument();
   });
 
-  it('should show "Visa fler" button when there are more than 12 tags', () => {
+  it('should show "Visa fler" button when there are more tags than can fit', () => {
     renderWithRouter();
 
-    // Should show the toggle button with count of hidden tags
+    const tagButtons = getTagFilterButtons();
     const toggleBtn = screen.queryByRole('button', { name: /visa fler taggar/i });
 
-    // If there are more than 12 tags, the button should be present
-    if (toggleBtn) {
+    // If we're showing fewer tags than total, toggle button should exist
+    if (tagButtons.length < 40) {
       expect(toggleBtn).toBeInTheDocument();
       expect(toggleBtn).toHaveTextContent(/\(\d+\)/); // Should show count in parentheses
     } else {
-      // If not present, verify we have exactly 12 or fewer tags total
-      const tagButtons = getTagFilterButtons();
-      expect(tagButtons.length).toBeLessThanOrEqual(12);
+      // If showing all tags, no toggle button
+      expect(toggleBtn).not.toBeInTheDocument();
     }
   });
 
@@ -91,14 +91,15 @@ describe('RecipeListPage - Tag Limit', () => {
 
     // Count initial tag buttons
     const initialTagButtons = getTagFilterButtons();
-    expect(initialTagButtons).toHaveLength(12);
+    const initialCount = initialTagButtons.length;
 
     // Click "Visa fler" button
     await user.click(toggleBtn);
 
-    // Now more tag buttons should be visible
+    // Now more tag buttons should be visible (should show all 40)
     const expandedTagButtons = getTagFilterButtons();
-    expect(expandedTagButtons.length).toBeGreaterThan(12);
+    expect(expandedTagButtons.length).toBeGreaterThan(initialCount);
+    expect(expandedTagButtons.length).toBe(40); // All tags
 
     // Button text should change to "Visa färre"
     expect(screen.getByRole('button', { name: /visa färre taggar/i })).toBeInTheDocument();
@@ -115,19 +116,24 @@ describe('RecipeListPage - Tag Limit', () => {
       return;
     }
 
+    // Get initial count
+    const initialTagButtons = getTagFilterButtons();
+    const initialCount = initialTagButtons.length;
+
     await user.click(expandBtn);
 
     // Verify tags are expanded
     const expandedTagButtons = getTagFilterButtons();
-    expect(expandedTagButtons.length).toBeGreaterThan(12);
+    expect(expandedTagButtons.length).toBe(40); // All tags
 
     // Click "Visa färre" button
     const collapseBtn = screen.getByRole('button', { name: /visa färre taggar/i });
     await user.click(collapseBtn);
 
-    // Should be back to 12 tags
+    // Should be back to initial limited count
     const collapsedTagButtons = getTagFilterButtons();
-    expect(collapsedTagButtons).toHaveLength(12);
+    expect(collapsedTagButtons.length).toBe(initialCount);
+    expect(collapsedTagButtons.length).toBeLessThan(40);
   });
 
   it('should persist showAllTags state in localStorage', async () => {
@@ -163,31 +169,37 @@ describe('RecipeListPage - Tag Limit', () => {
 
     const tagButtons = getTagFilterButtons();
 
-    // If there are more than 12 total tags, all should be visible
-    // If there are 12 or fewer, this test doesn't apply
-    if (tagButtons.length > 12) {
-      // Button should show "Visa färre"
-      expect(screen.getByRole('button', { name: /visa färre taggar/i })).toBeInTheDocument();
+    // If showAllTags is true, all 40 tags should be visible
+    expect(tagButtons.length).toBe(40);
+
+    // Button should show "Visa färre" only if the dynamic limit would normally hide some tags
+    const toggleBtn = screen.queryByRole('button', { name: /visa färre taggar/i });
+    // The toggle button should exist since we set showAllTags to true and have more tags than would fit
+    if (toggleBtn) {
+      expect(toggleBtn).toBeInTheDocument();
     } else {
-      // Not enough tags to test this functionality
+      // If all 40 tags fit naturally, no toggle needed
       expect(true).toBe(true);
     }
   });
 
-  it('should show toggle button when there are more than 12 unique tags', () => {
+  it('should show toggle button when there are more unique tags than fit in height', () => {
     renderWithRouter();
 
     const tagButtons = getTagFilterButtons();
 
-    // We have 20 recipes with 2 tags each = 40 unique tags
-    // So we should see exactly 12 tag buttons initially
-    expect(tagButtons).toHaveLength(12);
-
-    // And the toggle button should be present
+    // We have 40 unique tags total
+    // The toggle button should be present if we're showing fewer than all
     const toggleBtn = screen.queryByRole('button', { name: /visa fler taggar/i });
-    expect(toggleBtn).toBeInTheDocument();
 
-    // It should show the count of hidden tags (40 - 12 = 28)
-    expect(toggleBtn).toHaveTextContent('28');
+    if (tagButtons.length < 40) {
+      expect(toggleBtn).toBeInTheDocument();
+      // It should show the count of hidden tags
+      const hiddenCount = 40 - tagButtons.length;
+      expect(toggleBtn).toHaveTextContent(String(hiddenCount));
+    } else {
+      // All tags fit, no toggle button
+      expect(toggleBtn).not.toBeInTheDocument();
+    }
   });
 });

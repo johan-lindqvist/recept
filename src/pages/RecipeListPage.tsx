@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
@@ -6,14 +6,15 @@ import { RecipeCard } from '@/components/RecipeCard';
 
 type ViewMode = 'grid' | 'list';
 
-const INITIAL_TAG_LIMIT = 12;
-
 export function RecipeListPage() {
   const navigate = useNavigate();
   const { recipes, loading, error } = useRecipes();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
   const tagFilterParam = searchParams.get('tag') || '';
+
+  const tagFiltersRef = useRef<HTMLDivElement>(null);
+  const viewToggleRef = useRef<HTMLDivElement>(null);
 
   // Parse comma-separated tags from URL
   const selectedTags = useMemo(() => {
@@ -32,6 +33,9 @@ export function RecipeListPage() {
     return saved === 'true';
   });
 
+  // Dynamic tag limit based on height
+  const [tagLimit, setTagLimit] = useState<number>(12);
+
   useEffect(() => {
     localStorage.setItem('recipeViewMode', viewMode);
   }, [viewMode]);
@@ -48,6 +52,51 @@ export function RecipeListPage() {
     });
     return Array.from(tagSet).sort((a, b) => a.localeCompare(b, 'sv'));
   }, [recipes]);
+
+  // Calculate tag limit based on vertical space
+  useEffect(() => {
+    const calculateTagLimit = () => {
+      if (!tagFiltersRef.current || !viewToggleRef.current || allTags.length === 0) {
+        return;
+      }
+
+      const targetHeight = viewToggleRef.current.offsetHeight;
+      const tagContainer = tagFiltersRef.current;
+
+      // Temporarily show all tags to measure
+      const buttons = Array.from(tagContainer.querySelectorAll('.tag-filter-btn')) as HTMLElement[];
+
+      if (buttons.length === 0) return;
+
+      // Calculate how many tags fit in the target height
+      let count = 0;
+
+      // Get the container's computed styles to account for gap
+      const containerStyles = window.getComputedStyle(tagContainer);
+      const gap = parseFloat(containerStyles.gap) || 4; // Default to 4px if gap not set
+
+      for (const button of buttons) {
+        const rect = button.getBoundingClientRect();
+        const buttonTop = rect.top - tagContainer.getBoundingClientRect().top;
+        const buttonBottom = buttonTop + rect.height;
+
+        if (buttonBottom > targetHeight + gap) {
+          break;
+        }
+        count++;
+      }
+
+      // Ensure at least 6 tags are shown
+      setTagLimit(Math.max(6, count));
+    };
+
+    // Calculate on mount and when tags change
+    calculateTagLimit();
+
+    // Recalculate on window resize
+    window.addEventListener('resize', calculateTagLimit);
+    return () => window.removeEventListener('resize', calculateTagLimit);
+  }, [allTags]);
 
   const filteredRecipes = useMemo(() => {
     let results = recipes;
@@ -110,13 +159,13 @@ export function RecipeListPage() {
     return <div className="error">Fel: {error.message}</div>;
   }
 
-  const displayedTags = showAllTags ? allTags : allTags.slice(0, INITIAL_TAG_LIMIT);
-  const hasMoreTags = allTags.length > INITIAL_TAG_LIMIT;
+  const displayedTags = showAllTags ? allTags : allTags.slice(0, tagLimit);
+  const hasMoreTags = allTags.length > tagLimit;
 
   return (
     <div className="app">
       <div className="controls-bar">
-        <div className="tag-filters">
+        <div className="tag-filters" ref={tagFiltersRef}>
           {displayedTags.map(tag => (
             <button
               key={tag}
@@ -140,13 +189,13 @@ export function RecipeListPage() {
               ) : (
                 <>
                   <ChevronDown size={16} />
-                  Visa fler ({allTags.length - INITIAL_TAG_LIMIT})
+                  Visa fler ({allTags.length - tagLimit})
                 </>
               )}
             </button>
           )}
         </div>
-        <div className="view-toggle">
+        <div className="view-toggle" ref={viewToggleRef}>
           <button
             className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
             onClick={() => setViewMode('grid')}
