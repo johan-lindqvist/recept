@@ -1,21 +1,30 @@
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { ChefHat } from 'lucide-react';
+import { ChefHat, X } from 'lucide-react';
 
 export function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const searchQuery = searchParams.get('q') || '';
+  const tagFilter = searchParams.get('tag') || '';
 
   const isHomePage = location.pathname === '/';
   const isCreatePage = location.pathname === '/create';
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const newParams = new URLSearchParams(searchParams);
     if (value) {
-      setSearchParams({ q: value });
+      newParams.set('q', value);
     } else {
-      setSearchParams({});
+      newParams.delete('q');
     }
+    setSearchParams(newParams);
+  };
+
+  const clearTagFilter = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('tag');
+    setSearchParams(newParams);
   };
 
   return (
@@ -34,6 +43,19 @@ export function Header() {
               value={searchQuery}
               onChange={handleSearchChange}
             />
+            {tagFilter && (
+              <div className="active-tag-filter">
+                <span className="filter-label">Filtrerar på:</span>
+                <span className="filter-tag">{tagFilter}</span>
+                <button
+                  className="clear-filter-btn"
+                  onClick={clearTagFilter}
+                  aria-label="Rensa taggfilter"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            )}
           </div>
         )}
 

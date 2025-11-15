@@ -104,4 +104,75 @@ describe('RecipeCard', () => {
     expect(screen.getByText('+2 mer')).toBeInTheDocument();
     expect(screen.queryByText('tag4')).not.toBeInTheDocument();
   });
+
+  it('should call onTagClick when a tag is clicked', async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    const onTagClick = vi.fn();
+
+    render(
+      <RecipeCard
+        recipe={mockRecipe}
+        onClick={onClick}
+        onTagClick={onTagClick}
+      />
+    );
+
+    // Click on a tag
+    const testTag = screen.getByText('test');
+    await user.click(testTag);
+
+    // Should call onTagClick with the tag name
+    expect(onTagClick).toHaveBeenCalledTimes(1);
+    expect(onTagClick).toHaveBeenCalledWith('test');
+
+    // Should not trigger card click
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('should show active state on the active tag', () => {
+    const onClick = vi.fn();
+    const onTagClick = vi.fn();
+
+    render(
+      <RecipeCard
+        recipe={mockRecipe}
+        onClick={onClick}
+        onTagClick={onTagClick}
+        activeTag="test"
+      />
+    );
+
+    // The active tag should have the 'active' class
+    const testTag = screen.getByText('test');
+    expect(testTag).toHaveClass('active');
+
+    // The other tag should not have the 'active' class
+    const exampleTag = screen.getByText('example');
+    expect(exampleTag).not.toHaveClass('active');
+  });
+
+  it('should add clickable class when onTagClick is provided', () => {
+    const onTagClick = vi.fn();
+
+    render(
+      <RecipeCard
+        recipe={mockRecipe}
+        onClick={vi.fn()}
+        onTagClick={onTagClick}
+      />
+    );
+
+    // Tags should have clickable class
+    const testTag = screen.getByText('test');
+    expect(testTag).toHaveClass('clickable');
+  });
+
+  it('should not have clickable class when onTagClick is not provided', () => {
+    render(<RecipeCard recipe={mockRecipe} onClick={vi.fn()} />);
+
+    // Tags should not have clickable class
+    const testTag = screen.getByText('test');
+    expect(testTag).not.toHaveClass('clickable');
+  });
 });

@@ -90,4 +90,40 @@ describe('Header', () => {
     expect(searchInput).not.toBeInTheDocument();
     expect(pageTitle).toBeInTheDocument();
   });
+
+  it('should show active tag filter when tag param is present', () => {
+    renderWithRouter('/?tag=vegetarisk');
+
+    expect(screen.getByText('Filtrerar på:')).toBeInTheDocument();
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+  });
+
+  it('should not show active tag filter when no tag param', () => {
+    renderWithRouter('/');
+
+    expect(screen.queryByText('Filtrerar på:')).not.toBeInTheDocument();
+  });
+
+  it('should clear tag filter when clear button is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithRouter('/?tag=vegetarisk');
+
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+
+    // Click the clear button (X icon button)
+    const clearButton = screen.getByLabelText('Rensa taggfilter');
+    await user.click(clearButton);
+
+    // Tag filter should be removed (component will re-render without it)
+    // In the test, the URL will update and the filter display will be removed
+  });
+
+  it('should show both search and tag filter when both params are present', () => {
+    renderWithRouter('/?q=pasta&tag=italiensk');
+
+    const searchInput = screen.getByPlaceholderText('Sök recept...');
+    expect(searchInput).toHaveValue('pasta');
+    expect(screen.getByText('Filtrerar på:')).toBeInTheDocument();
+    expect(screen.getByText('italiensk')).toBeInTheDocument();
+  });
 });

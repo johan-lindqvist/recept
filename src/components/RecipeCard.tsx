@@ -6,9 +6,11 @@ import { useRecipeImage } from '@/hooks/useRecipeImage';
 interface RecipeCardProps {
   recipe: Recipe;
   onClick: () => void;
+  onTagClick?: (tag: string) => void;
+  activeTag?: string;
 }
 
-export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
+export function RecipeCard({ recipe, onClick, onTagClick, activeTag }: RecipeCardProps) {
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const maxVisibleTags = 3;
   const imageSrc = useRecipeImage(recipe.slug);
@@ -16,6 +18,11 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
   const toggleTags = (e: React.MouseEvent) => {
     e.stopPropagation();
     setTagsExpanded(!tagsExpanded);
+  };
+
+  const handleTagClick = (e: React.MouseEvent, tag: string) => {
+    e.stopPropagation();
+    onTagClick?.(tag);
   };
 
   const visibleTags = recipe.frontmatter.tags?.slice(0, maxVisibleTags) || [];
@@ -65,7 +72,11 @@ export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
         {recipe.frontmatter.tags && recipe.frontmatter.tags.length > 0 && (
           <div className={`recipe-tags ${tagsExpanded ? 'expanded' : ''}`}>
             {displayTags.map((tag, index) => (
-              <span key={`${tag}-${index}`} className="tag-label">
+              <span
+                key={`${tag}-${index}`}
+                className={`tag-label ${activeTag === tag ? 'active' : ''} ${onTagClick ? 'clickable' : ''}`}
+                onClick={onTagClick ? (e) => handleTagClick(e, tag) : undefined}
+              >
                 {tag}
               </span>
             ))}
