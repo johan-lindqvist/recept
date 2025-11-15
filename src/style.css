@@ -499,13 +499,13 @@ body {
 .recipe-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-md);
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
 }
 
 .tag-label {
   display: inline-block;
-  padding: 0.3rem 0.75rem;
+  padding: 0.2rem 0.5rem;
   background-color: rgba(255, 255, 255, 0.05);
   color: var(--text-color);
   border-radius: var(--radius-xl);
