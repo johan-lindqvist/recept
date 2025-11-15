@@ -373,44 +373,54 @@ body {
   line-height: 1.3;
 }
 
-/* Hide meta overlay in grid view (only show in list view) */
+/* Meta overlay for both grid and list views */
 .recipe-card-image .meta {
-  display: none;
-}
-
-/* Show and position meta overlay in list view */
-.recipe-list .recipe-card-image .meta {
   display: flex;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  gap: var(--spacing-sm);
   margin: 0;
-  padding: 4px;
+  padding: var(--spacing-sm);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 60%, transparent 100%);
   border-top: none;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   color: white;
 }
 
-/* Hide content meta in list view (use overlay instead) */
-.recipe-list .recipe-card-content .meta {
+/* Smaller overlay for list view */
+.recipe-list .recipe-card-image .meta {
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+  font-size: 0.65rem;
+}
+
+/* Hide content meta in both grid and list views (use overlay instead) */
+.recipe-card-content .meta {
   display: none;
 }
 
-.recipe-list .meta-item {
+/* Meta overlay styling for all views */
+.recipe-card-image .meta-item {
   gap: 0.25rem;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
+.recipe-card-image .meta-item svg {
+  width: 16px;
+  height: 16px;
+  color: #0891b2;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 1));
+}
+
+/* Smaller icons for list view */
 .recipe-list .meta-item svg {
   width: 12px;
   height: 12px;
-  color: #0891b2;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 1));
 }
 
 .recipe-list .meta-label {
