@@ -7,10 +7,10 @@ interface RecipeCardProps {
   recipe: Recipe;
   onClick: () => void;
   onTagClick?: (tag: string) => void;
-  activeTag?: string;
+  activeTags?: string[];
 }
 
-export function RecipeCard({ recipe, onClick, onTagClick, activeTag }: RecipeCardProps) {
+export function RecipeCard({ recipe, onClick, onTagClick, activeTags = [] }: RecipeCardProps) {
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const maxVisibleTags = 3;
   const imageSrc = useRecipeImage(recipe.slug);
@@ -74,7 +74,7 @@ export function RecipeCard({ recipe, onClick, onTagClick, activeTag }: RecipeCar
             {displayTags.map((tag, index) => (
               <span
                 key={`${tag}-${index}`}
-                className={`tag-label ${activeTag === tag ? 'active' : ''} ${onTagClick ? 'clickable' : ''}`}
+                className={`tag-label ${activeTags.includes(tag) ? 'active' : ''} ${onTagClick ? 'clickable' : ''}`}
                 onClick={onTagClick ? (e) => handleTagClick(e, tag) : undefined}
               >
                 {tag}

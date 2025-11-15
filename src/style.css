@@ -91,6 +91,7 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   width: 100%;
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -98,6 +99,7 @@ body {
   transition: all 0.2s;
   padding: 0.5rem 1rem;
   gap: var(--spacing-sm);
+  min-height: 46px;
 }
 
 .search-input-wrapper:focus-within {
@@ -107,6 +109,7 @@ body {
 
 .header-search input {
   flex: 1;
+  min-width: 150px;
   padding: 0.25rem 0;
   font-size: 1rem;
   border: none;

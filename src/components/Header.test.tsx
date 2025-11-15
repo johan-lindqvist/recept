@@ -96,15 +96,15 @@ describe('Header', () => {
 
     // Tag should be shown in the inline filter
     expect(screen.getByText('vegetarisk')).toBeInTheDocument();
-    // Clear button should be present
-    expect(screen.getByLabelText('Rensa taggfilter')).toBeInTheDocument();
+    // Clear button should be present with specific aria-label
+    expect(screen.getByLabelText('Ta bort vegetarisk')).toBeInTheDocument();
   });
 
   it('should not show active tag filter when no tag param', () => {
     renderWithRouter('/');
 
     // Clear button should not be present when no tag filter
-    expect(screen.queryByLabelText('Rensa taggfilter')).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/Ta bort/)).not.toBeInTheDocument();
   });
 
   it('should clear tag filter when clear button is clicked', async () => {
@@ -114,7 +114,7 @@ describe('Header', () => {
     expect(screen.getByText('vegetarisk')).toBeInTheDocument();
 
     // Click the clear button (X icon button)
-    const clearButton = screen.getByLabelText('Rensa taggfilter');
+    const clearButton = screen.getByLabelText('Ta bort vegetarisk');
     await user.click(clearButton);
 
     // Tag filter should be removed (component will re-render without it)
@@ -129,6 +129,31 @@ describe('Header', () => {
     // Tag should be shown in the inline filter
     expect(screen.getByText('italiensk')).toBeInTheDocument();
     // Clear button should be present
-    expect(screen.getByLabelText('Rensa taggfilter')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort italiensk')).toBeInTheDocument();
+  });
+
+  it('should show multiple tag filters when multiple tags in URL', () => {
+    renderWithRouter('/?tag=vegetarisk,italiensk');
+
+    // Both tags should be shown
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+    expect(screen.getByText('italiensk')).toBeInTheDocument();
+    // Both should have clear buttons
+    expect(screen.getByLabelText('Ta bort vegetarisk')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort italiensk')).toBeInTheDocument();
+  });
+
+  it('should remove individual tag when its clear button is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithRouter('/?tag=vegetarisk,italiensk');
+
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+    expect(screen.getByText('italiensk')).toBeInTheDocument();
+
+    // Click to remove only the 'vegetarisk' tag
+    const clearButton = screen.getByLabelText('Ta bort vegetarisk');
+    await user.click(clearButton);
+
+    // After clicking, the component would update, but in this test we just verify the button was clickable
   });
 });

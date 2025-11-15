@@ -139,7 +139,7 @@ describe('RecipeCard', () => {
         recipe={mockRecipe}
         onClick={onClick}
         onTagClick={onTagClick}
-        activeTag="test"
+        activeTags={['test']}
       />
     );
 
@@ -150,6 +150,27 @@ describe('RecipeCard', () => {
     // The other tag should not have the 'active' class
     const exampleTag = screen.getByText('example');
     expect(exampleTag).not.toHaveClass('active');
+  });
+
+  it('should show active state on multiple active tags', () => {
+    const onClick = vi.fn();
+    const onTagClick = vi.fn();
+
+    render(
+      <RecipeCard
+        recipe={mockRecipe}
+        onClick={onClick}
+        onTagClick={onTagClick}
+        activeTags={['test', 'example']}
+      />
+    );
+
+    // Both tags should have the 'active' class
+    const testTag = screen.getByText('test');
+    expect(testTag).toHaveClass('active');
+
+    const exampleTag = screen.getByText('example');
+    expect(exampleTag).toHaveClass('active');
   });
 
   it('should add clickable class when onTagClick is provided', () => {

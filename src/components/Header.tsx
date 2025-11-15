@@ -5,7 +5,10 @@ export function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const searchQuery = searchParams.get('q') || '';
-  const tagFilter = searchParams.get('tag') || '';
+  const tagFilterParam = searchParams.get('tag') || '';
+
+  // Parse comma-separated tags from URL
+  const selectedTags = tagFilterParam ? tagFilterParam.split(',').filter(t => t.trim()) : [];
 
   const isHomePage = location.pathname === '/';
   const isCreatePage = location.pathname === '/create';
@@ -21,9 +24,14 @@ export function Header() {
     setSearchParams(newParams);
   };
 
-  const clearTagFilter = () => {
+  const removeTag = (tagToRemove: string) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.delete('tag');
+    const updatedTags = selectedTags.filter(t => t !== tagToRemove);
+    if (updatedTags.length > 0) {
+      newParams.set('tag', updatedTags.join(','));
+    } else {
+      newParams.delete('tag');
+    }
     setSearchParams(newParams);
   };
 
@@ -38,18 +46,18 @@ export function Header() {
         {isHomePage && (
           <div className="header-search">
             <div className="search-input-wrapper">
-              {tagFilter && (
-                <div className="inline-tag-filter">
-                  <span className="filter-tag">{tagFilter}</span>
+              {selectedTags.map(tag => (
+                <div key={tag} className="inline-tag-filter">
+                  <span className="filter-tag">{tag}</span>
                   <button
                     className="clear-filter-btn"
-                    onClick={clearTagFilter}
-                    aria-label="Rensa taggfilter"
+                    onClick={() => removeTag(tag)}
+                    aria-label={`Ta bort ${tag}`}
                   >
                     <X size={14} />
                   </button>
                 </div>
-              )}
+              ))}
               <input
                 type="text"
                 placeholder="Sök recept..."

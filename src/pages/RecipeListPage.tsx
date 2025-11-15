@@ -11,7 +11,12 @@ export function RecipeListPage() {
   const { recipes, loading, error } = useRecipes();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
-  const tagFilter = searchParams.get('tag') || '';
+  const tagFilterParam = searchParams.get('tag') || '';
+
+  // Parse comma-separated tags from URL
+  const selectedTags = useMemo(() => {
+    return tagFilterParam ? tagFilterParam.split(',').filter(t => t.trim()) : [];
+  }, [tagFilterParam]);
 
   // View mode state with localStorage persistence
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
@@ -35,11 +40,12 @@ export function RecipeListPage() {
   const filteredRecipes = useMemo(() => {
     let results = recipes;
 
-    // Filter by tag if present
-    if (tagFilter) {
-      results = results.filter(recipe =>
-        recipe.frontmatter.tags?.includes(tagFilter)
-      );
+    // Filter by tags if present (recipes must have ALL selected tags)
+    if (selectedTags.length > 0) {
+      results = results.filter(recipe => {
+        const recipeTags = recipe.frontmatter.tags || [];
+        return selectedTags.every(tag => recipeTags.includes(tag));
+      });
     }
 
     // Filter by search query if present
@@ -58,7 +64,7 @@ export function RecipeListPage() {
     return results.sort((a, b) =>
       a.frontmatter.title.localeCompare(b.frontmatter.title, 'sv')
     );
-  }, [recipes, searchQuery, tagFilter]);
+  }, [recipes, searchQuery, selectedTags]);
 
   const handleRecipeClick = (slug: string) => {
     navigate(`/recipe/${slug}`);
@@ -66,12 +72,20 @@ export function RecipeListPage() {
 
   const handleTagClick = (tag: string) => {
     const newParams = new URLSearchParams(searchParams);
-    if (tagFilter === tag) {
-      // If clicking the same tag, remove the filter
-      newParams.delete('tag');
+    const currentTags = selectedTags.slice();
+
+    if (currentTags.includes(tag)) {
+      // Remove tag from filter
+      const updatedTags = currentTags.filter(t => t !== tag);
+      if (updatedTags.length > 0) {
+        newParams.set('tag', updatedTags.join(','));
+      } else {
+        newParams.delete('tag');
+      }
     } else {
-      // Set the new tag filter
-      newParams.set('tag', tag);
+      // Add tag to filter
+      currentTags.push(tag);
+      newParams.set('tag', currentTags.join(','));
     }
     setSearchParams(newParams);
   };
@@ -91,7 +105,7 @@ export function RecipeListPage() {
           {allTags.map(tag => (
             <button
               key={tag}
-              className={`tag-filter-btn ${tagFilter === tag ? 'active' : ''}`}
+              className={`tag-filter-btn ${selectedTags.includes(tag) ? 'active' : ''}`}
               onClick={() => handleTagClick(tag)}
             >
               {tag}
@@ -123,16 +137,16 @@ export function RecipeListPage() {
             recipe={recipe}
             onClick={() => handleRecipeClick(recipe.slug)}
             onTagClick={handleTagClick}
-            activeTag={tagFilter}
+            activeTags={selectedTags}
           />
         ))}
       </div>
 
-      {filteredRecipes.length === 0 && (searchQuery || tagFilter) && (
+      {filteredRecipes.length === 0 && (searchQuery || selectedTags.length > 0) && (
         <div className="no-results">
           Inga recept hittades
           {searchQuery && ` för "${searchQuery}"`}
-          {tagFilter && ` med taggen "${tagFilter}"`}
+          {selectedTags.length > 0 && ` med ${selectedTags.length === 1 ? 'taggen' : 'taggarna'} "${selectedTags.join('", "')}"`}
         </div>
       )}
     </div>
