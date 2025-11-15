@@ -61,9 +61,7 @@ export function RecipeListPage() {
         return;
       }
 
-      const targetHeight = viewToggleRef.current.offsetHeight;
       const tagContainer = tagFiltersRef.current;
-
       const buttons = Array.from(tagContainer.querySelectorAll('.tag-filter-btn')) as HTMLElement[];
 
       if (buttons.length === 0) {
@@ -72,12 +70,16 @@ export function RecipeListPage() {
         return;
       }
 
-      // Calculate how many tags fit in the target height
-      let count = 0;
-
       // Get the container's computed styles to account for gap
       const containerStyles = window.getComputedStyle(tagContainer);
       const gap = parseFloat(containerStyles.gap) || 4; // Default to 4px if gap not set
+
+      // Calculate height for approximately 2 rows of tags
+      const firstButtonHeight = buttons[0].getBoundingClientRect().height;
+      const targetHeight = (firstButtonHeight * 2) + gap;
+
+      // Calculate how many tags fit in the target height (approximately 2 rows)
+      let count = 0;
 
       for (const button of buttons) {
         const rect = button.getBoundingClientRect();
