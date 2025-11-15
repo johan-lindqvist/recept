@@ -528,8 +528,8 @@ body {
 
 .recipe-card-list .recipe-card-image {
   width: 120px;
-  height: 90px;
   flex-shrink: 0;
+  align-self: stretch;
 }
 
 .recipe-card-list .recipe-card-content {
