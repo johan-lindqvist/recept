@@ -1103,27 +1103,6 @@ body {
     padding: var(--spacing-xl) var(--spacing-md);
   }
 
-  .header-content {
-    padding: var(--spacing-md);
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-  }
-
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  .header-search {
-    order: 3;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .header-nav {
-    order: 2;
-    margin-left: auto;
-  }
-
   .recipe-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
@@ -1144,6 +1123,29 @@ body {
   .form-section,
   .output-section {
     padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    padding: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .header-search {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .header-nav {
+    order: 2;
+    margin-left: auto;
   }
 }
 
