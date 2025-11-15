@@ -35,6 +35,7 @@ export function RecipeListPage() {
 
   // Dynamic tag limit based on height
   const [tagLimit, setTagLimit] = useState<number>(12);
+  const [isMeasuring, setIsMeasuring] = useState<boolean>(true);
 
   useEffect(() => {
     localStorage.setItem('recipeViewMode', viewMode);
@@ -63,10 +64,13 @@ export function RecipeListPage() {
       const targetHeight = viewToggleRef.current.offsetHeight;
       const tagContainer = tagFiltersRef.current;
 
-      // Temporarily show all tags to measure
       const buttons = Array.from(tagContainer.querySelectorAll('.tag-filter-btn')) as HTMLElement[];
 
-      if (buttons.length === 0) return;
+      if (buttons.length === 0) {
+        // If no buttons yet, schedule another attempt
+        setTimeout(calculateTagLimit, 50);
+        return;
+      }
 
       // Calculate how many tags fit in the target height
       let count = 0;
@@ -88,14 +92,22 @@ export function RecipeListPage() {
 
       // Ensure at least 6 tags are shown
       setTagLimit(Math.max(6, count));
+      setIsMeasuring(false);
     };
 
-    // Calculate on mount and when tags change
-    calculateTagLimit();
+    // Set measuring to true and calculate on mount and when tags change
+    setIsMeasuring(true);
+    // Use setTimeout to ensure DOM is updated before measuring
+    setTimeout(calculateTagLimit, 0);
 
     // Recalculate on window resize
-    window.addEventListener('resize', calculateTagLimit);
-    return () => window.removeEventListener('resize', calculateTagLimit);
+    const handleResize = () => {
+      setIsMeasuring(true);
+      setTimeout(calculateTagLimit, 0);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [allTags]);
 
   const filteredRecipes = useMemo(() => {
@@ -159,7 +171,8 @@ export function RecipeListPage() {
     return <div className="error">Fel: {error.message}</div>;
   }
 
-  const displayedTags = showAllTags ? allTags : allTags.slice(0, tagLimit);
+  // Show all tags during measurement, or when showAllTags is true, otherwise show limited
+  const displayedTags = (isMeasuring || showAllTags) ? allTags : allTags.slice(0, tagLimit);
   const hasMoreTags = allTags.length > tagLimit;
 
   return (
@@ -175,7 +188,7 @@ export function RecipeListPage() {
               {tag}
             </button>
           ))}
-          {hasMoreTags && (
+          {hasMoreTags && !isMeasuring && (
             <button
               className="tag-toggle-btn"
               onClick={() => setShowAllTags(!showAllTags)}
