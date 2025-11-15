@@ -1,10 +1,12 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LayoutGrid, List } from 'lucide-react';
+import { LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeCard } from '@/components/RecipeCard';
 
 type ViewMode = 'grid' | 'list';
+
+const INITIAL_TAG_LIMIT = 12;
 
 export function RecipeListPage() {
   const navigate = useNavigate();
@@ -24,9 +26,19 @@ export function RecipeListPage() {
     return (saved === 'grid' || saved === 'list') ? saved : 'grid';
   });
 
+  // Show all tags state with localStorage persistence
+  const [showAllTags, setShowAllTags] = useState<boolean>(() => {
+    const saved = localStorage.getItem('showAllTags');
+    return saved === 'true';
+  });
+
   useEffect(() => {
     localStorage.setItem('recipeViewMode', viewMode);
   }, [viewMode]);
+
+  useEffect(() => {
+    localStorage.setItem('showAllTags', String(showAllTags));
+  }, [showAllTags]);
 
   // Extract all unique tags from recipes
   const allTags = useMemo(() => {
@@ -98,11 +110,14 @@ export function RecipeListPage() {
     return <div className="error">Fel: {error.message}</div>;
   }
 
+  const displayedTags = showAllTags ? allTags : allTags.slice(0, INITIAL_TAG_LIMIT);
+  const hasMoreTags = allTags.length > INITIAL_TAG_LIMIT;
+
   return (
     <div className="app">
       <div className="controls-bar">
         <div className="tag-filters">
-          {allTags.map(tag => (
+          {displayedTags.map(tag => (
             <button
               key={tag}
               className={`tag-filter-btn ${selectedTags.includes(tag) ? 'active' : ''}`}
@@ -111,6 +126,25 @@ export function RecipeListPage() {
               {tag}
             </button>
           ))}
+          {hasMoreTags && (
+            <button
+              className="tag-toggle-btn"
+              onClick={() => setShowAllTags(!showAllTags)}
+              aria-label={showAllTags ? 'Visa färre taggar' : 'Visa fler taggar'}
+            >
+              {showAllTags ? (
+                <>
+                  <ChevronUp size={16} />
+                  Visa färre
+                </>
+              ) : (
+                <>
+                  <ChevronDown size={16} />
+                  Visa fler ({allTags.length - INITIAL_TAG_LIMIT})
+                </>
+              )}
+            </button>
+          )}
         </div>
         <div className="view-toggle">
           <button
