@@ -2,7 +2,8 @@ import { useMemo, useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
-import { RecipeCard } from '@/components/RecipeCard';
+import { RecipeCardGrid } from '@/components/RecipeCardGrid';
+import { RecipeCardList } from '@/components/RecipeCardList';
 
 type ViewMode = 'grid' | 'list';
 
@@ -243,13 +244,23 @@ export function RecipeListPage() {
 
       <div className={viewMode === 'grid' ? 'recipe-grid' : 'recipe-list'}>
         {filteredRecipes.map(recipe => (
-          <RecipeCard
-            key={recipe.slug}
-            recipe={recipe}
-            onClick={() => handleRecipeClick(recipe.slug)}
-            onTagClick={handleTagClick}
-            activeTags={selectedTags}
-          />
+          viewMode === 'grid' ? (
+            <RecipeCardGrid
+              key={recipe.slug}
+              recipe={recipe}
+              onClick={() => handleRecipeClick(recipe.slug)}
+              onTagClick={handleTagClick}
+              activeTags={selectedTags}
+            />
+          ) : (
+            <RecipeCardList
+              key={recipe.slug}
+              recipe={recipe}
+              onClick={() => handleRecipeClick(recipe.slug)}
+              onTagClick={handleTagClick}
+              activeTags={selectedTags}
+            />
+          )
         ))}
       </div>
 

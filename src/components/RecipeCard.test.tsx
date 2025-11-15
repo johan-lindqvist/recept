@@ -1,10 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { RecipeCard } from './RecipeCard';
+import { RecipeCardGrid } from './RecipeCardGrid';
+import { RecipeCardList } from './RecipeCardList';
 import type { Recipe } from '@/types/Recipe';
 
-describe('RecipeCard', () => {
+describe('RecipeCardGrid', () => {
   const mockRecipe: Recipe = {
     slug: 'test-recipe',
     frontmatter: {
@@ -19,7 +20,7 @@ describe('RecipeCard', () => {
 
   it('should render recipe card with all fields', () => {
     const onClick = vi.fn();
-    render(<RecipeCard recipe={mockRecipe} onClick={onClick} />);
+    render(<RecipeCardGrid recipe={mockRecipe} onClick={onClick} />);
 
     // Check title
     expect(screen.getByText('Test Recipe')).toBeInTheDocument();
@@ -27,11 +28,11 @@ describe('RecipeCard', () => {
     // Check description
     expect(screen.getByText('A delicious test recipe')).toBeInTheDocument();
 
-    // Check time (meta is rendered twice - once for grid view, once for list view overlay)
-    expect(screen.getAllByText('45 minutes').length).toBeGreaterThan(0);
+    // Check time
+    expect(screen.getByText('45 minutes')).toBeInTheDocument();
 
-    // Check servings (meta is rendered twice - once for grid view, once for list view overlay)
-    expect(screen.getAllByText('4 port.').length).toBeGreaterThan(0);
+    // Check servings
+    expect(screen.getByText('4 port.')).toBeInTheDocument();
 
     // Check tags
     expect(screen.getByText('test')).toBeInTheDocument();
@@ -41,7 +42,7 @@ describe('RecipeCard', () => {
   it('should call onClick when card is clicked', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(<RecipeCard recipe={mockRecipe} onClick={onClick} />);
+    render(<RecipeCardGrid recipe={mockRecipe} onClick={onClick} />);
 
     const card = screen.getByText('Test Recipe').closest('.recipe-card');
     expect(card).toBeInTheDocument();
@@ -59,7 +60,7 @@ describe('RecipeCard', () => {
       content: 'Minimal content',
     };
 
-    render(<RecipeCard recipe={minimalRecipe} onClick={vi.fn()} />);
+    render(<RecipeCardGrid recipe={minimalRecipe} onClick={vi.fn()} />);
 
     expect(screen.getByText('Minimal Recipe')).toBeInTheDocument();
     expect(screen.queryByText(/port./)).not.toBeInTheDocument();
@@ -76,7 +77,7 @@ describe('RecipeCard', () => {
     };
 
     const onClick = vi.fn();
-    render(<RecipeCard recipe={manyTagsRecipe} onClick={onClick} />);
+    render(<RecipeCardGrid recipe={manyTagsRecipe} onClick={onClick} />);
 
     // Initially should show first 3 tags and "+2 mer"
     expect(screen.getByText('tag1')).toBeInTheDocument();
@@ -111,7 +112,7 @@ describe('RecipeCard', () => {
     const onTagClick = vi.fn();
 
     render(
-      <RecipeCard
+      <RecipeCardGrid
         recipe={mockRecipe}
         onClick={onClick}
         onTagClick={onTagClick}
@@ -135,7 +136,7 @@ describe('RecipeCard', () => {
     const onTagClick = vi.fn();
 
     render(
-      <RecipeCard
+      <RecipeCardGrid
         recipe={mockRecipe}
         onClick={onClick}
         onTagClick={onTagClick}
@@ -157,7 +158,7 @@ describe('RecipeCard', () => {
     const onTagClick = vi.fn();
 
     render(
-      <RecipeCard
+      <RecipeCardGrid
         recipe={mockRecipe}
         onClick={onClick}
         onTagClick={onTagClick}
@@ -177,7 +178,7 @@ describe('RecipeCard', () => {
     const onTagClick = vi.fn();
 
     render(
-      <RecipeCard
+      <RecipeCardGrid
         recipe={mockRecipe}
         onClick={vi.fn()}
         onTagClick={onTagClick}
@@ -190,10 +191,56 @@ describe('RecipeCard', () => {
   });
 
   it('should not have clickable class when onTagClick is not provided', () => {
-    render(<RecipeCard recipe={mockRecipe} onClick={vi.fn()} />);
+    render(<RecipeCardGrid recipe={mockRecipe} onClick={vi.fn()} />);
 
     // Tags should not have clickable class
     const testTag = screen.getByText('test');
     expect(testTag).not.toHaveClass('clickable');
+  });
+});
+
+describe('RecipeCardList', () => {
+  const mockRecipe: Recipe = {
+    slug: 'test-recipe',
+    frontmatter: {
+      title: 'Test Recipe',
+      description: 'A delicious test recipe',
+      totalTime: '45 minutes',
+      servings: 4,
+      tags: ['test', 'example'],
+    },
+    content: 'Recipe content',
+  };
+
+  it('should render list card with all fields', () => {
+    const onClick = vi.fn();
+    render(<RecipeCardList recipe={mockRecipe} onClick={onClick} />);
+
+    expect(screen.getByText('Test Recipe')).toBeInTheDocument();
+    expect(screen.getByText('A delicious test recipe')).toBeInTheDocument();
+    expect(screen.getByText('45 minutes')).toBeInTheDocument();
+    expect(screen.getByText('4 port.')).toBeInTheDocument();
+    expect(screen.getByText('test')).toBeInTheDocument();
+    expect(screen.getByText('example')).toBeInTheDocument();
+  });
+
+  it('should show all tags without expansion', () => {
+    const manyTagsRecipe: Recipe = {
+      ...mockRecipe,
+      frontmatter: {
+        ...mockRecipe.frontmatter,
+        tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'],
+      },
+    };
+
+    render(<RecipeCardList recipe={manyTagsRecipe} onClick={vi.fn()} />);
+
+    // All tags should be visible (no expansion button in list view)
+    expect(screen.getByText('tag1')).toBeInTheDocument();
+    expect(screen.getByText('tag2')).toBeInTheDocument();
+    expect(screen.getByText('tag3')).toBeInTheDocument();
+    expect(screen.getByText('tag4')).toBeInTheDocument();
+    expect(screen.getByText('tag5')).toBeInTheDocument();
+    expect(screen.queryByText(/mer/)).not.toBeInTheDocument();
   });
 });
