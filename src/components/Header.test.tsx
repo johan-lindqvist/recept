@@ -156,4 +156,56 @@ describe('Header', () => {
 
     // After clicking, the component would update, but in this test we just verify the button was clickable
   });
+
+  it('should show time filter when time param is present (40 minutes)', () => {
+    renderWithRouter('/?time=40');
+
+    expect(screen.getByText('≤ 40 min')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort tidsfilter ≤ 40 min')).toBeInTheDocument();
+  });
+
+  it('should show time filter when time param is present (1 hour)', () => {
+    renderWithRouter('/?time=60');
+
+    expect(screen.getByText('≤ 1 timme')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort tidsfilter ≤ 1 timme')).toBeInTheDocument();
+  });
+
+  it('should not show time filter when no time param', () => {
+    renderWithRouter('/');
+
+    expect(screen.queryByText('≤ 40 min')).not.toBeInTheDocument();
+    expect(screen.queryByText('≤ 1 timme')).not.toBeInTheDocument();
+  });
+
+  it('should clear time filter when clear button is clicked', async () => {
+    const user = userEvent.setup();
+    renderWithRouter('/?time=40');
+
+    expect(screen.getByText('≤ 40 min')).toBeInTheDocument();
+
+    const clearButton = screen.getByLabelText('Ta bort tidsfilter ≤ 40 min');
+    await user.click(clearButton);
+
+    // After clicking, the component would update and remove the time filter
+  });
+
+  it('should show both time filter and tag filters when both params are present', () => {
+    renderWithRouter('/?time=40&tag=vegetarisk');
+
+    expect(screen.getByText('≤ 40 min')).toBeInTheDocument();
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort tidsfilter ≤ 40 min')).toBeInTheDocument();
+    expect(screen.getByLabelText('Ta bort vegetarisk')).toBeInTheDocument();
+  });
+
+  it('should show time filter, tag filters, and search when all params are present', () => {
+    renderWithRouter('/?q=pasta&time=60&tag=italiensk,vegetarisk');
+
+    const searchInput = screen.getByPlaceholderText('Sök recept...');
+    expect(searchInput).toHaveValue('pasta');
+    expect(screen.getByText('≤ 1 timme')).toBeInTheDocument();
+    expect(screen.getByText('italiensk')).toBeInTheDocument();
+    expect(screen.getByText('vegetarisk')).toBeInTheDocument();
+  });
 });

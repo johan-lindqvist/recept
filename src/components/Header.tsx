@@ -6,12 +6,20 @@ export function Header() {
   const location = useLocation();
   const searchQuery = searchParams.get('q') || '';
   const tagFilterParam = searchParams.get('tag') || '';
+  const timeFilterParam = searchParams.get('time') || '';
 
   // Parse comma-separated tags from URL
   const selectedTags = tagFilterParam ? tagFilterParam.split(',').filter(t => t.trim()) : [];
 
   const isHomePage = location.pathname === '/';
   const isCreatePage = location.pathname === '/create';
+
+  // Get time filter display text
+  const getTimeFilterText = (minutes: string) => {
+    if (minutes === '40') return '≤ 40 min';
+    if (minutes === '60') return '≤ 1 timme';
+    return '';
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -35,6 +43,12 @@ export function Header() {
     setSearchParams(newParams);
   };
 
+  const removeTimeFilter = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('time');
+    setSearchParams(newParams);
+  };
+
   return (
     <header className="app-header">
       <div className="header-content">
@@ -46,6 +60,18 @@ export function Header() {
         {isHomePage && (
           <div className="header-search">
             <div className="search-input-wrapper">
+              {timeFilterParam && (
+                <div className="inline-tag-filter time-filter">
+                  <span className="filter-tag">{getTimeFilterText(timeFilterParam)}</span>
+                  <button
+                    className="clear-filter-btn"
+                    onClick={removeTimeFilter}
+                    aria-label={`Ta bort tidsfilter ${getTimeFilterText(timeFilterParam)}`}
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
               {selectedTags.map(tag => (
                 <div key={tag} className="inline-tag-filter">
                   <span className="filter-tag">{tag}</span>
