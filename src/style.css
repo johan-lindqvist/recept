@@ -385,9 +385,9 @@ body {
   margin: 0;
   padding: var(--spacing-sm);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 60%, transparent 100%);
-  border-top: none;
   font-size: 0.85rem;
   color: white;
+  border: none;
 }
 
 /* Smaller overlay for list view */
@@ -396,11 +396,6 @@ body {
   gap: 2px;
   padding: 4px;
   font-size: 0.65rem;
-}
-
-/* Hide content meta in both grid and list views (use overlay instead) */
-.recipe-card-content .meta {
-  display: none;
 }
 
 /* Meta overlay styling for all views */
@@ -506,8 +501,9 @@ body {
   flex: 1;
 }
 
-.recipe-card .meta {
-  display: flex;
+/* Meta in content area (only used when no overlay) - currently hidden */
+.recipe-card-content .meta {
+  display: none;
   gap: var(--spacing-md);
   margin-top: auto;
   padding-top: var(--spacing-md);
