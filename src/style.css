@@ -532,7 +532,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xs);
-  margin: 0;
+  margin-top: var(--spacing-sm);
   max-height: 3.5rem;
   overflow: hidden;
 }
