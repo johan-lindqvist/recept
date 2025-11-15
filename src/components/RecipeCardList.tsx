@@ -47,22 +47,22 @@ export function RecipeCardList({ recipe, onClick, onTagClick, activeTags = [] }:
             ))}
           </div>
         )}
+      </div>
 
-        <div className="meta">
-          {recipe.frontmatter.totalTime && (
-            <span className="meta-item">
-              <Clock size={16} />
-              <span>{recipe.frontmatter.totalTime}</span>
-            </span>
-          )}
+      <div className="meta">
+        {recipe.frontmatter.totalTime && (
+          <span className="meta-item">
+            <Clock size={18} />
+            <span>{recipe.frontmatter.totalTime}</span>
+          </span>
+        )}
 
-          {recipe.frontmatter.servings && (
-            <span className="meta-item">
-              <Users size={16} />
-              <span>{recipe.frontmatter.servings} port.</span>
-            </span>
-          )}
-        </div>
+        {recipe.frontmatter.servings && (
+          <span className="meta-item">
+            <Users size={18} />
+            <span>{recipe.frontmatter.servings} port.</span>
+          </span>
+        )}
       </div>
     </div>
   );
