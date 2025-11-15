@@ -522,13 +522,13 @@ body {
 /* List View Specific Styles */
 .recipe-card-list {
   flex-direction: row;
-  padding: var(--spacing-xs);
-  gap: var(--spacing-sm);
+  padding: 0;
+  gap: 0;
 }
 
 .recipe-card-list .recipe-card-image {
-  width: 90px;
-  height: 90px;
+  width: 135px;
+  height: 135px;
   flex-shrink: 0;
 }
 
@@ -536,7 +536,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  padding: 0;
+  padding: var(--spacing-sm);
   flex: 1;
   min-width: 0;
 }
