@@ -228,11 +228,83 @@ body {
 /* Controls Bar (Tag Filters + View Toggle) */
 .controls-bar {
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.controls-bar-header {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  flex-wrap: wrap;
+}
+
+/* Filter Toggle Button */
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--card-background);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.filter-toggle-btn:hover {
+  background-color: rgba(8, 145, 178, 0.1);
+  color: var(--primary-color);
+  border-color: #0891b2;
+}
+
+.filter-toggle-btn.expanded {
+  background-color: rgba(8, 145, 178, 0.1);
+  border-color: #0891b2;
+  color: var(--primary-color);
+}
+
+.filter-toggle-btn.has-filters {
+  border-color: #0891b2;
+}
+
+.filter-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  background-color: #0891b2;
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.filter-toggle-chevron {
+  transition: transform 0.2s ease;
+}
+
+.filter-toggle-chevron.expanded {
+  transform: rotate(180deg);
+}
+
+/* Collapsible Filters Content */
+.filters-content {
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-color);
+}
+
+.filters-content.expanded {
+  display: flex;
 }
 
 /* Time Filters */

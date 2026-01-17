@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
+import { LayoutGrid, List, ChevronDown, ChevronUp, SlidersHorizontal } from 'lucide-react';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RecipeCardGrid } from '@/components/RecipeCardGrid';
 import { RecipeCardList } from '@/components/RecipeCardList';
@@ -37,6 +37,12 @@ export function RecipeListPage() {
     return saved === 'true';
   });
 
+  // Filters expanded state with localStorage persistence (collapsed by default)
+  const [filtersExpanded, setFiltersExpanded] = useState<boolean>(() => {
+    const saved = localStorage.getItem('filtersExpanded');
+    return saved === 'true';
+  });
+
   // Dynamic tag limit based on height
   const [tagLimit, setTagLimit] = useState<number>(12);
   const [isMeasuring, setIsMeasuring] = useState<boolean>(true);
@@ -48,6 +54,10 @@ export function RecipeListPage() {
   useEffect(() => {
     localStorage.setItem('showAllTags', String(showAllTags));
   }, [showAllTags]);
+
+  useEffect(() => {
+    localStorage.setItem('filtersExpanded', String(filtersExpanded));
+  }, [filtersExpanded]);
 
   // Extract all unique tags from recipes
   const allTags = useMemo(() => {
@@ -217,68 +227,88 @@ export function RecipeListPage() {
   const displayedTags = (isMeasuring || showAllTags) ? allTags : allTags.slice(0, tagLimit);
   const hasMoreTags = allTags.length > tagLimit;
 
+  // Count active filters for badge display
+  const activeFilterCount = selectedTags.length + (timeFilterParam ? 1 : 0);
+
   return (
     <div className="app">
       <div className="controls-bar">
-        <div className="time-filters">
+        <div className="controls-bar-header">
           <button
-            className={`time-filter-btn ${timeFilterParam === '40' ? 'active' : ''}`}
-            onClick={() => handleTimeFilterClick('40')}
+            className={`filter-toggle-btn ${filtersExpanded ? 'expanded' : ''} ${activeFilterCount > 0 ? 'has-filters' : ''}`}
+            onClick={() => setFiltersExpanded(!filtersExpanded)}
+            aria-expanded={filtersExpanded}
+            aria-label={filtersExpanded ? 'Dölj filter' : 'Visa filter'}
           >
-            ≤ 40 min
+            <SlidersHorizontal size={18} />
+            <span>Filter</span>
+            {activeFilterCount > 0 && (
+              <span className="filter-badge">{activeFilterCount}</span>
+            )}
+            <ChevronDown size={16} className={`filter-toggle-chevron ${filtersExpanded ? 'expanded' : ''}`} />
           </button>
-          <button
-            className={`time-filter-btn ${timeFilterParam === '60' ? 'active' : ''}`}
-            onClick={() => handleTimeFilterClick('60')}
-          >
-            ≤ 1 timme
-          </button>
-        </div>
-        <div className="tag-filters" ref={tagFiltersRef}>
-          {displayedTags.map(tag => (
+          <div className="view-toggle" ref={viewToggleRef}>
             <button
-              key={tag}
-              className={`tag-filter-btn ${selectedTags.includes(tag) ? 'active' : ''}`}
-              onClick={() => handleTagClick(tag)}
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+              aria-label="Grid view"
             >
-              {tag}
+              <LayoutGrid size={20} />
             </button>
-          ))}
-          {hasMoreTags && !isMeasuring && (
             <button
-              className="tag-toggle-btn"
-              onClick={() => setShowAllTags(!showAllTags)}
-              aria-label={showAllTags ? 'Visa färre taggar' : 'Visa fler taggar'}
+              className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+              aria-label="List view"
             >
-              {showAllTags ? (
-                <>
-                  <ChevronUp size={16} />
-                  Visa färre
-                </>
-              ) : (
-                <>
-                  <ChevronDown size={16} />
-                  Visa fler ({allTags.length - tagLimit})
-                </>
-              )}
+              <List size={20} />
             </button>
-          )}
+          </div>
         </div>
-        <div className="view-toggle" ref={viewToggleRef}>
-          <button
-            className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-            onClick={() => setViewMode('grid')}
-            aria-label="Grid view"
-          >
-            <LayoutGrid size={20} />
-          </button>
-          <button
-            className={`view-toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
-            onClick={() => setViewMode('list')}
-            aria-label="List view"
-          >
-            <List size={20} />
-          </button>
+        <div className={`filters-content ${filtersExpanded ? 'expanded' : ''}`}>
+          <div className="time-filters">
+            <button
+              className={`time-filter-btn ${timeFilterParam === '40' ? 'active' : ''}`}
+              onClick={() => handleTimeFilterClick('40')}
+            >
+              ≤ 40 min
+            </button>
+            <button
+              className={`time-filter-btn ${timeFilterParam === '60' ? 'active' : ''}`}
+              onClick={() => handleTimeFilterClick('60')}
+            >
+              ≤ 1 timme
+            </button>
+          </div>
+          <div className="tag-filters" ref={tagFiltersRef}>
+            {displayedTags.map(tag => (
+              <button
+                key={tag}
+                className={`tag-filter-btn ${selectedTags.includes(tag) ? 'active' : ''}`}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+            {hasMoreTags && !isMeasuring && (
+              <button
+                className="tag-toggle-btn"
+                onClick={() => setShowAllTags(!showAllTags)}
+                aria-label={showAllTags ? 'Visa färre taggar' : 'Visa fler taggar'}
+              >
+                {showAllTags ? (
+                  <>
+                    <ChevronUp size={16} />
+                    Visa färre
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown size={16} />
+                    Visa fler ({allTags.length - tagLimit})
+                  </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
