@@ -10,6 +10,26 @@ A TypeScript/React static website for Swedish food recipes. Recipes are markdown
 - **Language**: Swedish (Svenska) - all content must be in Swedish
 - **Measurements**: Metric system only (grams, liters, deciliters, etc.)
 
+## Model Selection
+
+**Use Sonnet (default)** for:
+- Single file edits and bug fixes
+- Writing or updating tests
+- Small, well-defined tasks with clear requirements
+- Code following established patterns
+
+**Use Opus** for:
+- Planning and architecture decisions (use EnterPlanMode)
+- Complex multi-step tasks requiring judgment
+- Tasks spanning multiple files with unclear scope
+- Code review and design discussions
+
+**Use Explore agent** (Task tool with subagent_type=Explore) for:
+- "Where is X handled?" questions
+- Understanding how features work
+- Finding files related to a concept
+- Codebase exploration before implementation
+
 ## Workflow Essentials
 
 **Before completing ANY task:**
@@ -56,6 +76,24 @@ npm run dev          # Start dev server
 npm test             # Run tests
 npm run type-check   # TypeScript validation
 npm run build        # Production build
+```
+
+## Project Structure
+
+```
+recept/
+├── recipes/           # Recipe markdown files (.md)
+├── public/images/     # Recipe images (Git LFS tracked)
+├── scripts/           # Build scripts (recipe processing)
+├── src/
+│   ├── components/    # Reusable React components
+│   ├── pages/         # Route page components
+│   ├── hooks/         # Custom React hooks
+│   ├── utils/         # Helper functions
+│   ├── types/         # TypeScript type definitions
+│   ├── generated/     # Auto-generated recipe data (do not edit)
+│   └── test/          # Test utilities and setup
+└── dist/              # Build output
 ```
 
 ## Architecture Essentials
