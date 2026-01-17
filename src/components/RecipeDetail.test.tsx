@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { RecipeDetail } from './RecipeDetail';
 import type { Recipe } from '@/types/Recipe';
@@ -167,5 +168,104 @@ describe('RecipeDetail', () => {
     // Should render but with no sections
     const sections = container.querySelectorAll('.recipe-section');
     expect(sections).toHaveLength(0);
+  });
+
+  describe('servings adjuster', () => {
+    const recipeWithServings: Recipe = {
+      slug: 'servings-recipe',
+      frontmatter: {
+        title: 'Servings Recipe',
+        servings: 4,
+      },
+      content: `## Ingredienser
+
+- 2 dl mjöl
+- 4 ägg
+- 100 g smör
+
+## Instruktioner
+
+1. Blanda allt`,
+    };
+
+    it('should render servings adjuster buttons when servings exist', () => {
+      renderWithRouter(recipeWithServings);
+
+      expect(screen.getByLabelText('Minska portioner')).toBeInTheDocument();
+      expect(screen.getByLabelText('Öka portioner')).toBeInTheDocument();
+      expect(screen.getByText('4')).toBeInTheDocument();
+    });
+
+    it('should increase servings when clicking plus button', async () => {
+      const user = userEvent.setup();
+      renderWithRouter(recipeWithServings);
+
+      const increaseBtn = screen.getByLabelText('Öka portioner');
+      await user.click(increaseBtn);
+
+      expect(screen.getByText('5')).toBeInTheDocument();
+    });
+
+    it('should decrease servings when clicking minus button', async () => {
+      const user = userEvent.setup();
+      renderWithRouter(recipeWithServings);
+
+      const decreaseBtn = screen.getByLabelText('Minska portioner');
+      await user.click(decreaseBtn);
+
+      expect(screen.getByText('3')).toBeInTheDocument();
+    });
+
+    it('should disable minus button when servings is 1', async () => {
+      const user = userEvent.setup();
+      const recipeWithOneServing: Recipe = {
+        ...recipeWithServings,
+        frontmatter: { ...recipeWithServings.frontmatter, servings: 1 },
+      };
+      renderWithRouter(recipeWithOneServing);
+
+      const decreaseBtn = screen.getByLabelText('Minska portioner');
+      expect(decreaseBtn).toBeDisabled();
+
+      // Try clicking - should still be 1
+      await user.click(decreaseBtn);
+      expect(screen.getByText('1')).toBeInTheDocument();
+    });
+
+    it('should scale ingredients when servings change', async () => {
+      const user = userEvent.setup();
+      renderWithRouter(recipeWithServings);
+
+      // Initial ingredients
+      expect(screen.getByText('2 dl mjöl')).toBeInTheDocument();
+      expect(screen.getByText('4 ägg')).toBeInTheDocument();
+      expect(screen.getByText('100 g smör')).toBeInTheDocument();
+
+      // Double servings (4 -> 8)
+      const increaseBtn = screen.getByLabelText('Öka portioner');
+      await user.click(increaseBtn);
+      await user.click(increaseBtn);
+      await user.click(increaseBtn);
+      await user.click(increaseBtn);
+
+      // Check scaled ingredients
+      expect(screen.getByText('4 dl mjöl')).toBeInTheDocument();
+      expect(screen.getByText('8 ägg')).toBeInTheDocument();
+      expect(screen.getByText('200 g smör')).toBeInTheDocument();
+    });
+
+    it('should not render servings adjuster when no servings in recipe', () => {
+      const recipeWithoutServings: Recipe = {
+        slug: 'no-servings',
+        frontmatter: {
+          title: 'No Servings Recipe',
+        },
+        content: '## Ingredienser\n\n- 1 dl mjöl',
+      };
+      renderWithRouter(recipeWithoutServings);
+
+      expect(screen.queryByLabelText('Minska portioner')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Öka portioner')).not.toBeInTheDocument();
+    });
   });
 });

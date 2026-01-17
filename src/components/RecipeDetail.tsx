@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { marked } from 'marked';
 import type { Recipe } from '@/types/Recipe';
-import { Clock, Users } from 'lucide-react';
+import { Clock, Users, Minus, Plus } from 'lucide-react';
 import { useRecipeImage } from '@/hooks/useRecipeImage';
+import { scaleIngredientsInMarkdown } from '@/utils/ingredientScaler';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -14,6 +16,8 @@ interface RecipeSection {
 
 export function RecipeDetail({ recipe }: RecipeDetailProps) {
   const imageSrc = useRecipeImage(recipe.slug);
+  const originalServings = recipe.frontmatter.servings;
+  const [currentServings, setCurrentServings] = useState(originalServings || 4);
 
   const parseSections = (content: string): RecipeSection[] => {
     const sections: RecipeSection[] = [];
@@ -43,6 +47,24 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
   const sections = parseSections(recipe.content);
 
+  // Calculate scaling ratio
+  const scalingRatio = originalServings ? currentServings / originalServings : 1;
+
+  // Check if a section is the ingredients section
+  const isIngredientsSection = (title: string) => {
+    return title.toLowerCase() === 'ingredienser';
+  };
+
+  const handleDecreaseServings = () => {
+    if (currentServings > 1) {
+      setCurrentServings(currentServings - 1);
+    }
+  };
+
+  const handleIncreaseServings = () => {
+    setCurrentServings(currentServings + 1);
+  };
+
   return (
     <div className="recipe-detail">
       <div className="recipe-detail-header">
@@ -69,14 +91,31 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
               </span>
             )}
 
-            {recipe.frontmatter.servings && (
-              <span className="meta-item">
+            {originalServings && (
+              <div className="meta-item servings-adjuster">
                 <Users size={20} />
                 <div className="meta-label">
                   <span className="meta-label-text">Portioner</span>
-                  <span className="meta-value">{recipe.frontmatter.servings}</span>
+                  <div className="servings-controls">
+                    <button
+                      className="servings-btn"
+                      onClick={handleDecreaseServings}
+                      disabled={currentServings <= 1}
+                      aria-label="Minska portioner"
+                    >
+                      <Minus size={16} />
+                    </button>
+                    <span className="meta-value">{currentServings}</span>
+                    <button
+                      className="servings-btn"
+                      onClick={handleIncreaseServings}
+                      aria-label="Öka portioner"
+                    >
+                      <Plus size={16} />
+                    </button>
+                  </div>
                 </div>
-              </span>
+              </div>
             )}
           </div>
         </div>
@@ -84,12 +123,19 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
 
       <div className="recipe-content">
         {sections.length > 0 ? (
-          sections.map((section, index) => (
-            <div key={index} className="recipe-section">
-              <h2>{section.title}</h2>
-              <div dangerouslySetInnerHTML={renderMarkdown(section.content)} />
-            </div>
-          ))
+          sections.map((section, index) => {
+            // Scale ingredients if this is the ingredients section
+            const content = isIngredientsSection(section.title)
+              ? scaleIngredientsInMarkdown(section.content, scalingRatio)
+              : section.content;
+
+            return (
+              <div key={index} className="recipe-section">
+                <h2>{section.title}</h2>
+                <div dangerouslySetInnerHTML={renderMarkdown(content)} />
+              </div>
+            );
+          })
         ) : (
           <div dangerouslySetInnerHTML={renderMarkdown(recipe.content)} />
         )}
