@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { marked } from 'marked';
 import type { Recipe } from '@/types/Recipe';
-import { Clock, Users, Minus, Plus } from 'lucide-react';
+import { Clock, Users } from 'lucide-react';
 import { useRecipeImage } from '@/hooks/useRecipeImage';
 import { scaleIngredientsInMarkdown } from '@/utils/ingredientScaler';
 
@@ -14,10 +14,15 @@ interface RecipeSection {
   content: string;
 }
 
+const PORTION_PRESETS = [2, 4, 8, 10];
+
 export function RecipeDetail({ recipe }: RecipeDetailProps) {
   const imageSrc = useRecipeImage(recipe.slug);
   const originalServings = recipe.frontmatter.servings;
   const [currentServings, setCurrentServings] = useState(originalServings || 4);
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(String(currentServings));
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const parseSections = (content: string): RecipeSection[] => {
     const sections: RecipeSection[] = [];
@@ -55,14 +60,51 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
     return title.toLowerCase() === 'ingredienser';
   };
 
-  const handleDecreaseServings = () => {
-    if (currentServings > 1) {
-      setCurrentServings(currentServings - 1);
+  // Focus input when entering edit mode
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isEditing]);
+
+  const handlePresetClick = (preset: number) => {
+    setCurrentServings(preset);
+    setInputValue(String(preset));
+    setIsEditing(false);
+  };
+
+  const handleValueClick = () => {
+    setIsEditing(true);
+    setInputValue(String(currentServings));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputBlur = () => {
+    commitInputValue();
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      commitInputValue();
+    } else if (e.key === 'Escape') {
+      setIsEditing(false);
+      setInputValue(String(currentServings));
     }
   };
 
-  const handleIncreaseServings = () => {
-    setCurrentServings(currentServings + 1);
+  const commitInputValue = () => {
+    const parsed = parseInt(inputValue, 10);
+    if (!isNaN(parsed) && parsed >= 1) {
+      setCurrentServings(parsed);
+      setInputValue(String(parsed));
+    } else {
+      setInputValue(String(currentServings));
+    }
+    setIsEditing(false);
   };
 
   return (
@@ -97,22 +139,37 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
                 <div className="meta-label">
                   <span className="meta-label-text">Portioner</span>
                   <div className="servings-controls">
-                    <button
-                      className="servings-btn"
-                      onClick={handleDecreaseServings}
-                      disabled={currentServings <= 1}
-                      aria-label="Minska portioner"
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span className="meta-value">{currentServings}</span>
-                    <button
-                      className="servings-btn"
-                      onClick={handleIncreaseServings}
-                      aria-label="Öka portioner"
-                    >
-                      <Plus size={16} />
-                    </button>
+                    {PORTION_PRESETS.map(preset => (
+                      <button
+                        key={preset}
+                        className={`servings-preset-btn ${currentServings === preset ? 'active' : ''}`}
+                        onClick={() => handlePresetClick(preset)}
+                        aria-label={`${preset} portioner`}
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                    {isEditing ? (
+                      <input
+                        ref={inputRef}
+                        type="number"
+                        min="1"
+                        className="servings-input"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onBlur={handleInputBlur}
+                        onKeyDown={handleInputKeyDown}
+                        aria-label="Ange antal portioner"
+                      />
+                    ) : (
+                      <button
+                        className={`servings-preset-btn servings-custom ${!PORTION_PRESETS.includes(currentServings) ? 'active' : ''}`}
+                        onClick={handleValueClick}
+                        aria-label="Ange eget antal portioner"
+                      >
+                        {PORTION_PRESETS.includes(currentServings) ? '...' : currentServings}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

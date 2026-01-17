@@ -188,70 +188,87 @@ describe('RecipeDetail', () => {
 1. Blanda allt`,
     };
 
-    it('should render servings adjuster buttons when servings exist', () => {
+    it('should render preset portion buttons when servings exist', () => {
       renderWithRouter(recipeWithServings);
 
-      expect(screen.getByLabelText('Minska portioner')).toBeInTheDocument();
-      expect(screen.getByLabelText('Öka portioner')).toBeInTheDocument();
-      expect(screen.getByText('4')).toBeInTheDocument();
+      expect(screen.getByLabelText('2 portioner')).toBeInTheDocument();
+      expect(screen.getByLabelText('4 portioner')).toBeInTheDocument();
+      expect(screen.getByLabelText('8 portioner')).toBeInTheDocument();
+      expect(screen.getByLabelText('10 portioner')).toBeInTheDocument();
+      expect(screen.getByLabelText('Ange eget antal portioner')).toBeInTheDocument();
     });
 
-    it('should increase servings when clicking plus button', async () => {
+    it('should highlight the active preset button', () => {
+      renderWithRouter(recipeWithServings);
+
+      const btn4 = screen.getByLabelText('4 portioner');
+      expect(btn4).toHaveClass('active');
+    });
+
+    it('should change servings when clicking a preset button', async () => {
       const user = userEvent.setup();
       renderWithRouter(recipeWithServings);
 
-      const increaseBtn = screen.getByLabelText('Öka portioner');
-      await user.click(increaseBtn);
+      const btn8 = screen.getByLabelText('8 portioner');
+      await user.click(btn8);
 
-      expect(screen.getByText('5')).toBeInTheDocument();
-    });
-
-    it('should decrease servings when clicking minus button', async () => {
-      const user = userEvent.setup();
-      renderWithRouter(recipeWithServings);
-
-      const decreaseBtn = screen.getByLabelText('Minska portioner');
-      await user.click(decreaseBtn);
-
-      expect(screen.getByText('3')).toBeInTheDocument();
-    });
-
-    it('should disable minus button when servings is 1', async () => {
-      const user = userEvent.setup();
-      const recipeWithOneServing: Recipe = {
-        ...recipeWithServings,
-        frontmatter: { ...recipeWithServings.frontmatter, servings: 1 },
-      };
-      renderWithRouter(recipeWithOneServing);
-
-      const decreaseBtn = screen.getByLabelText('Minska portioner');
-      expect(decreaseBtn).toBeDisabled();
-
-      // Try clicking - should still be 1
-      await user.click(decreaseBtn);
-      expect(screen.getByText('1')).toBeInTheDocument();
+      expect(btn8).toHaveClass('active');
+      // Ingredients should be scaled (4 -> 8 = 2x)
+      expect(screen.getByText('4 dl mjöl')).toBeInTheDocument();
     });
 
     it('should scale ingredients when servings change', async () => {
       const user = userEvent.setup();
       renderWithRouter(recipeWithServings);
 
-      // Initial ingredients
+      // Initial ingredients (4 servings)
       expect(screen.getByText('2 dl mjöl')).toBeInTheDocument();
       expect(screen.getByText('4 ägg')).toBeInTheDocument();
       expect(screen.getByText('100 g smör')).toBeInTheDocument();
 
-      // Double servings (4 -> 8)
-      const increaseBtn = screen.getByLabelText('Öka portioner');
-      await user.click(increaseBtn);
-      await user.click(increaseBtn);
-      await user.click(increaseBtn);
-      await user.click(increaseBtn);
+      // Change to 8 servings (2x)
+      await user.click(screen.getByLabelText('8 portioner'));
 
       // Check scaled ingredients
       expect(screen.getByText('4 dl mjöl')).toBeInTheDocument();
       expect(screen.getByText('8 ägg')).toBeInTheDocument();
       expect(screen.getByText('200 g smör')).toBeInTheDocument();
+    });
+
+    it('should allow entering a custom portion value', async () => {
+      const user = userEvent.setup();
+      renderWithRouter(recipeWithServings);
+
+      // Click the custom button to show input
+      const customBtn = screen.getByLabelText('Ange eget antal portioner');
+      await user.click(customBtn);
+
+      // Enter a custom value
+      const input = screen.getByLabelText('Ange antal portioner');
+      await user.clear(input);
+      await user.type(input, '6');
+      await user.keyboard('{Enter}');
+
+      // Ingredients should be scaled (4 -> 6 = 1.5x)
+      expect(screen.getByText('3 dl mjöl')).toBeInTheDocument();
+      expect(screen.getByText('6 ägg')).toBeInTheDocument();
+      expect(screen.getByText('150 g smör')).toBeInTheDocument();
+    });
+
+    it('should show custom value in button when not a preset', async () => {
+      const user = userEvent.setup();
+      renderWithRouter(recipeWithServings);
+
+      // Enter custom value of 6
+      const customBtn = screen.getByLabelText('Ange eget antal portioner');
+      await user.click(customBtn);
+      const input = screen.getByLabelText('Ange antal portioner');
+      await user.clear(input);
+      await user.type(input, '6');
+      await user.keyboard('{Enter}');
+
+      // Custom button should now show "6"
+      expect(screen.getByText('6')).toBeInTheDocument();
     });
 
     it('should not render servings adjuster when no servings in recipe', () => {
@@ -264,8 +281,8 @@ describe('RecipeDetail', () => {
       };
       renderWithRouter(recipeWithoutServings);
 
-      expect(screen.queryByLabelText('Minska portioner')).not.toBeInTheDocument();
-      expect(screen.queryByLabelText('Öka portioner')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('2 portioner')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('4 portioner')).not.toBeInTheDocument();
     });
   });
 });
