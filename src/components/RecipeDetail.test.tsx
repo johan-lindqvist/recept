@@ -49,6 +49,11 @@ describe('RecipeDetail', () => {
     expect(screen.getByText('Portioner')).toBeInTheDocument();
     expect(screen.getByText('4')).toBeInTheDocument();
 
+    // Check tags
+    expect(screen.getByText('Taggar')).toBeInTheDocument();
+    expect(screen.getByText('test')).toBeInTheDocument();
+    expect(screen.getByText('example')).toBeInTheDocument();
+
     // Check content is rendered (markdown converted to HTML)
     expect(screen.getByText('1 cup flour')).toBeInTheDocument();
     expect(screen.getByText('2 eggs')).toBeInTheDocument();
@@ -70,6 +75,7 @@ describe('RecipeDetail', () => {
     expect(screen.getByText('Just simple text content.')).toBeInTheDocument();
     expect(screen.queryByText('Total tid')).not.toBeInTheDocument();
     expect(screen.queryByText('Portioner')).not.toBeInTheDocument();
+    expect(screen.queryByText('Taggar')).not.toBeInTheDocument();
   });
 
   it('should render markdown content as HTML', () => {

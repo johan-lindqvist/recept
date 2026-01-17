@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { marked } from 'marked';
 import type { Recipe } from '@/types/Recipe';
-import { Clock, Users } from 'lucide-react';
+import { Clock, Users, Tag } from 'lucide-react';
 import { useRecipeImage } from '@/hooks/useRecipeImage';
 import { scaleIngredientsInMarkdown } from '@/utils/ingredientScaler';
 
@@ -170,6 +170,20 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
                         {PORTION_PRESETS.includes(currentServings) ? '...' : currentServings}
                       </button>
                     )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {recipe.frontmatter.tags && recipe.frontmatter.tags.length > 0 && (
+              <div className="meta-item meta-item-tags">
+                <Tag size={20} />
+                <div className="meta-label">
+                  <span className="meta-label-text">Taggar</span>
+                  <div className="detail-tags">
+                    {recipe.frontmatter.tags.map(tag => (
+                      <span key={tag} className="detail-tag">{tag}</span>
+                    ))}
                   </div>
                 </div>
               </div>
