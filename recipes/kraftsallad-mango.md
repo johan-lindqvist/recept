@@ -19,9 +19,9 @@ tags:
 **Dressing**
 - 2 msk lime, pressad
 - 2 msk rapsolja
-- ½ tsk salt
+- 0,5 tsk salt
 - 1 tsk sambal oelek
-- ½ dl koriander, grovhackad
+- 0,5 dl koriander, grovhackad
 
 ## Instruktioner
 

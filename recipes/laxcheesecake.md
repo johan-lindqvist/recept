@@ -21,7 +21,7 @@ tags:
 - 3 dl gräddfil
 - 100 g löjrom, sikrom eller ofärgad stenbitsrom
 - 2 - 3 msk pepparrot, riven
-- ½ tsk salt
+- 0,5 tsk salt
 - 1 krm vitpeppar, nymald
 
 **Örtgelé**

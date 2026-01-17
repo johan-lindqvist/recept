@@ -9,12 +9,12 @@ tags:
 
 ## Ingredienser
 
-- 4½ dl strösocker
-- ½ dl florsocker
+- 4,5 dl strösocker
+- 0,5 dl florsocker
 - 1 äggvita
-- 1½ dl vatten, kallt
-- 1½ msk gelatinpulver
-- 1½ dl vatten, kokhett
+- 1,5 dl vatten, kallt
+- 1,5 msk gelatinpulver
+- 1,5 dl vatten, kokhett
 
 **Garnering**
 - 4 dl kokos

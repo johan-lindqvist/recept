@@ -18,10 +18,10 @@ tags:
 - 1-2 dl svarta oliver, gärna urkärnade
 - 1 msk smör
 - 2 krm svartpeppar
-- 1½ tsk salt
+- 1,5 tsk salt
 - 1 tsk mejram
 - 1 vitlöksklyfta
-- 1½ msk vetemjöl
+- 1,5 msk vetemjöl
 - 5 dl vispgrädde
 - Pressad potatis eller ris
 

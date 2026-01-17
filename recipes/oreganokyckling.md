@@ -12,12 +12,12 @@ tags:
 - 4 kycklingfiléer
 - 2 vitlöksklyftor
 - 1 msk smör
-- ½ tsk salt
+- 0,5 tsk salt
 - 1 krm svartpeppar
-- 2½ dl matlagningsgrädde
+- 2,5 dl matlagningsgrädde
 - 1 hönsbuljongtärning
 - 2 - 3 tsk färsk eller torkad oregano
-- 1½ msk balsamvinäger
+- 1,5 msk balsamvinäger
 
 ## Instruktioner
 

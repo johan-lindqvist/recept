@@ -11,7 +11,7 @@ tags:
 
 - 5-6 äpplen, gärna Aroma
 - 125 g smör
-- 1½ dl strösocker
+- 1,5 dl strösocker
 - 2 dl vetemjöl
 - 1 tsk bakpulver
 - rivet skal från en halv citron

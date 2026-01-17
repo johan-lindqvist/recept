@@ -20,7 +20,7 @@ tags:
 - 4 dl crème fraîche
 - 8 ägg
 - 4 dl vispgrädde
-- 1½ tsk salt
+- 1,5 tsk salt
 - 2 krm peppar
 
 ## Instruktioner

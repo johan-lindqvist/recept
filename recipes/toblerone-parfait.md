@@ -12,8 +12,8 @@ tags:
 - 125 g toblerone
 - 2 tsk Kahlúalikör
 - 3 äggulor
-- ½ dl strösocker
-- 2½ dl vispgrädde
+- 0,5 dl strösocker
+- 2,5 dl vispgrädde
 - 50 g mörk choklad
 
 ## Instruktioner

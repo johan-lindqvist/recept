@@ -10,15 +10,15 @@ tags:
 ## Ingredienser
 
 - 1 citron
-- 1½ dl vispgrädde
+- 1,5 dl vispgrädde
 - 2 äggulor
 - 1 dl socker
-- 1½ dl gräddfil
+- 1,5 dl gräddfil
 - 2 äggvitor
 
 **Sås**
-- ½ dl vatten
-- ½ dl socker
+- 0,5 dl vatten
+- 0,5 dl socker
 - 4 passionsfrukter
 - 12 jordgubbar
 

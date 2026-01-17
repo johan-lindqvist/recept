@@ -13,7 +13,7 @@ tags:
 - 1 dl vatten
 - 2 msk ättika (12%)
 - 2 msk socker
-- ½ krm vitpeppar
+- 0,5 krm vitpeppar
 - 2 msk hackad persilja
 
 ## Instruktioner

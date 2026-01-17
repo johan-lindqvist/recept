@@ -16,7 +16,7 @@ tags:
 - 1 tsk oregano
 - 1 tsk salt
 - 1 tsk socker (eller druvsocker)
-- 1 tsk chiliflakes eller ½ tsk cayennepeppar (justera efter smak)
+- 1 tsk chiliflakes eller 0,5 tsk cayennepeppar (justera efter smak)
 - 1 tsk svartpeppar
 - 1 msk majsstärkelse eller potatisstärkelse (för att få lite såsig konsistens)
 

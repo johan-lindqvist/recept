@@ -19,8 +19,8 @@ tags:
 - 2 dl strösocker
 - 3 ägg, delade i gulor och vitor
 - 2 dl vispgrädde
-- ½ msk florsocker
-- 1½ dl färska eller tinade blåbär
+- 0,5 msk florsocker
+- 1,5 dl färska eller tinade blåbär
 
 ## Instruktioner
 

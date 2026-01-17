@@ -9,11 +9,11 @@ tags:
 ## Ingredienser
 
 - 12 fläskkotletter med ben
-- 1½ tsk salt
+- 1,5 tsk salt
 - 3 krm svartpeppar
 - 5-7 dl rödvin
-- 1½ dl klippt persilja
-- 1½ dl ströbröd
+- 1,5 dl klippt persilja
+- 1,5 dl ströbröd
 - 3 dl riven ost
 - 3 msk parmesanost
 - 3 pressade vitlöksklyftor

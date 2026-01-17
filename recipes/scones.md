@@ -13,7 +13,7 @@ tags:
 - 500 g mjöl
 - 150 g smör
 - 5 tsk bakpulver
-- ½ dl socker
+- 0,5 dl socker
 - 1 tsk salt
 - 2 ägg
 - 2,5 dl mjölk 3%

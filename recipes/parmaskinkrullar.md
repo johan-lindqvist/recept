@@ -11,8 +11,8 @@ tags:
 
 - 4 soltorkade tomater i olja
 - 100g getost
-- ½ burk kesella
-- ½ krm nymald svartpeppar
+- 0,5 burk kesella
+- 0,5 krm nymald svartpeppar
 - 12 tunna skivor parmaskinka
 
 ## Instruktioner

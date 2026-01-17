@@ -9,12 +9,12 @@ tags:
 
 ## Ingredienser
 
-- ½ dl olja
-- ¼ dl soja
+- 0,5 dl olja
+- 0,25 dl soja
 - 1 krm svartpeppar
 - 1 krm ingefära
 - 2 vitlöksklyftor
-- ¼ dl lime eller citronsaft
+- 0,25 dl lime eller citronsaft
 - 1 tsk citronmeliss
 
 ## Instruktioner

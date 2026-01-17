@@ -11,7 +11,7 @@ tags:
 
 
 **Deg**
-- 2½ dl vetemjöl
+- 2,5 dl vetemjöl
 - 100 g smör
 - 100 g keso
 

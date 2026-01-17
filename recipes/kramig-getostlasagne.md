@@ -10,10 +10,10 @@ tags:
 ## Ingredienser
 
 - 4 dl mjölk
-- 2½ dl vispgrädde
+- 2,5 dl vispgrädde
 - 4 msk idealmjöl
 - 300 g getost, typ chèvre
-- ½ tsk salt
+- 0,5 tsk salt
 - 1 liten gul lök
 - 1 vitlöksklyfta
 - 2 msk smör

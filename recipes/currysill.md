@@ -10,7 +10,7 @@ tags:
 ## Ingredienser
 
 - 3 dl gräddfil
-- 1½ dl majonäs
+- 1,5 dl majonäs
 - 1/4 purjolök
 - 2 msk curry
 - 1 krm cayennepeppar

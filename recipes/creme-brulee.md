@@ -10,8 +10,8 @@ tags:
 ## Ingredienser
 
 - 6 äggulor
-- 2½ dl vispgrädde
-- 2½ dl mjölk
+- 2,5 dl vispgrädde
+- 2,5 dl mjölk
 - 1 dl strösocker
 - 1 vaniljstång
 

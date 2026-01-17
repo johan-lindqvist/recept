@@ -16,11 +16,11 @@ tags:
 - 2 msk hackad dill
 - 2 msk hackad gräslök
 - 2 krm salt
-- ½ krm cayennepeppar
+- 0,5 krm cayennepeppar
 - 1 dl hackad dill
 - 1 dl hackad persilja
-- 1½ dl finhackad rödlök
-- 1½ liter blandade salladssorter i bitar
+- 1,5 dl finhackad rödlök
+- 1,5 liter blandade salladssorter i bitar
 
 ## Instruktioner
 

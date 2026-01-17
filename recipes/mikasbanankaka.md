@@ -11,7 +11,7 @@ totalTime: 1 timme
 - 1 tsk vaniljsocker
 - 1 tsk bakpulver
 - 1 tsk kakao
-- 2½ dl vetemjöl
+- 2,5 dl vetemjöl
 - 1 nypa salt
 - 2 msk honung
 - Hackad bitar av mörk choklad

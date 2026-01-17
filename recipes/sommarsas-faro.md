@@ -11,7 +11,7 @@ tags:
 
 - 3 dl gräddfil eller mild avrunnen yoghurt
 - Skalet av en citron
-- Saft av ½ citron
+- Saft av 0,5 citron
 - 2 msk svensk söt senap
 - 1 pressad vitlöksklyfta
 - 1 dl fint hackad dill

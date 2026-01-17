@@ -10,7 +10,7 @@ tags:
 ## Ingredienser
 
 - 1 förp färdigkavlad smördeg (275 g)
-- 1½ kilo potatis
+- 1,5 kilo potatis
 - 2 msk smör
 - 2 ägg
 - 2 dl stark riven ost
@@ -20,7 +20,7 @@ tags:
 - 1 morot
 - 1 rödlök
 - 2 msk smör
-- 1½ dl hackad persilja
+- 1,5 dl hackad persilja
 - 1 ägg
 
 ## Instruktioner
