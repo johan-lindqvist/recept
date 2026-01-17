@@ -898,6 +898,22 @@ body {
   font-weight: 600;
 }
 
+.recipe-detail .recipe-content a {
+  color: #38bdf8;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.recipe-detail .recipe-content a:visited {
+  color: #a78bfa;
+}
+
+.recipe-detail .recipe-content a:hover {
+  color: #0891b2;
+  text-decoration: none;
+}
+
 /* Two-column layout for larger screens */
 @media (min-width: 900px) {
   .app {
