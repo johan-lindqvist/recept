@@ -30,6 +30,109 @@ const UNITS = [
   'skiva', 'skivor',
 ];
 
+// Volume units in ml for conversion
+// Swedish measurements: 1 krm = 1ml, 1 tsk = 5ml, 1 msk = 15ml, 1 dl = 100ml, 1 l = 1000ml
+const VOLUME_TO_ML: Record<string, number> = {
+  'krm': 1,
+  'kryddmått': 1,
+  'ml': 1,
+  'tsk': 5,
+  'tesked': 5,
+  'msk': 15,
+  'matsked': 15,
+  'cl': 10,
+  'dl': 100,
+  'l': 1000,
+  'liter': 1000,
+};
+
+// Preferred units for display (ordered from smallest to largest)
+// Each entry: [unit name, ml value, minimum ml to use this unit]
+const VOLUME_UNITS_ORDERED: [string, number, number][] = [
+  ['krm', 1, 0],      // Use for < 5ml
+  ['tsk', 5, 5],      // Use for 5ml - 14ml
+  ['msk', 15, 15],    // Use for 15ml - 99ml
+  ['dl', 100, 100],   // Use for 100ml - 999ml
+  ['l', 1000, 1000],  // Use for >= 1000ml
+];
+
+/**
+ * Check if a unit is a convertible volume unit
+ */
+function isVolumeUnit(unit: string): boolean {
+  return unit.toLowerCase() in VOLUME_TO_ML;
+}
+
+/**
+ * Convert a quantity from one volume unit to ml
+ */
+function toMl(quantity: number, unit: string): number {
+  const mlPerUnit = VOLUME_TO_ML[unit.toLowerCase()];
+  return mlPerUnit ? quantity * mlPerUnit : quantity;
+}
+
+/**
+ * Find the best volume unit for a given ml amount
+ * Prefers clean numbers (whole or simple fractions)
+ */
+function findBestVolumeUnit(ml: number): { quantity: number; unit: string } {
+  // Try each unit from largest to smallest
+  for (let i = VOLUME_UNITS_ORDERED.length - 1; i >= 0; i--) {
+    const [unit, mlPerUnit, minMl] = VOLUME_UNITS_ORDERED[i];
+
+    if (ml >= minMl) {
+      const quantity = ml / mlPerUnit;
+
+      // Check if this gives a reasonably clean number
+      // Accept if it's a whole number, or close to common fractions
+      const isClean =
+        Math.abs(quantity - Math.round(quantity)) < 0.05 ||
+        Math.abs(quantity * 2 - Math.round(quantity * 2)) < 0.1 || // halves
+        Math.abs(quantity * 4 - Math.round(quantity * 4)) < 0.1;   // quarters
+
+      if (isClean || i === 0) {
+        return { quantity, unit };
+      }
+    }
+  }
+
+  // Fallback to ml
+  return { quantity: ml, unit: 'ml' };
+}
+
+/**
+ * Convert volume to a better unit if it makes sense
+ * Only converts to larger units (e.g., tsk → msk → dl → l)
+ * Returns null if no conversion is appropriate
+ */
+export function convertVolume(
+  quantity: number,
+  unit: string
+): { quantity: number; unit: string } | null {
+  if (!isVolumeUnit(unit)) {
+    return null;
+  }
+
+  const ml = toMl(quantity, unit);
+  const best = findBestVolumeUnit(ml);
+
+  // Only convert if we're using a different unit
+  if (best.unit.toLowerCase() === unit.toLowerCase()) {
+    return null;
+  }
+
+  // Only convert to larger units (e.g., tsk → msk, msk → dl)
+  // Users prefer "1/2 dl" over "10 tsk"
+  const originalMlPerUnit = VOLUME_TO_ML[unit.toLowerCase()];
+  const newMlPerUnit = VOLUME_TO_ML[best.unit.toLowerCase()];
+
+  if (newMlPerUnit <= originalMlPerUnit) {
+    return null;
+  }
+
+  return best;
+}
+
 /**
  * Parse a fraction string like "1/2" or "3/4" to a number
  */
@@ -164,13 +267,24 @@ export function scaleIngredient(line: string, ratio: number): string {
     return line;
   }
 
-  const scaledQuantity = parsed.quantity * ratio;
+  let scaledQuantity = parsed.quantity * ratio;
+  let unit = parsed.unit;
+
+  // Try to convert to a better unit if it makes sense
+  if (unit) {
+    const converted = convertVolume(scaledQuantity, unit);
+    if (converted) {
+      scaledQuantity = converted.quantity;
+      unit = converted.unit;
+    }
+  }
+
   const formattedQuantity = formatQuantity(scaledQuantity);
 
   // Reconstruct the line
   const parts = [formattedQuantity];
-  if (parsed.unit) {
-    parts.push(parsed.unit);
+  if (unit) {
+    parts.push(unit);
   }
   if (parsed.rest) {
     parts.push(parsed.rest);

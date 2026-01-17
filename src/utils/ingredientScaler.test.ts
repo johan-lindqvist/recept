@@ -4,6 +4,7 @@ import {
   scaleIngredient,
   scaleIngredientsInMarkdown,
   formatQuantity,
+  convertVolume,
 } from './ingredientScaler';
 
 describe('formatQuantity', () => {
@@ -182,5 +183,79 @@ More text`);
     const content = '  - 3 dl mjöl';
     const result = scaleIngredientsInMarkdown(content, 2);
     expect(result).toBe('  - 6 dl mjöl');
+  });
+});
+
+describe('convertVolume', () => {
+  it('converts tsk to msk when appropriate', () => {
+    // 3 tsk = 1 msk
+    const result = convertVolume(3, 'tsk');
+    expect(result).toEqual({ quantity: 1, unit: 'msk' });
+  });
+
+  it('converts tsk to msk for 6 tsk', () => {
+    // 6 tsk = 2 msk
+    const result = convertVolume(6, 'tsk');
+    expect(result).toEqual({ quantity: 2, unit: 'msk' });
+  });
+
+  it('converts msk to dl when appropriate', () => {
+    // 100ml / 15ml = 6.67 msk, but 7 msk = 105ml ≈ 1 dl
+    // Actually testing with exact dl amounts
+    const result = convertVolume(20, 'msk'); // 300ml = 3 dl
+    expect(result).toEqual({ quantity: 3, unit: 'dl' });
+  });
+
+  it('converts dl to l for large amounts', () => {
+    const result = convertVolume(10, 'dl');
+    expect(result).toEqual({ quantity: 1, unit: 'l' });
+  });
+
+  it('returns null for non-volume units', () => {
+    expect(convertVolume(100, 'g')).toBeNull();
+    expect(convertVolume(2, 'st')).toBeNull();
+  });
+
+  it('returns null when no better unit exists', () => {
+    // 2 tsk is not cleanly convertible to msk
+    expect(convertVolume(2, 'tsk')).toBeNull();
+  });
+
+  it('converts krm to tsk when appropriate', () => {
+    // 5 krm = 1 tsk
+    const result = convertVolume(5, 'krm');
+    expect(result).toEqual({ quantity: 1, unit: 'tsk' });
+  });
+});
+
+describe('scaleIngredient with unit conversion', () => {
+  it('converts 1 tsk to 1 msk when tripled', () => {
+    // 1 tsk * 3 = 3 tsk = 1 msk
+    expect(scaleIngredient('1 tsk salt', 3)).toBe('1 msk salt');
+  });
+
+  it('converts 2 tsk to 2 msk when tripled', () => {
+    // 2 tsk * 3 = 6 tsk = 2 msk
+    expect(scaleIngredient('2 tsk socker', 3)).toBe('2 msk socker');
+  });
+
+  it('converts msk to dl for large scaling', () => {
+    // 5 msk * 4 = 20 msk = 300ml = 3 dl
+    expect(scaleIngredient('5 msk olja', 4)).toBe('3 dl olja');
+  });
+
+  it('keeps unit when conversion would not be clean', () => {
+    // 2 tsk * 2 = 4 tsk (not cleanly 1.33 msk)
+    expect(scaleIngredient('2 tsk salt', 2)).toBe('4 tsk salt');
+  });
+
+  it('converts dl to l for 10+ dl', () => {
+    // 5 dl * 2 = 10 dl = 1 l
+    expect(scaleIngredient('5 dl vatten', 2)).toBe('1 l vatten');
+  });
+
+  it('does not convert non-volume units', () => {
+    expect(scaleIngredient('100 g smör', 2)).toBe('200 g smör');
+    expect(scaleIngredient('2 st ägg', 3)).toBe('6 st ägg');
   });
 });
