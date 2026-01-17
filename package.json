@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "generate:image-index": "node scripts/generate-image-index.cjs",
+    "import-recipe": "node scripts/import-recipe.cjs",
     "dev": "npm run generate:image-index && vite",
     "build": "npm run generate:image-index && tsc && vite build",
     "preview": "vite preview",
@@ -23,6 +24,7 @@
     "react-router-dom": "^7.9.5"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
