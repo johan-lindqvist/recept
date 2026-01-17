@@ -855,6 +855,13 @@ body {
   margin-top: var(--spacing-xs);
 }
 
+@media (min-width: 900px) {
+  .meta-item-tags {
+    flex-basis: auto;
+    margin-top: 0;
+  }
+}
+
 .detail-tags {
   display: flex;
   flex-wrap: wrap;
