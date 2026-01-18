@@ -11,24 +11,7 @@ describe('useIsMobile', () => {
     vi.unstubAllGlobals();
   });
 
-  it('should return false when not a touch device', () => {
-    vi.stubGlobal('navigator', { maxTouchPoints: 0 });
-
-    // Mock window.matchMedia
-    const matchMediaMock = vi.fn().mockReturnValue({ matches: true });
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: matchMediaMock,
-    });
-
-    const { result } = renderHook(() => useIsMobile());
-
-    expect(result.current).toBe(false);
-  });
-
-  it('should return false when touch device but large screen', () => {
-    vi.stubGlobal('navigator', { maxTouchPoints: 5 });
-
+  it('should return false when screen is large (> 1024px)', () => {
     // Mock window.matchMedia returning false (> 1024px)
     const matchMediaMock = vi.fn().mockReturnValue({ matches: false });
     Object.defineProperty(window, 'matchMedia', {
@@ -39,11 +22,10 @@ describe('useIsMobile', () => {
     const { result } = renderHook(() => useIsMobile());
 
     expect(result.current).toBe(false);
+    expect(matchMediaMock).toHaveBeenCalledWith('(max-width: 1024px)');
   });
 
-  it('should return true when touch device and small screen', () => {
-    vi.stubGlobal('navigator', { maxTouchPoints: 5 });
-
+  it('should return true when screen is small (<= 1024px)', () => {
     // Mock window.matchMedia returning true (<= 1024px)
     const matchMediaMock = vi.fn().mockReturnValue({ matches: true });
     Object.defineProperty(window, 'matchMedia', {
@@ -54,5 +36,6 @@ describe('useIsMobile', () => {
     const { result } = renderHook(() => useIsMobile());
 
     expect(result.current).toBe(true);
+    expect(matchMediaMock).toHaveBeenCalledWith('(max-width: 1024px)');
   });
 });
