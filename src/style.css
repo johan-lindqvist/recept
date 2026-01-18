@@ -171,23 +171,34 @@ body {
   align-items: center;
 }
 
-/* Wake Lock Button */
+/* Wake Lock Button (Recipe Detail) */
+.meta-item-wakelock {
+  flex-basis: 100%;
+  margin-top: var(--spacing-sm);
+}
+
+.wake-lock-container {
+  position: relative;
+  display: inline-block;
+}
+
 .wake-lock-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: var(--spacing-sm);
-  background-color: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .wake-lock-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
-  color: var(--primary-color);
+  background-color: rgba(8, 145, 178, 0.4);
   border-color: #0891b2;
 }
 
@@ -195,7 +206,71 @@ body {
   background-color: #0891b2;
   color: white;
   border-color: #0891b2;
-  box-shadow: 0 0 8px rgba(8, 145, 178, 0.5);
+  box-shadow: 0 0 12px rgba(8, 145, 178, 0.6);
+}
+
+.wake-lock-text {
+  white-space: nowrap;
+}
+
+/* Wake Lock Tooltip */
+.wake-lock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  right: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--card-background);
+  border: 1px solid #0891b2;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.8rem;
+  color: var(--text-color);
+  max-width: 250px;
+  z-index: 10;
+  animation: tooltipFadeIn 0.3s ease-out;
+}
+
+.wake-lock-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 1rem;
+  border: 6px solid transparent;
+  border-top-color: #0891b2;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wake-lock-tooltip-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.wake-lock-tooltip-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
 }
 
 .nav-link {
