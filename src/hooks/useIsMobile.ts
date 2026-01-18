@@ -2,17 +2,21 @@ import { useState, useEffect } from 'react';
 
 /**
  * Hook to detect if the user is on a mobile/tablet device.
- * Uses screen width to determine if we're in a mobile context.
- * The wake lock feature is only useful on mobile devices anyway.
+ * Uses a combination of screen width and touch capability.
+ * Returns false on desktop devices.
  */
 export function useIsMobile(): boolean {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
-      // Check for mobile/tablet screen width
+      // Check for touch capability and reasonable mobile screen width
+      const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const isSmallScreen = window.matchMedia('(max-width: 1024px)').matches;
-      setIsMobile(isSmallScreen);
+
+      // Consider mobile if has touch AND is not a large screen
+      // This catches phones and tablets but excludes touch-enabled laptops
+      setIsMobile(hasTouchScreen && isSmallScreen);
     };
 
     checkIsMobile();
