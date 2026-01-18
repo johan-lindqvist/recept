@@ -1,9 +1,11 @@
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { ChefHat, X } from 'lucide-react';
+import { ChefHat, X, Smartphone } from 'lucide-react';
+import { useWakeLock } from '@/hooks/useWakeLock';
 
 export function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const { isActive: wakeLockActive, isSupported: wakeLockSupported, toggle: toggleWakeLock } = useWakeLock();
   const searchQuery = searchParams.get('q') || '';
   const tagFilterParam = searchParams.get('tag') || '';
   const timeFilterParam = searchParams.get('time') || '';
@@ -101,6 +103,17 @@ export function Header() {
         )}
 
         <nav className="header-nav">
+          {wakeLockSupported && (
+            <button
+              className={`wake-lock-btn ${wakeLockActive ? 'active' : ''}`}
+              onClick={toggleWakeLock}
+              aria-label={wakeLockActive ? 'Stäng av skärmlås' : 'Håll skärmen vaken'}
+              aria-pressed={wakeLockActive}
+              title={wakeLockActive ? 'Skärmen hålls vaken' : 'Håll skärmen vaken'}
+            >
+              <Smartphone size={20} />
+            </button>
+          )}
           <Link to="/create" className="btn-primary">
             + Skapa Recept
           </Link>
