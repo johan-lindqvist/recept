@@ -1,16 +1,9 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { RecipeDetail } from './RecipeDetail';
 import type { Recipe } from '@/types/Recipe';
-
-// Mock useIsMobile hook
-vi.mock('@/hooks/useIsMobile', () => ({
-  useIsMobile: vi.fn(() => false),
-}));
-
-import { useIsMobile } from '@/hooks/useIsMobile';
 
 describe('RecipeDetail', () => {
   const mockRecipe: Recipe = {
@@ -296,142 +289,6 @@ describe('RecipeDetail', () => {
 
       expect(screen.queryByLabelText('2 portioner')).not.toBeInTheDocument();
       expect(screen.queryByLabelText('4 portioner')).not.toBeInTheDocument();
-    });
-  });
-
-  describe('wake lock button', () => {
-    const mockRelease = vi.fn().mockResolvedValue(undefined);
-    const mockWakeLockSentinel = {
-      released: false,
-      type: 'screen' as const,
-      release: mockRelease,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      onrelease: null,
-      dispatchEvent: vi.fn(),
-    };
-
-    const mockRequest = vi.fn().mockResolvedValue(mockWakeLockSentinel);
-
-    beforeEach(() => {
-      vi.clearAllMocks();
-      mockRelease.mockResolvedValue(undefined);
-      mockRequest.mockResolvedValue(mockWakeLockSentinel);
-      localStorage.clear();
-    });
-
-    afterEach(() => {
-      vi.unstubAllGlobals();
-      vi.mocked(useIsMobile).mockReturnValue(false);
-    });
-
-    it('should not show wake lock button on desktop', () => {
-      vi.mocked(useIsMobile).mockReturnValue(false);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      renderWithRouter(mockRecipe);
-
-      const wakeLockButton = screen.queryByLabelText(/håll skärmen vaken/i);
-      expect(wakeLockButton).not.toBeInTheDocument();
-    });
-
-    it('should not show wake lock button when API is not supported', () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {});
-
-      renderWithRouter(mockRecipe);
-
-      const wakeLockButton = screen.queryByLabelText(/håll skärmen vaken/i);
-      expect(wakeLockButton).not.toBeInTheDocument();
-    });
-
-    it('should show wake lock button on mobile when API is supported', () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      renderWithRouter(mockRecipe);
-
-      const wakeLockButton = screen.getByLabelText(/håll skärmen vaken/i);
-      expect(wakeLockButton).toBeInTheDocument();
-      expect(screen.getByText('Håll vaken')).toBeInTheDocument();
-    });
-
-    it('should show tooltip on first visit for mobile users', () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      renderWithRouter(mockRecipe);
-
-      expect(screen.getByText(/aktivera för att hålla skärmen tänd/i)).toBeInTheDocument();
-    });
-
-    it('should not show tooltip if already dismissed', () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-      localStorage.setItem('wakeLockTooltipDismissed', 'true');
-
-      renderWithRouter(mockRecipe);
-
-      expect(screen.queryByText(/aktivera för att hålla skärmen tänd/i)).not.toBeInTheDocument();
-    });
-
-    it('should dismiss tooltip when close button is clicked', async () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      const user = userEvent.setup();
-      renderWithRouter(mockRecipe);
-
-      expect(screen.getByText(/aktivera för att hålla skärmen tänd/i)).toBeInTheDocument();
-
-      const closeButton = screen.getByLabelText('Stäng tips');
-      await user.click(closeButton);
-
-      expect(screen.queryByText(/aktivera för att hålla skärmen tänd/i)).not.toBeInTheDocument();
-      expect(localStorage.getItem('wakeLockTooltipDismissed')).toBe('true');
-    });
-
-    it('should toggle wake lock and dismiss tooltip when button is clicked', async () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      const user = userEvent.setup();
-      renderWithRouter(mockRecipe);
-
-      const wakeLockButton = screen.getByLabelText(/håll skärmen vaken/i);
-      await user.click(wakeLockButton);
-
-      expect(mockRequest).toHaveBeenCalledWith('screen');
-      expect(screen.queryByText(/aktivera för att hålla skärmen tänd/i)).not.toBeInTheDocument();
-    });
-
-    it('should show active state when wake lock is active', async () => {
-      vi.mocked(useIsMobile).mockReturnValue(true);
-      vi.stubGlobal('navigator', {
-        wakeLock: { request: mockRequest },
-      });
-
-      const user = userEvent.setup();
-      renderWithRouter(mockRecipe);
-
-      const wakeLockButton = screen.getByLabelText(/håll skärmen vaken/i);
-      await user.click(wakeLockButton);
-
-      const activeButton = screen.getByLabelText(/stäng av skärmlås/i);
-      expect(activeButton).toHaveClass('active');
-      expect(screen.getByText('Skärm vaken')).toBeInTheDocument();
     });
   });
 });

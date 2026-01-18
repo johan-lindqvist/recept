@@ -1,13 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { marked } from 'marked';
 import type { Recipe } from '@/types/Recipe';
-import { Clock, Users, Tag, Smartphone, X } from 'lucide-react';
+import { Clock, Users, Tag } from 'lucide-react';
 import { useRecipeImage } from '@/hooks/useRecipeImage';
-import { useWakeLock } from '@/hooks/useWakeLock';
-import { useIsMobile } from '@/hooks/useIsMobile';
 import { scaleIngredientsInMarkdown } from '@/utils/ingredientScaler';
-
-const WAKE_LOCK_TOOLTIP_KEY = 'wakeLockTooltipDismissed';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -27,33 +23,6 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(String(currentServings));
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Wake lock functionality
-  const isMobile = useIsMobile();
-  const { isActive: wakeLockActive, isSupported: wakeLockSupported, toggle: toggleWakeLock } = useWakeLock();
-  const [showWakeLockTooltip, setShowWakeLockTooltip] = useState(false);
-
-  // Show tooltip on first visit for mobile users
-  useEffect(() => {
-    if (isMobile && wakeLockSupported) {
-      const dismissed = localStorage.getItem(WAKE_LOCK_TOOLTIP_KEY);
-      if (!dismissed) {
-        setShowWakeLockTooltip(true);
-      }
-    }
-  }, [isMobile, wakeLockSupported]);
-
-  const dismissWakeLockTooltip = () => {
-    setShowWakeLockTooltip(false);
-    localStorage.setItem(WAKE_LOCK_TOOLTIP_KEY, 'true');
-  };
-
-  const handleWakeLockToggle = () => {
-    toggleWakeLock();
-    if (showWakeLockTooltip) {
-      dismissWakeLockTooltip();
-    }
-  };
 
   const parseSections = (content: string): RecipeSection[] => {
     const sections: RecipeSection[] = [];
@@ -216,36 +185,6 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
                       <span key={tag} className="detail-tag">{tag}</span>
                     ))}
                   </div>
-                </div>
-              </div>
-            )}
-
-            {isMobile && wakeLockSupported && (
-              <div className="meta-item meta-item-wakelock">
-                <div className="wake-lock-container">
-                  <button
-                    className={`wake-lock-btn ${wakeLockActive ? 'active' : ''}`}
-                    onClick={handleWakeLockToggle}
-                    aria-label={wakeLockActive ? 'Stäng av skärmlås' : 'Håll skärmen vaken'}
-                    aria-pressed={wakeLockActive}
-                  >
-                    <Smartphone size={18} />
-                    <span className="wake-lock-text">
-                      {wakeLockActive ? 'Skärm vaken' : 'Håll vaken'}
-                    </span>
-                  </button>
-                  {showWakeLockTooltip && (
-                    <div className="wake-lock-tooltip">
-                      <span>Aktivera för att hålla skärmen tänd medan du lagar mat</span>
-                      <button
-                        className="wake-lock-tooltip-close"
-                        onClick={dismissWakeLockTooltip}
-                        aria-label="Stäng tips"
-                      >
-                        <X size={14} />
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             )}

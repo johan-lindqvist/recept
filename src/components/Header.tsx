@@ -1,5 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { ChefHat, X } from 'lucide-react';
+import { ChefHat, X, Smartphone } from 'lucide-react';
+import { useWakeLock } from '@/hooks/useWakeLock';
+import { useIsMobile } from '@/hooks/useIsMobile';
+
+const WAKE_LOCK_TOOLTIP_KEY = 'wakeLockTooltipDismissed';
 
 export function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -8,11 +13,41 @@ export function Header() {
   const tagFilterParam = searchParams.get('tag') || '';
   const timeFilterParam = searchParams.get('time') || '';
 
+  // Wake lock functionality
+  const isMobile = useIsMobile();
+  const { isActive: wakeLockActive, isSupported: wakeLockSupported, toggle: toggleWakeLock } = useWakeLock();
+  const [showWakeLockTooltip, setShowWakeLockTooltip] = useState(false);
+
   // Parse comma-separated tags from URL
   const selectedTags = tagFilterParam ? tagFilterParam.split(',').filter(t => t.trim()) : [];
 
   const isHomePage = location.pathname === '/';
   const isCreatePage = location.pathname === '/create';
+  const isRecipePage = location.pathname.startsWith('/recept/');
+
+  // Show tooltip on first visit for mobile users on recipe pages
+  useEffect(() => {
+    if (isMobile && wakeLockSupported && isRecipePage) {
+      const dismissed = localStorage.getItem(WAKE_LOCK_TOOLTIP_KEY);
+      if (!dismissed) {
+        setShowWakeLockTooltip(true);
+      }
+    } else {
+      setShowWakeLockTooltip(false);
+    }
+  }, [isMobile, wakeLockSupported, isRecipePage]);
+
+  const dismissWakeLockTooltip = () => {
+    setShowWakeLockTooltip(false);
+    localStorage.setItem(WAKE_LOCK_TOOLTIP_KEY, 'true');
+  };
+
+  const handleWakeLockToggle = () => {
+    toggleWakeLock();
+    if (showWakeLockTooltip) {
+      dismissWakeLockTooltip();
+    }
+  };
 
   // Get time filter display text
   const getTimeFilterText = (minutes: string) => {
@@ -101,6 +136,33 @@ export function Header() {
         )}
 
         <nav className="header-nav">
+          {isMobile && wakeLockSupported && isRecipePage && (
+            <div className="wake-lock-container">
+              <button
+                className={`wake-lock-btn ${wakeLockActive ? 'active' : ''}`}
+                onClick={handleWakeLockToggle}
+                aria-label={wakeLockActive ? 'Stäng av skärmlås' : 'Håll skärmen vaken'}
+                aria-pressed={wakeLockActive}
+              >
+                <Smartphone size={18} />
+                <span className="wake-lock-text">
+                  {wakeLockActive ? 'Skärm vaken' : 'Håll vaken'}
+                </span>
+              </button>
+              {showWakeLockTooltip && (
+                <div className="wake-lock-tooltip">
+                  <span>Aktivera för att hålla skärmen tänd medan du lagar mat</span>
+                  <button
+                    className="wake-lock-tooltip-close"
+                    onClick={dismissWakeLockTooltip}
+                    aria-label="Stäng tips"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
           <Link to="/create" className="btn-primary">
             + Skapa Recept
           </Link>
