@@ -19,7 +19,7 @@ tags: ["middag", "klassisk", "kyckling", "bakning"]
 
 ## Instruktioner
 
-1. Tag av skinnet på kyclingen.
+1. Tag av skinnet på kycklingen.
 2. Tag av allt kött från skrovet.
 3. Dela ev. köttet i mindre bitar.
 4. Lägg hälften av kycklingköttet i en ugnsform.
