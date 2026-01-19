@@ -170,7 +170,7 @@ export function Header() {
             </div>
           )}
           <button
-            className="btn-primary"
+            className="btn-primary btn-with-icon"
             onClick={() => setIsRandomDialogOpen(true)}
           >
             <Shuffle size={18} />

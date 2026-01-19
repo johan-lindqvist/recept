@@ -304,6 +304,12 @@ body {
   transform: translateY(-1px);
 }
 
+.btn-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 /* Main content */
 .app {
   max-width: 1400px;
