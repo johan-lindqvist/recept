@@ -10,6 +10,23 @@ A TypeScript/React static website for Swedish food recipes. Recipes are markdown
 - **Language**: Swedish (Svenska) - all content must be in Swedish
 - **Measurements**: Metric system only (grams, liters, deciliters, etc.)
 
+## Planning & Clarification (IMPORTANT)
+
+**ALWAYS enter plan mode (EnterPlanMode) before implementing:**
+- New features or functionality
+- Changes spanning multiple files
+- Tasks with unclear scope or multiple approaches
+- Architectural or design decisions
+- Refactoring existing code
+
+**ALWAYS ask clarifying questions (AskUserQuestion) when:**
+- Requirements are ambiguous or incomplete
+- Multiple valid approaches exist and user preference matters
+- You're unsure about expected behavior
+- The task scope is unclear
+
+**Only skip planning for truly trivial tasks** like single-line fixes, typo corrections, or tasks with explicit step-by-step instructions.
+
 ## Model Selection
 
 **Use Sonnet (default)** for:
@@ -31,6 +48,11 @@ A TypeScript/React static website for Swedish food recipes. Recipes are markdown
 - Codebase exploration before implementation
 
 ## Workflow Essentials
+
+**Before starting a non-trivial task:**
+1. Enter plan mode (EnterPlanMode) to explore and design approach
+2. Ask clarifying questions if requirements are unclear
+3. Get user approval before implementing
 
 **Before completing ANY task:**
 1. Run `npm test && npm run type-check && npm run build`
