@@ -1516,3 +1516,438 @@ body {
     font-size: 0.55rem;
   }
 }
+
+/* ============================================
+   Cooking Mode Styles
+   ============================================ */
+
+/* Cooking Mode Button (Header) */
+.cooking-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background-color: #0891b2;
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin-bottom: var(--spacing-sm);
+}
+
+.cooking-mode-btn:hover {
+  background-color: #0e7490;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Cooking Mode FAB */
+.cooking-mode-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #0891b2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  pointer-events: none;
+}
+
+.cooking-mode-fab.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.cooking-mode-fab:hover {
+  background-color: #0e7490;
+  transform: scale(1.1);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Cooking Mode Overlay */
+.cooking-mode-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: cookingModeIn 0.3s ease-out;
+}
+
+@keyframes cookingModeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cooking Mode Header */
+.cooking-mode-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.cooking-mode-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.cooking-mode-close:hover {
+  background-color: rgba(252, 129, 129, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.cooking-mode-title {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cooking-mode-reset {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.cooking-mode-reset:hover {
+  background-color: rgba(252, 129, 129, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.cooking-mode-reset-text {
+  display: none;
+}
+
+/* Cooking Mode Content */
+.cooking-mode-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Cooking Mode Ingredients */
+.cooking-mode-ingredients {
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  max-height: 200px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.cooking-mode-ingredients.expanded {
+  max-height: 50vh;
+}
+
+.cooking-mode-ingredients-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cooking-mode-ingredients-toggle h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.cooking-mode-ingredients-toggle svg {
+  color: var(--text-secondary);
+  transition: transform 0.3s ease;
+}
+
+.cooking-mode-ingredients.expanded .cooking-mode-ingredients-toggle svg {
+  transform: rotate(180deg);
+}
+
+.cooking-mode-ingredients-list {
+  padding: 0 var(--spacing-lg) var(--spacing-md);
+  overflow-y: auto;
+  max-height: calc(200px - 60px);
+}
+
+.cooking-mode-ingredients.expanded .cooking-mode-ingredients-list {
+  max-height: calc(50vh - 60px);
+}
+
+/* Cooking Mode Instructions */
+.cooking-mode-instructions {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  min-height: 0;
+}
+
+.cooking-mode-instructions h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0 0 var(--spacing-md) 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid rgba(8, 145, 178, 0.4);
+}
+
+/* Cooking Mode Footer */
+.cooking-mode-footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.cooking-mode-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.cooking-mode-progress-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.cooking-mode-progress-bar {
+  height: 8px;
+  background-color: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cooking-mode-progress-fill {
+  height: 100%;
+  background-color: var(--success-color);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Checkable List */
+.checkable-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.checkable-item {
+  margin-bottom: var(--spacing-xs);
+}
+
+.checkable-button {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.checkable-button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color);
+}
+
+.checkable-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s;
+  background-color: transparent;
+}
+
+.checkable-item.checked .checkable-checkbox {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: white;
+}
+
+.checkable-text {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.checkable-number {
+  font-weight: 700;
+  color: #0891b2;
+  min-width: 1.5rem;
+}
+
+.checkable-item.checked .checkable-text {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.checkable-item.current {
+  background-color: rgba(8, 145, 178, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.checkable-item.current .checkable-button {
+  border-color: #0891b2;
+}
+
+.checkable-item.current .checkable-number {
+  color: #0891b2;
+}
+
+/* Desktop styles for cooking mode */
+@media (min-width: 900px) {
+  .cooking-mode-header {
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+
+  .cooking-mode-title {
+    font-size: 1.5rem;
+  }
+
+  .cooking-mode-reset-text {
+    display: inline;
+  }
+
+  .cooking-mode-content {
+    flex-direction: row;
+  }
+
+  .cooking-mode-ingredients {
+    width: 350px;
+    max-height: none;
+    border-bottom: none;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cooking-mode-ingredients.expanded {
+    max-height: none;
+  }
+
+  .cooking-mode-ingredients-toggle {
+    cursor: default;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .cooking-mode-ingredients-toggle h2 {
+    font-size: 1.25rem;
+  }
+
+  .cooking-mode-ingredients-toggle svg {
+    display: none;
+  }
+
+  .cooking-mode-ingredients-list {
+    flex: 1;
+    max-height: none;
+    padding: 0 var(--spacing-xl) var(--spacing-lg);
+    overflow-y: auto;
+  }
+
+  .cooking-mode-ingredients.expanded .cooking-mode-ingredients-list {
+    max-height: none;
+  }
+
+  .cooking-mode-instructions {
+    flex: 1;
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .cooking-mode-instructions h2 {
+    font-size: 1.5rem;
+  }
+
+  .cooking-mode-footer {
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+
+  .cooking-mode-progress {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+  }
+
+  .cooking-mode-progress-bar {
+    flex: 1;
+    max-width: 400px;
+  }
+
+  .checkable-button {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+}

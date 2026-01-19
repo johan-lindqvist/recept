@@ -4,6 +4,9 @@ import type { Recipe } from '@/types/Recipe';
 import { Clock, Users, Tag } from 'lucide-react';
 import { useRecipeImage } from '@/hooks/useRecipeImage';
 import { scaleIngredientsInMarkdown } from '@/utils/ingredientScaler';
+import { CookingMode } from './CookingMode';
+import { CookingModeButton } from './CookingModeButton';
+import { extractRecipeSections } from '@/utils/instructionParser';
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -23,6 +26,10 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(String(currentServings));
   const inputRef = useRef<HTMLInputElement>(null);
+  const [cookingModeOpen, setCookingModeOpen] = useState(false);
+
+  // Extract recipe sections for cooking mode
+  const recipeSections = extractRecipeSections(recipe.content);
 
   const parseSections = (content: string): RecipeSection[] => {
     const sections: RecipeSection[] = [];
@@ -122,6 +129,10 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
             <p className="recipe-description">{recipe.frontmatter.description}</p>
           )}
 
+          {recipeSections.ingredients && recipeSections.instructions && (
+            <CookingModeButton onClick={() => setCookingModeOpen(true)} variant="header" />
+          )}
+
           <div className="meta">
             {recipe.frontmatter.totalTime && (
               <span className="meta-item">
@@ -211,6 +222,22 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
           <div dangerouslySetInnerHTML={renderMarkdown(recipe.content)} />
         )}
       </div>
+
+      {recipeSections.ingredients && recipeSections.instructions && (
+        <>
+          <CookingModeButton onClick={() => setCookingModeOpen(true)} variant="fab" />
+          {cookingModeOpen && (
+            <CookingMode
+              recipeSlug={recipe.slug}
+              recipeTitle={recipe.frontmatter.title}
+              ingredientsMarkdown={recipeSections.ingredients}
+              instructionsMarkdown={recipeSections.instructions}
+              scalingRatio={scalingRatio}
+              onClose={() => setCookingModeOpen(false)}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 }
