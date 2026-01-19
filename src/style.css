@@ -315,11 +315,13 @@ body {
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
+  font-family: inherit;
   font-size: 0.9rem;
   font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
   transition: all 0.2s;
   box-shadow: var(--shadow-sm);
-  text-decoration: none;
 }
 
 .header-btn:hover {
