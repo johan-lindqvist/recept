@@ -130,7 +130,7 @@ export function RecipeDetail({ recipe }: RecipeDetailProps) {
           )}
 
           {recipeSections.ingredients && recipeSections.instructions && (
-            <CookingModeButton onClick={() => setCookingModeOpen(true)} variant="header" />
+            <CookingModeButton onClick={() => setCookingModeOpen(true)} variant="header" showHint />
           )}
 
           <div className="meta">
