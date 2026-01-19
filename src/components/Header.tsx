@@ -177,7 +177,7 @@ export function Header() {
             Slumpa recept
           </HeaderButton>
           <HeaderButton as="link" to="/create" icon={Plus}>
-            Skapa Recept
+            Skapa recept
           </HeaderButton>
         </nav>
       </div>
