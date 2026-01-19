@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { ChefHat, X, Smartphone } from 'lucide-react';
+import { ChefHat, X, Smartphone, Shuffle } from 'lucide-react';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useRecipes } from '@/hooks/useRecipes';
+import { RandomRecipeDialog } from './RandomRecipeDialog';
 
 const WAKE_LOCK_TOOLTIP_KEY = 'wakeLockTooltipDismissed';
 
@@ -12,6 +14,10 @@ export function Header() {
   const searchQuery = searchParams.get('q') || '';
   const tagFilterParam = searchParams.get('tag') || '';
   const timeFilterParam = searchParams.get('time') || '';
+
+  // Recipes for random selection dialog
+  const { recipes } = useRecipes();
+  const [isRandomDialogOpen, setIsRandomDialogOpen] = useState(false);
 
   // Wake lock functionality
   const isMobile = useIsMobile();
@@ -163,11 +169,24 @@ export function Header() {
               )}
             </div>
           )}
+          <button
+            className="btn-primary"
+            onClick={() => setIsRandomDialogOpen(true)}
+          >
+            <Shuffle size={18} />
+            Slumpa recept
+          </button>
           <Link to="/create" className="btn-primary">
             + Skapa Recept
           </Link>
         </nav>
       </div>
+
+      <RandomRecipeDialog
+        isOpen={isRandomDialogOpen}
+        onClose={() => setIsRandomDialogOpen(false)}
+        recipes={recipes}
+      />
     </header>
   );
 }

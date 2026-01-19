@@ -2029,3 +2029,216 @@ body {
     padding: var(--spacing-sm) var(--spacing-lg);
   }
 }
+
+/* ============================================
+   Random Recipe Dialog Styles
+   ============================================ */
+
+.random-recipe-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+  animation: backdropFadeIn 0.2s ease-out;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.random-recipe-dialog {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  animation: dialogSlideIn 0.2s ease-out;
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.random-recipe-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.random-recipe-dialog-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.random-recipe-dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.random-recipe-dialog-close:hover {
+  background-color: rgba(252, 129, 129, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.random-recipe-dialog-content {
+  padding: var(--spacing-lg);
+}
+
+.random-recipe-dialog-hint {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.random-recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.random-recipe-count {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.random-recipe-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.random-recipe-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Result View */
+.random-recipe-result {
+  text-align: center;
+}
+
+.random-recipe-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-bottom: var(--spacing-md);
+}
+
+.random-recipe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.random-recipe-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.random-recipe-result h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.random-recipe-description {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.random-recipe-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(8, 145, 178, 0.1);
+  border-color: #0891b2;
+  color: var(--primary-color);
+}
+
+.random-recipe-change-filter {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.random-recipe-change-filter:hover {
+  color: var(--primary-color);
+}
+
+/* No Results View */
+.random-recipe-no-results {
+  text-align: center;
+}
+
+.random-recipe-no-results p {
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--text-secondary);
+}
