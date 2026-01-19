@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-import { ChefHat, X, Smartphone, Shuffle } from 'lucide-react';
+import { ChefHat, X, Smartphone, Shuffle, Plus } from 'lucide-react';
 import { useWakeLock } from '@/hooks/useWakeLock';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useRecipes } from '@/hooks/useRecipes';
 import { RandomRecipeDialog } from './RandomRecipeDialog';
+import { HeaderButton } from './HeaderButton';
 
 const WAKE_LOCK_TOOLTIP_KEY = 'wakeLockTooltipDismissed';
 
@@ -169,16 +170,15 @@ export function Header() {
               )}
             </div>
           )}
-          <button
-            className="btn-primary btn-with-icon"
+          <HeaderButton
+            icon={Shuffle}
             onClick={() => setIsRandomDialogOpen(true)}
           >
-            <Shuffle size={18} />
             Slumpa recept
-          </button>
-          <Link to="/create" className="btn-primary">
-            + Skapa Recept
-          </Link>
+          </HeaderButton>
+          <HeaderButton as="link" to="/create" icon={Plus}>
+            Skapa Recept
+          </HeaderButton>
         </nav>
       </div>
 

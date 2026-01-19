@@ -29,14 +29,14 @@ describe('Header', () => {
   it('should render create recipe button', () => {
     renderWithRouter();
 
-    expect(screen.getByText('+ Skapa Recept')).toBeInTheDocument();
+    expect(screen.getByText('Skapa Recept')).toBeInTheDocument();
   });
 
   it('should have correct link hrefs', () => {
     renderWithRouter();
 
     const homeLink = screen.getByText('Mina Recept').closest('a');
-    const createLink = screen.getByText('+ Skapa Recept').closest('a');
+    const createLink = screen.getByText('Skapa Recept').closest('a');
 
     expect(homeLink).toHaveAttribute('href', '/');
     expect(createLink).toHaveAttribute('href', '/create');

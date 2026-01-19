@@ -304,10 +304,28 @@ body {
   transform: translateY(-1px);
 }
 
-.btn-with-icon {
+/* Header Button - reusable styled button/link for header nav */
+.header-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background-color: #0891b2;
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.header-btn:hover {
+  background-color: #0e7490;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 /* Main content */
