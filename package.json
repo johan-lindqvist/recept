@@ -38,9 +38,9 @@
     "@vitest/ui": "^4.0.8",
     "buffer": "^6.0.3",
     "eslint": "^8.56.0",
-    "happy-dom": "^20.0.10",
+    "happy-dom": "^20.9.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10",
+    "vite": "^8.0.10",
     "vite-plugin-node-polyfills": "^0.24.0",
     "vitest": "^4.0.8"
   }
