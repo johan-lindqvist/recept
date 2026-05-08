@@ -23,7 +23,7 @@ tags:
 - 5-6 msk tomatpuré
 - 2 dl vitt vin (valfritt)
 - 3 burkar hela skalade tomater (krossade går också bra)
-- 2-3 msk kalvfond§
+- 2-3 msk kalvfond
 - några droppar worcestershiresås (valfritt)
 - 1 msk soja
 - 2-3 lagerblad
