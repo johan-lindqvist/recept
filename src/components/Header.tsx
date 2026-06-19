@@ -7,6 +7,7 @@ import { useRecipes } from '@/hooks/useRecipes';
 import { RandomRecipeDialog } from './RandomRecipeDialog';
 import { FeaturesDialog } from './FeaturesDialog';
 import { HeaderButton } from './HeaderButton';
+import { ThemeToggle } from './ThemeToggle';
 
 const WAKE_LOCK_TOOLTIP_KEY = 'wakeLockTooltipDismissed';
 
@@ -145,6 +146,7 @@ export function Header() {
         )}
 
         <nav className="header-nav">
+          <ThemeToggle />
           {isMobile && wakeLockSupported && isRecipePage && (
             <div className="wake-lock-container">
               <button

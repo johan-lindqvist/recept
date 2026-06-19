@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf6f0">
   <title>Recept - Matrecept</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme') === 'old' ? 'old' : 'new';
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'old') {
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', '#1a202c');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'new');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="root"></div>

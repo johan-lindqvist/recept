@@ -1,15 +1,5 @@
 :root {
-  /* Dark theme color palette */
-  --primary-color: #e2e8f0;
-  --primary-light: #cbd5e0;
-  --accent-color: #fc8181;
-  --accent-hover: #f56565;
-  --background-color: #1a202c;
-  --card-background: #2d3748;
-  --text-color: #e2e8f0;
-  --text-secondary: #a0aec0;
-  --border-color: #4a5568;
-  --success-color: #68d391;
+  /* Non-themeable design tokens (shared across themes) */
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -25,6 +15,74 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
 
+  /* System sans stack (used for UI/body in both themes) */
+  --sans-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================
+   New theme — warm & appetizing light (default)
+   ============================================ */
+:root,
+[data-theme="new"] {
+  --primary-color: #2a211b;
+  --primary-light: #4a3d33;
+  --accent-color: #d2603a;
+  --accent: #d2603a;
+  --accent-hover: #b84e2c;
+  --accent-soft: #fbede6;
+  --focus-ring: rgba(210, 96, 58, 0.18);
+  --honey: #e0a43b;
+  --danger: #c0492f;
+  --danger-soft: rgba(192, 73, 47, 0.1);
+  --background-color: #faf6f0;
+  --card-background: #ffffff;
+  --surface-warm: #fffcf8;
+  --text-color: #2a211b;
+  --text-secondary: #857769;
+  --border-color: #ede4d8;
+  --success-color: #5e8c52;
+  --hover-bg: rgba(42, 33, 27, 0.05);
+  --link-color: #b84e2c;
+  --link-visited: #9c5a3c;
+
+  /* Serif display headings */
+  --heading-font: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', serif;
+
+  /* Warm-tinted, soft shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(74, 52, 38, 0.06);
+  --shadow-md: 0 4px 10px -2px rgba(74, 52, 38, 0.1), 0 2px 4px -2px rgba(74, 52, 38, 0.06);
+  --shadow-lg: 0 12px 24px -8px rgba(74, 52, 38, 0.16), 0 4px 8px -4px rgba(74, 52, 38, 0.08);
+  --shadow-xl: 0 24px 40px -12px rgba(74, 52, 38, 0.22), 0 10px 16px -8px rgba(74, 52, 38, 0.1);
+}
+
+/* ============================================
+   Old theme — classic dark
+   ============================================ */
+[data-theme="old"] {
+  --primary-color: #e2e8f0;
+  --primary-light: #cbd5e0;
+  --accent-color: #fc8181;
+  --accent: #0891b2;
+  --accent-hover: #0e7490;
+  --accent-soft: rgba(8, 145, 178, 0.12);
+  --focus-ring: rgba(8, 145, 178, 0.25);
+  --honey: #0891b2;
+  --danger: #fc8181;
+  --danger-soft: rgba(252, 129, 129, 0.1);
+  --background-color: #1a202c;
+  --card-background: #2d3748;
+  --surface-warm: #1a1f2e;
+  --text-color: #e2e8f0;
+  --text-secondary: #a0aec0;
+  --border-color: #4a5568;
+  --success-color: #68d391;
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  --link-color: #38bdf8;
+  --link-visited: #a78bfa;
+
+  /* Classic theme keeps the system sans for headings */
+  --heading-font: var(--sans-font);
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -39,12 +97,21 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--sans-font);
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display headings use the theme's heading font (serif in the new theme,
+   system sans in the classic theme). Brand link opts in explicitly below. */
+h1,
+h2,
+h3,
+.header-title {
+  font-family: var(--heading-font);
 }
 
 /* Header & Navigation */
@@ -79,7 +146,7 @@ body {
 }
 
 .header-title:hover {
-  color: #0891b2;
+  color: var(--accent);
 }
 
 .header-search {
@@ -103,8 +170,8 @@ body {
 }
 
 .search-input-wrapper:focus-within {
-  border-color: #0891b2;
-  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.25);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .header-search input {
@@ -123,7 +190,7 @@ body {
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background-color: #0891b2;
+  background-color: var(--accent);
   border-radius: var(--radius-xl);
   flex-shrink: 0;
 }
@@ -193,19 +260,45 @@ body {
 }
 
 .wake-lock-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .wake-lock-btn.active {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
-  box-shadow: 0 0 8px rgba(8, 145, 178, 0.5);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
 }
 
 .wake-lock-text {
+  white-space: nowrap;
+}
+
+/* Theme Toggle Button (Header) */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-toggle-text {
   white-space: nowrap;
 }
 
@@ -220,7 +313,7 @@ body {
   gap: 0.5rem;
   padding: 0.75rem;
   background-color: var(--card-background);
-  border: 1px solid #0891b2;
+  border: 1px solid var(--accent);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   font-size: 0.8rem;
@@ -236,7 +329,7 @@ body {
   bottom: 100%;
   right: 1rem;
   border: 6px solid transparent;
-  border-bottom-color: #0891b2;
+  border-bottom-color: var(--accent);
 }
 
 @keyframes tooltipFadeIn {
@@ -265,7 +358,7 @@ body {
 }
 
 .wake-lock-tooltip-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--hover-bg);
   color: var(--text-color);
 }
 
@@ -280,12 +373,12 @@ body {
 
 .nav-link:hover {
   color: var(--primary-light);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--hover-bg);
 }
 
 .btn-primary {
   padding: 0.5rem 1rem;
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -299,7 +392,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #0e7490;
+  background-color: var(--accent-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -310,7 +403,7 @@ body {
   align-items: center;
   gap: 0.4rem;
   padding: 0.5rem 1rem;
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -325,7 +418,7 @@ body {
 }
 
 .header-btn:hover {
-  background-color: #0e7490;
+  background-color: var(--accent-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -346,7 +439,7 @@ body {
 }
 
 .error {
-  color: var(--accent-color);
+  color: var(--danger);
 }
 
 /* Controls Bar (Tag Filters + View Toggle) */
@@ -381,19 +474,19 @@ body {
 }
 
 .filter-toggle-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .filter-toggle-btn.expanded {
-  background-color: rgba(8, 145, 178, 0.1);
-  border-color: #0891b2;
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
   color: var(--primary-color);
 }
 
 .filter-toggle-btn.has-filters {
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .filter-badge {
@@ -403,7 +496,7 @@ body {
   min-width: 1.25rem;
   height: 1.25rem;
   padding: 0 0.35rem;
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
   border-radius: 9999px;
   font-size: 0.7rem;
@@ -452,15 +545,15 @@ body {
 }
 
 .time-filter-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .time-filter-btn.active {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 /* Tag Filters */
@@ -485,15 +578,15 @@ body {
 }
 
 .tag-filter-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .tag-filter-btn.active {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .tag-toggle-btn {
@@ -513,9 +606,9 @@ body {
 }
 
 .tag-toggle-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 /* View Toggle */
@@ -539,15 +632,15 @@ body {
 }
 
 .view-toggle-btn:hover {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .view-toggle-btn.active {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 /* Recipe Grid */
@@ -587,7 +680,7 @@ body {
 .recipe-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .recipe-card-image {
@@ -658,7 +751,7 @@ body {
 
 .recipe-card .meta-item svg {
   flex-shrink: 0;
-  color: #0891b2;
+  color: var(--accent);
 }
 
 .recipe-tags {
@@ -677,7 +770,7 @@ body {
 .tag-label {
   display: inline-block;
   padding: 0.2rem 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--hover-bg);
   color: var(--text-color);
   border-radius: var(--radius-xl);
   font-size: 0.8rem;
@@ -692,15 +785,15 @@ body {
 }
 
 .tag-label.clickable:hover {
-  background-color: rgba(8, 145, 178, 0.2);
+  background-color: var(--accent-soft);
   color: var(--primary-color);
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .tag-label.active {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .tag-more {
@@ -711,9 +804,9 @@ body {
 }
 
 .tag-more:hover {
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 /* Grid View Specific Styles */
@@ -742,7 +835,7 @@ body {
 .recipe-card-grid .recipe-card-image .meta-item svg {
   width: 16px;
   height: 16px;
-  color: #0891b2;
+  color: var(--honey);
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 1));
 }
 
@@ -879,7 +972,7 @@ body {
 
 .recipe-detail-overlay .meta-item svg {
   flex-shrink: 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--honey);
   margin-top: 0.1rem;
 }
 
@@ -934,14 +1027,14 @@ body {
 }
 
 .servings-preset-btn:hover {
-  background-color: rgba(8, 145, 178, 0.6);
-  border-color: #0891b2;
+  background-color: var(--accent);
+  border-color: var(--accent);
   color: white;
 }
 
 .servings-preset-btn.active {
-  background-color: #0891b2;
-  border-color: #0891b2;
+  background-color: var(--accent);
+  border-color: var(--accent);
   color: white;
 }
 
@@ -954,7 +1047,7 @@ body {
   height: 1.75rem;
   padding: 0 0.25rem;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #0891b2;
+  border: 2px solid var(--accent);
   border-radius: var(--radius-md);
   color: var(--background-color);
   font-size: 0.8rem;
@@ -1018,7 +1111,7 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   padding-bottom: var(--spacing-xs);
-  border-bottom: 2px solid rgba(8, 145, 178, 0.4);
+  border-bottom: 2px solid var(--accent);
 }
 
 .recipe-detail .recipe-content h2:first-child {
@@ -1045,7 +1138,7 @@ body {
 }
 
 .recipe-detail .recipe-content ul li::marker {
-  color: rgba(8, 145, 178, 0.7);
+  color: var(--accent);
 }
 
 .recipe-detail .recipe-content strong {
@@ -1054,18 +1147,18 @@ body {
 }
 
 .recipe-detail .recipe-content a {
-  color: #38bdf8;
+  color: var(--link-color);
   text-decoration: underline;
   font-weight: 500;
   transition: color 0.2s;
 }
 
 .recipe-detail .recipe-content a:visited {
-  color: #a78bfa;
+  color: var(--link-visited);
 }
 
 .recipe-detail .recipe-content a:hover {
-  color: #0891b2;
+  color: var(--accent);
   text-decoration: none;
 }
 
@@ -1228,8 +1321,8 @@ body {
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #0891b2;
-  box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.25);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .form-group textarea {
@@ -1294,7 +1387,7 @@ body {
   font-size: 0.9rem;
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
-  background-color: #1a1f2e;
+  background-color: var(--surface-warm);
   color: var(--text-color);
   resize: vertical;
   min-height: 450px;
@@ -1304,7 +1397,7 @@ body {
 .filename-suggestion {
   margin-top: var(--spacing-lg);
   padding: var(--spacing-lg);
-  background: linear-gradient(135deg, var(--card-background) 0%, #374151 100%);
+  background: linear-gradient(135deg, var(--card-background) 0%, var(--surface-warm) 100%);
   border-radius: var(--radius-md);
   font-size: 1rem;
   border: 1px solid var(--border-color);
@@ -1317,7 +1410,7 @@ body {
 
 .filename-suggestion span {
   font-family: 'Courier New', monospace;
-  color: #0891b2;
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -1336,16 +1429,16 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-lg);
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   border: none;
-  border-left: 4px solid #0891b2;
+  border-left: 4px solid var(--accent);
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
 }
 
 .accordion-header:hover {
-  background-color: rgba(8, 145, 178, 0.15);
+  background-color: var(--accent-soft);
 }
 
 .accordion-header h3 {
@@ -1357,7 +1450,7 @@ body {
 }
 
 .accordion-header svg {
-  color: #0891b2;
+  color: var(--accent);
   flex-shrink: 0;
   transition: transform 0.2s;
 }
@@ -1395,7 +1488,7 @@ body {
   border-radius: var(--radius-sm);
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
-  color: #0891b2;
+  color: var(--accent);
   border: 1px solid var(--border-color);
 }
 
@@ -1553,7 +1646,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1rem;
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: var(--radius-lg);
@@ -1565,7 +1658,7 @@ body {
 }
 
 .cooking-mode-btn:hover {
-  background-color: #0e7490;
+  background-color: var(--accent-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -1592,7 +1685,7 @@ body {
   gap: 0.5rem;
   padding: 0.75rem;
   background-color: var(--card-background);
-  border: 1px solid #0891b2;
+  border: 1px solid var(--accent);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   font-size: 0.85rem;
@@ -1609,7 +1702,7 @@ body {
   right: 100%;
   transform: translateY(-50%);
   border: 6px solid transparent;
-  border-right-color: #0891b2;
+  border-right-color: var(--accent);
 }
 
 .cooking-mode-hint p {
@@ -1633,7 +1726,7 @@ body {
 }
 
 .cooking-mode-hint-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--hover-bg);
   color: var(--text-color);
 }
 
@@ -1656,7 +1749,7 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: #0891b2;
+  background-color: var(--accent);
   color: white;
   border: none;
   cursor: pointer;
@@ -1678,7 +1771,7 @@ body {
 }
 
 .cooking-mode-fab:hover {
-  background-color: #0e7490;
+  background-color: var(--accent-hover);
   transform: scale(1.1);
   box-shadow: var(--shadow-xl);
 }
@@ -1733,9 +1826,9 @@ body {
 }
 
 .cooking-mode-close:hover {
-  background-color: rgba(252, 129, 129, 0.1);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .cooking-mode-title {
@@ -1766,9 +1859,9 @@ body {
 }
 
 .cooking-mode-reset:hover {
-  background-color: rgba(252, 129, 129, 0.1);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .cooking-mode-reset-text {
@@ -1850,7 +1943,7 @@ body {
   color: var(--primary-color);
   margin: 0 0 var(--spacing-md) 0;
   padding-bottom: var(--spacing-sm);
-  border-bottom: 2px solid rgba(8, 145, 178, 0.4);
+  border-bottom: 2px solid var(--accent);
 }
 
 /* Cooking Mode Footer */
@@ -1916,7 +2009,7 @@ body {
 }
 
 .checkable-button:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--hover-bg);
   border-color: var(--border-color);
 }
 
@@ -1948,7 +2041,7 @@ body {
 
 .checkable-number {
   font-weight: 700;
-  color: #0891b2;
+  color: var(--accent);
   min-width: 1.5rem;
 }
 
@@ -1958,16 +2051,16 @@ body {
 }
 
 .checkable-item.current {
-  background-color: rgba(8, 145, 178, 0.1);
+  background-color: var(--accent-soft);
   border-radius: var(--radius-md);
 }
 
 .checkable-item.current .checkable-button {
-  border-color: #0891b2;
+  border-color: var(--accent);
 }
 
 .checkable-item.current .checkable-number {
-  color: #0891b2;
+  color: var(--accent);
 }
 
 /* Desktop styles for cooking mode */
@@ -2135,9 +2228,9 @@ body {
 }
 
 .random-recipe-dialog-close:hover {
-  background-color: rgba(252, 129, 129, 0.1);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .random-recipe-dialog-content {
@@ -2240,8 +2333,8 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: rgba(8, 145, 178, 0.1);
-  border-color: #0891b2;
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
   color: var(--primary-color);
 }
 
@@ -2328,9 +2421,9 @@ body {
 }
 
 .features-dialog-close:hover {
-  background-color: rgba(252, 129, 129, 0.1);
-  border-color: var(--accent-color);
-  color: var(--accent-color);
+  background-color: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
 }
 
 .features-dialog-content {
@@ -2358,9 +2451,9 @@ body {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: rgba(8, 145, 178, 0.15);
+  background-color: var(--accent-soft);
   border-radius: var(--radius-md);
-  color: #0891b2;
+  color: var(--accent);
   flex-shrink: 0;
 }
 
