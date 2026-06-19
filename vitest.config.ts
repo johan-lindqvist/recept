@@ -8,6 +8,9 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.test.{ts,tsx}'],
+    // Browser-mode layout tests run via vitest.browser.config.ts, not here.
+    exclude: ['src/**/*.browser.test.{ts,tsx}', 'node_modules/**'],
   },
   resolve: {
     alias: {

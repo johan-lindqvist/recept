@@ -95,10 +95,21 @@ A TypeScript/React static website for Swedish food recipes. Recipes are markdown
 ```bash
 npm install          # Install dependencies
 npm run dev          # Start dev server
-npm test             # Run tests
+npm test             # Run unit tests (happy-dom, fast)
+npm run test:browser # Run layout tests in real Chromium (see below)
 npm run type-check   # TypeScript validation
 npm run build        # Production build
 ```
+
+**Browser/layout tests:** happy-dom does not perform layout, so assertions
+about real computed sizes/positions (e.g. element heights) live in
+`*.browser.test.tsx` files and run in headless Chromium via Vitest browser
+mode + Playwright (`npm run test:browser`, config in
+`vitest.browser.config.ts`). These files are excluded from the default
+`npm test` run. One-time setup after `npm install`:
+`npx playwright install chromium`. Import the real stylesheet
+(`import '@/style.css'`) in these tests and assert with
+`getBoundingClientRect()`.
 
 ## Project Structure
 
