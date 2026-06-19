@@ -200,7 +200,7 @@ export function CookingMode({
       <footer className="cooking-mode-footer">
         <div className="cooking-mode-progress">
           <span className="cooking-mode-progress-text">
-            Framsteg: {checkedInstructionsCount}/{totalSteps} steg
+            {checkedInstructionsCount}/{totalSteps} steg
           </span>
           <div className="cooking-mode-progress-bar">
             <div
